@@ -1,0 +1,125 @@
+/* Write your global styles here, in PostCSS syntax */
+
+@import '@fontsource/fira-mono';
+
+@tailwind base;
+@font-face {
+	font-family: 'StamSefarad';
+	src: url('https://res.cloudinary.com/love1/raw/upload/v1639088749/StamSefaradCLM_jtll7f.ttf')  format('truetype')
+	/*,url('webfont.eot'); /* IE9 Compat Modes */
+	/*src: url('webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+		/* url('webfont.woff2') format('woff2'), /* Super Modern Browsers */
+		/* url('webfont.woff') format('woff'), /* Pretty Modern Browsers */
+	/*	  /* Safari, Android, iOS */
+	/*	 url('webfont.svg#svgFontName') format('svg'); /* Legacy iOS */
+  }
+
+:root {
+	font-family: Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+		Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	--font-mono: 'Fira Mono', monospace;
+	--pure-white: #ffffff;
+	--primary-color: #b9c6d2;
+	--secondary-color: #d0dde9;
+	--tertiary-color: #cfcf93;
+	--accent-color: #ff3e00;
+	--heading-color: rgba(0, 0, 0, 0.7);
+	--text-color: #444444;
+	--gold: #EEE8AA;
+	--barbi-pink: #FF0092;
+	--blue: rgb(182, 240, 255);
+	--background-without-opacity: rgba(255, 255, 255, 0.7);
+	--column-width: 42rem;
+	--column-margin-top: 4rem;
+	--naim: rgba(251, 207, 232);
+	--lturk: rgb(103, 232, 249);
+	--mturk: rgb(34, 211, 238);
+	--sturk: #CCFBF1;
+	--lpink: rgb(251, 207, 232);
+	--mpink: rgb(244, 114, 182);
+}
+/*
+body {
+	min-height: 100vh;
+	margin: 0;
+	background-color: var(--primary-color);
+	background: linear-gradient(
+		180deg,
+		skyblue 28.45%,
+		var(--tertiary-color) 40.35%
+	);
+}
+
+body::before {
+	content: '';
+	width: 80vw;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	left: 10vw;
+	z-index: -1;
+	background: radial-gradient(
+		50% 50% at 50% 50%,
+		var(--pure-white) 0%,
+		rgba(255, 255, 255, 0) 100%
+	);
+	opacity: 0.05;
+}
+
+#svelte {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+h1,
+h2,
+p {
+	font-weight: 400;
+	color: var(--heading-color);
+}
+
+p {
+	line-height: 1.5;
+}
+
+a {
+	color: var(--accent-color);
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+h1 {
+	font-size:26px;
+	margin-bottom: 0 0 1em 0;
+	text-align: center;
+}
+
+h2 {
+	font-size: 1rem;
+}
+
+pre {
+	font-size: 20px;
+	font-family: var(--font-mono);
+	background-color: rgba(255, 255, 255, 0.45);
+	border-radius: 3px;
+	box-shadow: 2px 2px 6px rgb(255 255 255 / 25%);
+	color: var(--text-color);
+}
+
+
+button:focus:not(:focus-visible) {
+	outline: none;
+}
+
+@media (min-width: 720px) {
+	
+} */
+
+@tailwind components;
+
+@tailwind utilities
