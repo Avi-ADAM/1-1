@@ -1,6 +1,6 @@
 # 1❤️1
 
-old version is already running
+new version is already running
 
 hebrew: https://1one.world
 
