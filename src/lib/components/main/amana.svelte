@@ -475,9 +475,13 @@ meta {
 
     return valid;
   }
+  let isSubmitting = $state(false);
+
 
   // Form submit handler
   async function handleSubmit() {
+      if (isSubmitting) return;
+
     track('tryToSign', {}, { flags: ['tryToSign'] });
     nameuse = false;
 
@@ -495,12 +499,12 @@ meta {
       scrolltotop();
       return;
     }
-
+ try {
+    isSubmitting = true;
     g = true;
     erorim.st = false;
     const mail = formEmail.toLowerCase().trim();
 
-    try {
       const response = await fetch(baseUrl + '/graphql', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -531,23 +535,26 @@ meta {
       if (result.errors) {
         throw new Error(result.errors[0].message);
       }
+          meData = result.data.createChezin;
 
       g = false;
       already = true;
       document.cookie =
-        `email=${mail}; expires=` + new Date(2026, 0, 1).toUTCString();
+        `email=${mail}; expires=` + new Date(2027, 0, 1).toUTCString();
       document.cookie =
         `un=${formName}; expires=` +
-        new Date(2026, 0, 1).toUTCString();
+        new Date(2027, 0, 1).toUTCString();
       userName.set(formName);
       liUN.set(formName);
       email.set(mail);
       contriesi.set(find_contry_id(selected));
       regHelper.set(1);
-      meData = result.data.createChezin;
+      console.log(meData);
       fpval.set(meData.data.id);
-      datar = data;
+      console.log('fpval set:', $fpval); // Third log
+
       let linko = `ref=true&id=${$fpval}&con=${find_contry_id(selected)}&un=${$liUN}&em=${$email}&lang=${$lang}`;
+      console.log(linko);
       console.log(`https://www.1lev1.com?${encodeURIComponent(linko)}`);
       linkos.set(linko);
       localStorage.setItem('linkos', linko);
@@ -556,10 +563,10 @@ meta {
       erorim.st = true;
       if (!error.response) {
         erorim.msg = 'השרת נרדם 😴, הערנו אותו, אנו מנסים שוב';
-        sendError(JSON.stringify(error) ?? null, '/amana.svelte 467', fetch);
+       // sendError(JSON.stringify(error) ?? null, '/amana.svelte 467', fetch);
       } else {
         erorim.msg = ` ${error.response.data.message}  ${error.response.data.statusCode} :טעות לעולם חוזרת, הנה הפרטים היבשים `;
-        sendError(erorim.msg, '/amana.svelte 470', fetch);
+      //  sendError(erorim.msg, '/amana.svelte 470', fetch);
       }
     }
   }
@@ -678,34 +685,14 @@ const lines = document.getElementById("lines")
   </div>
 </DialogOverlay>
 
-<!-- Messenger פלאגין של צ'אט Code
-<div id="fb-root"></div>
 
-
-<div id="fb-customer-chat" class="fb-customerchat">
-</div>
- position: absolute;
-top: -36px;
-    right: -36px;
-     height: 130px;
-    width: 130px;
-<div style=" position: absolute; top: 1%; left: 87%; color: aqua;" > <button on:click={()=> regHelper.set(1) }>טסט</button> </div>
- -->
 <button
   style="position: absolute; color: var(--gold); font-weight:bold; height:20px width:20px; z-index:500;"
   onclick={() => info()}
   class="ww">?</button
 >
 <div bind:clientWidth={wid} class="all">
-  <a data-sveltekit-prefetch href="/login"
-    ><img
-      title="התחברות ל-1💗1"
-      style="opacity:1; z-index:17;"
-      class=" right overlay rounded-full p-2 translate-x-11 -translate-y-11 hover:translate-x-9 hover:-translate-y-9 hover:scale-150"
-      alt="התחברות ל-1💗1"
-      src="https://res.cloudinary.com/love1/image/upload/v1640020897/cropped-PicsArt_01-28-07.49.25-1_wvt4qz.png"
-    /></a
-  >
+ 
   <div
     style="position:absolute ; left: 1%; top: 1%; display: flex; flex-direction: column ; z-index: 699;"
   >
@@ -1260,7 +1247,7 @@ animation: AnimationName 13s ease infinite;*/
     line-height: 60px;
     position: absolute;
     left: 50%;
-    bottom: 50%;
+    bottom: 10%;
     color: #fff;
     text-align: center;
     font-size: 70px;
