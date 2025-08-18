@@ -1,0 +1,212 @@
+export async function GET() {
+    // Suggestion (check for correctness before using):
+    let que = `{  openMissions (filters: { archived: { ne: false }}) {data{id}}
+    open_mashaabims (filters: { archived: { eq: false } }){ data{ id }}
+              }`;
+     return new Response(
+       `
+       <?xml version="1.0" encoding="UTF-8" ?>
+       <urlset
+         xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"
+         xmlns:xhtml="https://www.w3.org/1999/xhtml"
+         xmlns:mobile="https://www.google.com/schemas/sitemap-mobile/1.0"
+         xmlns:news="https://www.google.com/schemas/sitemap-news/0.9"
+         xmlns:image="https://www.google.com/schemas/sitemap-image/1.1"
+         xmlns:video="https://www.google.com/schemas/sitemap-video/1.1"  
+       >
+             <url>
+             <loc>https://1lev1.com/he</loc>
+             <lastmod>2024-03-29T20:57:22+00:00</lastmod>
+             <priority>1.00</priority>
+             <changefreq>weekly</changefreq>
+             <xhtml:link
+              rel="alternate"
+              hreflang="en"
+              href="https://1lev1.com/en" />
+            <xhtml:link
+              rel="alternate"
+              hreflang="ar"
+              href="https://1lev1.com/ar" />
+            <xhtml:link
+              rel="alternate"
+              hreflang="he"
+              href="https://1lev1.com/he" />
+             </url>
+                          <url>
+             <loc>https://1lev1.com/hascama</loc>
+             <lastmod>2023-06-29T20:57:22+00:00</lastmod>
+             <priority>1.00</priority>
+             <changefreq>weekly</changefreq>
+             <xhtml:link
+              rel="alternate"
+              hreflang="en"
+              href="https://1lev1.com/convention" />
+            <xhtml:link
+              rel="alternate"
+              hreflang="ar"
+              href="https://1lev1.com/aitifaqia" />
+            <xhtml:link
+              rel="alternate"
+              hreflang="he"
+              href="https://1lev1.com/hascama" />
+             </url>
+             <url>
+             <loc>https://1lev1.com/login</loc>
+             <lastmod>2023-06-29T20:57:22+00:00</lastmod>
+             <changefreq>weekly</changefreq>
+             <priority>0.99</priority>
+             </url>
+             <url>
+             <loc>https://1lev1.com/love</loc>
+             <lastmod>2023-06-29T20:57:22+00:00</lastmod>
+             <priority>0.85</priority>
+             <changefreq>daily</changefreq>
+             </url>
+             <url>
+             <loc>https://1lev1.com/about</loc>
+             <lastmod>2023-06-29T20:57:22+00:00</lastmod>
+             <priority>0.95</priority>
+             <changefreq>weekly</changefreq>
+             </url>
+             <url>
+             <loc>https://1lev1.com/lev</loc>
+             <lastmod>2023-06-29T20:57:22+00:00</lastmod>
+             <priority>0.96</priority>
+             <changefreq>always</changefreq>
+             </url>     
+             <url>
+             <loc>https://1lev1.com/moach</loc>
+             <lastmod>2023-06-29T20:57:22+00:00</lastmod>
+             <priority>0.96</priority>
+             <changefreq>always</changefreq>
+             </url>  
+             <url>
+             <loc>https://1lev1.com/me</loc>
+             <lastmod>2023-06-29T20:57:22+00:00</lastmod>
+             <priority>1.00</priority>
+             <changefreq>always</changefreq>
+             </url>         
+             <url>
+             <loc>https://1lev1.com/project/1</loc>
+             <lastmod>2023-06-29T20:57:22+00:00</lastmod>
+             <priority>0.96</priority>
+             <changefreq>always</changefreq>
+             </url>    
+             <url>
+             <loc>https://1lev1.com/availableMission/1</loc>
+             <lastmod>2023-06-29T20:57:22+00:00</lastmod>
+             <priority>1.00</priority>
+             <changefreq>always</changefreq>
+                     </url>    
+             <url>
+             <loc>https://1lev1.com/availiableResorce/1</loc>
+             <lastmod>2023-06-29T20:57:22+00:00</lastmod>
+             <priority>1.00</priority>
+             <changefreq>always</changefreq>
+             </url> 
+       </urlset>
+     `.trim(),
+       {
+         headers: {
+           'Content-Type': 'application/xml'
+         }
+       }
+     );
+    }
+  /* return {
+        headers: {
+            'Content-Type': 'application/xml'
+        },
+        body: `
+      <?xml version="1.0" encoding="UTF-8" ?>
+      <urlset
+        xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="https://www.w3.org/1999/xhtml"
+        xmlns:mobile="https://www.google.com/schemas/sitemap-mobile/1.0"
+        xmlns:news="https://www.google.com/schemas/sitemap-news/0.9"
+        xmlns:image="https://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:video="https://www.google.com/schemas/sitemap-video/1.1"  
+      >
+            <url>
+            <loc>https://1lev1.com/</loc>
+            <lastmod>2023-06-29T20:57:22+00:00</lastmod>
+            <priority>1.00</priority>
+            <changefreq>weekly</changefreq>
+            </url>
+            <url>
+            <loc>https://1lev1.com/login</loc>
+            <lastmod>2023-06-29T20:57:22+00:00</lastmod>
+            <changefreq>weekly</changefreq>
+            <priority>0.99</priority>
+            </url>
+            <url>
+            <loc>https://1lev1.com/love</loc>
+            <lastmod>2023-06-29T20:57:22+00:00</lastmod>
+            <priority>0.85</priority>
+            <changefreq>daily</changefreq>
+            </url>
+            <url>
+            <loc>https://1lev1.com/about</loc>
+            <lastmod>2023-06-29T20:57:22+00:00</lastmod>
+            <priority>0.95</priority>
+            <changefreq>weekly</changefreq>
+            </url>
+            <url>
+            <loc>https://1lev1.com/lev</loc>
+            <lastmod>2023-06-29T20:57:22+00:00</lastmod>
+            <priority>0.96</priority>
+            <changefreq>always</changefreq>
+            </url>     
+            <url>
+            <loc>https://1lev1.com/moach</loc>
+            <lastmod>2023-06-29T20:57:22+00:00</lastmod>
+            <priority>0.96</priority>
+            <changefreq>always</changefreq>
+            </url>  
+            <url>
+            <loc>https://1lev1.com/me</loc>
+            <lastmod>2023-06-29T20:57:22+00:00</lastmod>
+            <priority>1.00</priority>
+            <changefreq>always</changefreq>
+            </url>         
+            <url>
+            <loc>https://1lev1.com/en</loc>
+            <lastmod>2023-06-29T20:57:22+00:00</lastmod>
+            <priority>0.96</priority>
+            <changefreq>always</changefreq>
+            </url>    
+            <url>
+            <loc>https://1lev1.com/ar</loc>
+            <lastmod>2023-06-29T20:57:22+00:00</lastmod>
+            <priority>1.00</priority>
+            <changefreq>always</changefreq>
+            </url>                                                            
+            <url>
+            <loc>https://shalom.1lev1.world/</loc>
+            <lastmod>2023-06-12T23:42:27+00:00</lastmod>
+            <priority>0.98</priority>
+            </url>
+            <url>
+            <loc>https://shalom.1lev1.world/1-0/</loc>
+            <lastmod>2023-06-12T23:42:27+00:00</lastmod>
+            <priority>0.90</priority>
+            </url>
+            <url>
+            <loc>https://shalom.1lev1.world/l/</loc>
+            <lastmod>2023-06-12T23:42:27+00:00</lastmod>
+            <priority>0.80</priority>
+            </url>
+            <url>
+            <loc>https://shalom.1lev1.world/1/</loc>
+            <lastmod>2023-06-12T23:42:27+00:00</lastmod>
+            <priority>0.80</priority>
+            </url>
+            <url>
+            <loc>https://shalom.1lev1.world/harmoni/</loc>
+            <lastmod>2023-06-12T23:42:27+00:00</lastmod>
+            <priority>0.80</priority>
+            </url>
+      </urlset>
+    `.trim()
+    };
+}*/

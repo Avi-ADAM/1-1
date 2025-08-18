@@ -5,6 +5,9 @@
       "$lib": ["src/lib"],
       "$lib/*": ["src/lib/*"]
     }
-  },
-  "include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.svelte"]
+  }, 
+  "resolveJsonModule":true,
+  "esModueInterop":true,
+  "extends": "./.svelte-kit/tsconfig.json",
+  "include": ["src/**/*.d.ts", "src/**/*.js",  "src/**/*.svelte", "service-worker.js-worker.js", "src/lib/func/animation.ts"]
 }

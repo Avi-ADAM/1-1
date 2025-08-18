@@ -1,26 +1,85 @@
-﻿
-<script>
+﻿<script>
     import MultiSelect from 'svelte-multiselect';
     import { userName } from '../../stores/store.js';
     import { email } from '../registration/email.js'
     import { regHelper } from '../../stores/regHelper.js';
-        import { goto,  prefetch } from '$app/navigation';
+        import { goto } from '$app/navigation';
         import * as yup from "yup";
+            import { liUN } from '$lib/stores/liUN.js';
+
                     import { onMount } from 'svelte';
-
-
+   import { RingLoader
+} from 'svelte-loading-spinners';
+ import { DialogOverlay, DialogContent } from 'svelte-accessible-dialog';
+      import {  fly } from 'svelte/transition';
+      import Tikun from './tikunar.svelte';
+            import TRan from './tranarb.svelte';
+      import {  doesLang, langUs, lang } from '$lib/stores/lang.js'
+const baseUrl = import.meta.env.VITE_URL
+import { Head } from 'svead'
+  let title = ' 1💗1 | التوافق العالمي من أجل الحرية'
+  let image = `https://res.cloudinary.com/love1/image/upload/v1640020897/cropped-PicsArt_01-28-07.49.25-1_wvt4qz.png`
+  let description = "يمثل التوافق العالمي من أجل الحرية اتفاقًا جماعيًا للالتزام بعدم العنف واحترام الآخرين والخير الأصيل الكامن في الإنسانية. من خلال المشاركة في هذا التوافق، يلتزم الأفراد بخلق عالم حيث لا تعرِّف الإكراه والنزاع والعدوانية التواصل الإنساني بعد الآن |.يمكن لأولئك الذين يوافقون على هذه المبادئ الانضمام والتسجيل على منصة 1💗1، حيث يمكنهم إنشاء وإدارة شراكات بطريقة تعتمد على التوافق. دعونا نبني عالمًا حيث تسود الحرية وتجد الخلافات حلاً من خلال الموافقة المشتركة."
+  let url = "https://1lev1.com/aitifaqia"
 function find_contry_id(contry_name_arr){
      var  arr = [];
       for (let j = 0; j< contry_name_arr.length; j++ ){
       for (let i = 0; i< country.length; i++){
-        if(country[i].heb === contry_name_arr[j]){
+        if(country[i].ar === contry_name_arr[j]){
           arr.push(country[i].value)  ;
         }
       }
       }
       return arr;
      };
+     let fpp = [];
+  let fppp = [];
+    let error1 = null;
+    onMount(async () => {
+        const parseJSON = (resp) => (resp.json ? resp.json() : resp);
+        const checkStatus = (resp) => {
+        if (resp.status >= 200 && resp.status < 300) {
+          return resp;
+        }
+        return parseJSON(resp).then((resp) => {
+          throw resp;
+        });
+      };
+      const headers = {
+        'Content-Type': 'application/json',
+      };
     
+        try {
+            const res = await fetch(baseUrl+"/graphql", {
+              method: "POST",
+              headers: {
+                 'Content-Type': 'application/json'
+              },body: JSON.stringify({
+                        query: `query {
+  chezins { 
+     data {
+      attributes {
+        name
+      }
+      }
+   meta {
+      pagination {
+        total
+      }
+    }
+  }
+}
+              `})
+            }).then(checkStatus)
+          .then(parseJSON);
+            fppp = res.data.chezins
+            fpp = fppp.data.map(c => c.attributes.name)
+        } catch (e) {
+            error1 = e
+        }
+        
+    });
+
     const country =  [
                     { value: 104 , label: 'Israel', heb: 'ישראל', ar: "إسرائيل	"},
                     { value: 167 , label: 'Palestine jehuda & sumeria', heb: 'הרשות הפלסטינית יו"ש', ar: "دولة فلسطين	"},
@@ -281,14 +340,15 @@ function find_contry_id(contry_name_arr){
     const placeholder = `الدول التي أنت مواطنها`;
     const required = true;
     
-    let selected;
-       let already = false;
+    let selected = $state([]);
+       let already = $state(false);
    let datar;
-   let idx = 1;
+   let idx = $state(1);
    let data;
     import { createForm } from "svelte-forms-lib";
+  import Text1lev1 from '$lib/celim/ui/text1lev1.svelte';
     
-const { form, errors, state, handleChange, handleSubmit } = createForm({
+const { form, errors, stepState, handleChange, handleSubmit } = createForm({
           initialValues: {
             name: "",
             email: "",
@@ -302,16 +362,17 @@ const { form, errors, state, handleChange, handleSubmit } = createForm({
           .required()
       }),
 onSubmit: values => {
-            fetch('https://strapi-k4vr.onrender.com/chezins', {
+            fetch(baseUrl+'/api/chezins', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+      "data": {
         name: $form.name,
         email: $form.email,
         countries: find_contry_id(selected)
-      }),
+      }}),
     }) 
       .then(response => response.json())
       .then(data => 
@@ -321,6 +382,11 @@ onSubmit: values => {
             regHelper.set(1);
             datar = data;
             already = true;
+            liUN.set($form.name);
+            setTimeout(function() { doesLang.set(true)
+                                    langUs.set("en")
+                                    lang.set("en")
+                                   goto("/convention")}, 2500)
           }
         });
 
@@ -328,11 +394,24 @@ function show (){
   const amana = document.getElementById("amana-show")
   const lines = document.getElementById("lines")
   
-}let trans = false;
+}let trans = $state(false);
 function tran (){
 trans = !trans;
 }
 let error;
+function change(la){
+  if (la == "he"){
+    doesLang.set(true)
+    langUs.set("he")
+    lang.set("he")
+    console.log("change", $lang)    
+  }else if(la == "en"){
+    doesLang.set(true)
+    langUs.set("en")
+    lang.set("en")
+    console.log("change", $lang)
+  }
+}
 onMount(async () => {
         const parseJSON = (resp) => (resp.json ? resp.json() : resp);
         const checkStatus = (resp) => {
@@ -348,7 +427,7 @@ onMount(async () => {
       };
     
         try {
-            const res = await fetch("https://strapi-k4vr.onrender.com/chezins/count", {
+            const res = await fetch(baseUrl+"/api/chezins/count", {
               method: "GET",
               headers: {
                  'Content-Type': 'application/json'
@@ -356,25 +435,96 @@ onMount(async () => {
             }).then(checkStatus)
           .then(parseJSON);
  idx = res + 2
- console.log(idx)
         } catch (e) {
             error = e
         }
     });
-      </script>
+      let dow = $state();
+    function scrollTo() {
+		dow.scrollIntoView({ behavior: 'smooth' });
+	}
+     
+ let isOpen = $state(false);
+let a = $state(0);
+
+function sell(){
+isOpen = true;
+a = 0;
+}
+function tr(){
+isOpen = true;
+a = 4;
+}
+const closer = () => {
+    isOpen = false;
+  a = 0;
+};
+function done(){
+  a = 1;
+}
+
+function erore(){
+  a = 3;
+}
+function erorer(){
+  a = 5;
+}
+</script>
+   <Head {title} {description} {image} {url} />
+  
+<DialogOverlay style="z-index: 700;" {isOpen} onDismiss={closer} >
+        <div style="z-index: 700;" transition:fly|local={{y: 450, opacity: 0.5, duration: 2000}}>
+  <DialogContent class="content" aria-label="form">
+      <div style="z-index: 400;" dir="rtl" >
+             <button class=" hover:bg-barbi text-mturk rounded-full"
+          onclick={closer}>الغاء</button>
+          {#if a == 0}
+ <Tikun  onDone={done} onErore={erore}/>
+         
+                    {:else if a == 4}
+ <TRan onDone={done} onErore={erorer}/>
+         
+                    {:else if a == 1}
+          <div class="sp bg-gold">
+            <h3 class="text-barbi">تم الإرسال بنجاح ، شكرًا جزيلاً سنتواصل معك</h3>
+          </div>
+                    {:else if a == 2}
+
+          <div class="flex text-center items-center justify-center bg-gold">
+            <h3 class="text-barbi">لحظة من فضلك</h3>
+          <br>
+         <RingLoader size="260" color="#ff00ae" unit="px" duration="2s"></RingLoader>
+         </div> 
+         {:else if a == 3}
+         <h1>حدث خطأ</h1>
+         <button class="hover:bg-barbi text-barbi hover:text-gold bg-gold rounded-full" onclick={()=> a = 0}>أعد المحاولة</button>
+         {:else if a == 5}
+         <h1>حدث خطأ</h1>
+         <button class="hover:bg-barbi text-barbi hover:text-gold bg-gold rounded-full" onclick={()=> a = 4}>أعد المحاولة</button>
+        
+         {/if}
+  </DialogContent>
+  </div>
+</DialogOverlay>
+
    
       <div class="all">
-          <div style="position:absolute ; left: 1%; top: 1%; display: flex; flex-direction: column ;">
+          <div style="position:absolute ; left: 1%; top: 1%; display: flex; flex-direction: column ; z-index: 699;">
               {#if trans === false}
-          <button on:click={tran}><img src="https://res.cloudinary.com/love1/image/upload/v1639345051/icons8-translate-app_gwpwcn.svg"></button>
+          <button onclick={tran}><img alt="translation" src="https://res.cloudinary.com/love1/image/upload/v1639345051/icons8-translate-app_gwpwcn.svg"></button>
           {:else}
-          <button on:click={tran} class=" text-barbi hover:text-lturk "
+          <button onclick={tran} class=" text-barbi hover:text-lturk "
  ><svg style="width:24px;height:24px" viewBox="0 0 24 24">
   <path fill="currentColor" d="M8.27,3L3,8.27V15.73L8.27,21H15.73L21,15.73V8.27L15.73,3M8.41,7L12,10.59L15.59,7L17,8.41L13.41,12L17,15.59L15.59,17L12,13.41L8.41,17L7,15.59L10.59,12L7,8.41" />
 </svg></button> 
-          <a style="border-bottom-width: 4px; border-color: var(--gold);" class="text-barbi  text-bold hover:text-lturk bg-lturk text-center hover:bg-barbi px-1 py-0.5 " sveltekit:prefetch href="/en" >English</a>
-          <a class="text-barbi text-bold hover:text-lturk text-center bg-lturk hover:bg-barbi px-1 py-0.5 " sveltekit:prefetch href="/">עברית</a>
-          {/if}
+<!--todo: to home-->
+          <button style="border-bottom-width: 4px; border-color: var(--gold);" class="text-barbi  text-bold hover:text-lturk bg-lturk text-center hover:bg-barbi px-1 py-0.5 "   onclick={()=>change("en")} >English</button>
+          <button class="text-barbi text-bold hover:text-lturk text-center bg-lturk hover:bg-barbi px-1 py-0.5 "  onclick={()=>change("he")}>עברית</button>
+                        <button onclick={sell} title=" اطلب تغيير النص" class="text-barbi border-2 border-gold text-bold hover:text-lturk bg-lturk text-center hover:bg-barbi px-1 py-0.5 " >اطلب تغيير النص</button>
+                  <button onclick={tr} title="الترجمة إلى لغات أخرى" class="text-barbi border-2 border-gold text-bold hover:text-lturk bg-lturk text-center hover:bg-barbi px-1 py-0.5 " >ترجم</button>
+                  <button onclick={()=>goto('/ar')} title="1💗1" class="text-barbi border-2 border-gold text-bold hover:text-lturk bg-lturk text-center hover:bg-barbi px-1 py-0.5 " ><Text1lev1/></button>
+  
+                  {/if}
           </div>
       <div class="mobile">
         
@@ -393,9 +543,9 @@ onMount(async () => {
           name="name"
           placeholder="اسم"
           required
-                on:blur={handleChange}
+                onblur={handleChange}
 
-          on:change={handleChange}
+          onchange={handleChange}
           bind:value={$form.name}
         /> 
      {#if $errors.name}
@@ -406,6 +556,9 @@ onMount(async () => {
   <h3        class="amanat " id="m" 
  style="font-family: StamSefarad, serif; font-size: 1em;" dir="rtl">من: </h3> 
       <MultiSelect
+      outerDivClass="!bg-gold !text-barbi"
+      inputClass="!bg-gold !text-barbi"
+      liSelectedClass="!bg-barbi !text-gold"
       bind:selected
       {nameC} 
       {placeholder}
@@ -421,49 +574,61 @@ onMount(async () => {
     id="email"
     name="email"
     required
-          on:blur={handleChange}
-    on:change={handleChange}
+          onblur={handleChange}
+    onchange={handleChange}
     bind:value={$form.email}
     />
  {#if $errors.email}
       <small>{$errors.email}</small>
     {/if}
 </div>
-    </section>     
+    </section>
+     <div class="onlym"> <button alt="click-to-scroll-down" class="ca3-scroll-down-link ca3-scroll-down-arrow" data-ca3_iconfont="ETmodules" onclick={scrollTo}  data-ca3_icon=""></button></div>    
     </div> 
-    <div class="aab">
+    <div class="aab" bind:this={dow}>
 <div dir="rtl" class="amana" id="amana-show">
- <h1 dir="rtl" style="color:var(--barbi-pink);   text-decoration: underline; font-weight: 900;">
-    إعلان استقلال  
-        <span> {$form.name}</span>  
-        الشخصي
+   <div class="card  bg-[length:200%_auto] animate-gradientx bg-[linear-gradient(to_right,theme(colors.gra),theme(colors.grb),theme(colors.grc),theme(colors.grd),theme(colors.gre),theme(colors.grd),theme(colors.grc),theme(colors.grb),theme(colors.gra))]">
+  <div class="card-overlay "></div>
+  <div class="card-inner d overflow-y-auto ">
+<h1 dir="rtl" style="color:#cc0066; text-shadow: 1px 1px black ; ">
+     إعلان استقلال
+        <span style=" text-shadow: 1px 1px var(--mturk); font-family: 'Gan';">{$form.name ? $form.name : "__"}</span>
         :
     </h1>
-          <span>
-              <span>
-أنا {$form.name} لن أستخدم العنف أبدًا أو أؤذي أي شخص                   <br>
-لأنني {$form.name} لا أريد أن أكون ضحية للعنف ولأنه لا توجد سلطة أو قيمة أو غرض أو معتقد أو مال أو فائدة تبرر الإضرار بحياة الشخص والعنف والإكراه بالقوة.              <br>	
-أنا {$form.name} سأمنح ثقتي في الخير وأنه عندما توقع البشرية جمعاء هذه الاتفاقية: سيتوقف العنف والقتال والحكم عن أن يكون شكلاً من أشكال التواصل البشري              <br>
-عندما تكون كل {selected} من الموقعين على هذه المعاهدة أنا {$form.name} سأتخلى عن أسلحتي ورجال الشرطة المسلحين الذين عينتهم دولة {selected} بالنيابة عني.              <br>
-أنا {$form.name} ، سأتخلى عن أسلحة الجيش {selected} عندما توقع البشرية جمعاء على هذه الاتفاقية.          </span>
+          <span style="font-family:David;" class="text-bold text-transparent bg-clip-text  bg-[linear-gradient(to_bottom_right,theme(colors.gra),theme(colors.grc),theme(colors.gre),theme(colors.grc),theme(colors.gra))]">
+              <span  style="font-family:David;">
+                أنا <span style="color:black; font-family:StamSefarad;   text-shadow: 1px 1px var(--mturk);">{$form.name ? $form.name : "__"}</span>  لا أريد أن أؤذي أي شخص ولن أؤذي أي شخص أبدًا.
+                   <br>
+           لأنني أعتقد أنه ليس هناك سلطة أو قيمة أو هدف أو إيمان أو مال أو مصلحة يمكن أن يبرر الإيذاء البشري أو العنف أو القوة.
+              <br>
+   أنا أؤمن بالخير الأساسي في الإنسان، وأتمنى وأتوقع أنه عندما يوافق جميع البشر على عدم العنف والحروب واستخدام القوة، سيتوقفون عن أن يكونوا وسيلة للتواصل البشري.
+              <br>
+              عندما يوافق جميع سكان  <span style="color: black; font-family:StamSefarad;  text-shadow: 1px 1px var(--barbi-pink);">{selected.length > 0 ? `${selected.length < 2 ? selected : selected.join( " وجميع سكان " )}`  : "__"}</span>  ويعيشون وفقًا لهذا الإيمان، سأتخلى عن سلاحي وعن الشرطيين المسلحين من دولة <span style="color:black; font-family:StamSefarad;  text-shadow: 1px 1px var(--barbi-pink);">{selected.length > 0 ? `${selected.length < 2 ? selected : selected.join(" ومن دولة ")}` : "__"}</span>  {selected.length > 1 ? "بأسمي" : "باسمها" } وسنعيش بحرية وبموافقة متبادلة. 
+              <br>
+               عندما يوافق جميع البشرية وتعيش وفقًا لهذا الإيمان، سأتخلى عن أسلحتي الخاصة بجيش <span style="color: black; font-family:StamSefarad;  text-shadow: 1px 1px var(--barbi-pink);">{selected.length > 0 ? `${selected.length < 2 ? selected : selected.join(" وجيش ") }`+ "." : "__."}</span> عندما تتخلى جميع جيوش العالم عن أسلحتها وتصبح البشرية ضعيفة وحرة
+        <br>
+         سأظل دائمًا أحل النزاعات وأديرها وأحلها في "رقميات" التي تجري على موقع 1💗1 فقط بموافقة متبادلة.
+            </span>
     </div>
-     
+     </div>
+     </div>
 
 
-<form on:submit={handleSubmit}>
+<form onsubmit={handleSubmit}>
 
 <div class="flexid">
    {#if already == false}
 
     <button
      class="button hover:scale-150"
-      on:submit="{handleSubmit}"
+      onsubmit={handleSubmit}
       type="submit"
       ></button> 
       {:else if already == true}
   <h1 class="alredy" dir="rtl">{$form.name}
  تم استلام توقيعك ، لقد وصلت إلى الرقم {idx} ، سيتم إرسال بريد إلكتروني للتحديث عندما نتوسع ، قريبًا </h1>
- <!-- <button class="p-4 rounded bg-lturk hover:bg-barbi text-barbi hover:text-lturk" on:click={()=> goto("/about", )}>אודותינו</button>-->
+<h2>The site other sections are not yet in arabic, you been transformed to the english site</h2>
+ <!-- <button class="p-4 rounded-full bg-lturk hover:bg-barbi text-barbi hover:text-lturk" on:click={()=> goto("/about", )}>אודותינו</button>-->
 
   {/if}
   </div>
@@ -471,6 +636,109 @@ onMount(async () => {
   
 </div> </div>
   <style>
+    .card {
+  --bg: #e8e8e8;
+  --contrast: #e2e0e0;
+  --grey: #93a1a1;
+  position: relative;
+  padding: 9px;
+  background-color: var(--bg);
+  border-radius: 35px;
+  box-shadow: rgba(50, 50, 93, 0) 0px 50px 100px -20px, rgba(0, 0, 0, 0) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+
+.card-overlay {
+  position: absolute;
+  inset: 0;
+    border-radius: 35px;
+
+  pointer-events: none;
+  background: repeating-conic-gradient(var(--bg) 0.0000001%, var(--grey) 0.000104%) 60% 60%/600% 600%;
+  filter: opacity(10%) contrast(105%);
+}
+
+.card-inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  padding:0.5em;
+  width: 84vw;
+  height: 72vh;
+  background-color: var(--contrast);
+  border-radius: 30px;
+  /* Content style */
+  font-size: 1.5em;
+  font-size-adjust: auto;
+  font-weight: 900;
+  color: #c7c4c4;
+  text-align: center;
+}
+     :global([data-svelte-dialog-content].content) {
+  background-color: #000000;
+background-image: linear-gradient(147deg, #000000 0%, #04619f 74%);
+
+      width: 80vw;
+  }
+  @media (min-width: 568px){
+  
+        :global([data-svelte-dialog-content].content) {
+ background-color: #000000;
+background-image: linear-gradient(147deg, #000000 0%, #04619f 74%);
+
+width:78vw;
+        }
+  }
+.onlym{
+  display: "";
+}
+[data-ca3_icon]::before {
+    font-weight: normal;
+    content: attr(data-ca3_icon);
+}
+
+.ca3-scroll-down-arrow {
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iQ2hldnJvbl90aGluX2Rvd24iIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiBmaWxsPSJ3aGl0ZSIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHBhdGggZD0iTTE3LjQxOCw2LjEwOWMwLjI3Mi0wLjI2OCwwLjcwOS0wLjI2OCwwLjk3OSwwYzAuMjcsMC4yNjgsMC4yNzEsMC43MDEsMCwwLjk2OWwtNy45MDgsNy44M2MtMC4yNywwLjI2OC0wLjcwNywwLjI2OC0wLjk3OSwwbC03LjkwOC03LjgzYy0wLjI3LTAuMjY4LTAuMjctMC43MDEsMC0wLjk2OWMwLjI3MS0wLjI2OCwwLjcwOS0wLjI2OCwwLjk3OSwwTDEwLDEzLjI1TDE3LjQxOCw2LjEwOXoiLz48L3N2Zz4=);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.ca3-scroll-down-link {
+  cursor:pointer;
+  height: 60px;
+  width: 80px;
+  margin: 0px 0 0 -40px;
+  line-height: 60px;
+  position: absolute;
+  left: 50%;
+  bottom: 0px;
+  color: #FFF;
+  text-align: center;
+  font-size: 70px;
+  z-index: 100;
+  text-decoration: none;
+  text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4);
+
+  -webkit-animation: ca3_fade_move_down 2s ease-in-out infinite;
+  -moz-animation:    ca3_fade_move_down 2s ease-in-out infinite;
+  animation:         ca3_fade_move_down 2s ease-in-out infinite;
+}
+
+
+/*animated scroll arrow animation*/
+@-webkit-keyframes ca3_fade_move_down {
+  0%   { -webkit-transform:translate(0,-20px); opacity: 0;  }
+  50%  { opacity: 1;  }
+  100% { -webkit-transform:translate(0,20px); opacity: 0; }
+}
+@-moz-keyframes ca3_fade_move_down {
+  0%   { -moz-transform:translate(0,-20px); opacity: 0;  }
+  50%  { opacity: 1;  }
+  100% { -moz-transform:translate(0,20px); opacity: 0; }
+}
+@keyframes ca3_fade_move_down {
+  0%   { transform:translate(0,-20px); opacity: 0;  }
+  50%  { opacity: 1;  }
+  100% { transform:translate(0,20px); opacity: 0; }
+}
    .alredy{
            text-align: center;
            margin: 4vh  4vw 2vh 4vw;
@@ -480,60 +748,6 @@ onMount(async () => {
           color: var(--barbi-pink);
           border: 1px var(--lturk);
    }
-
-   :global(.multiselect) {
-    background-color: var(--gold) !important ;
-  /* top-level wrapper div */
-}
-  :global(.multiselect:focus){
-    border: 1px solid var(--barbi-pink) !important;
-  }
-  :global(.multiselect span.token) {
-  color: #ffffff;
-  background: var(--barbi-pink) ;
-    /* selected options */
-  }
- /* :global(.multiselect span.token button),
-  :global(.multiselect .remove-all) {
-
-    /* buttons to remove a single or all selected options at once */
- /* } 
-  :global(.multiselect ul) {
-    /* dropdown options */
- /* }
-  :global(.multiselect ul li) {
-    /* dropdown options */
- /* } */
- :global(li.selected) {
-    border: var(--sms-focus-border, 1pt solid var(--sms-active-color, cornflowerblue));
-    color: var(--gold);
-    /* selected options in the dropdown list */
-  }
-  :global(li:not(.selected):hover) {
- color: var(--barbi-pink);
-    background-color:var(--lturk);    /* unselected but hovered options in the dropdown list */
-  }
-  :global(ul.tokens > li){
-    background-color: var(--barbi-pink);
-    color:var(--lturk);
-  }
-  :global(ul.tokens > li):hover{
-    color: var(--barbi-pink);
-background-color:var(--lturk);  
-  }
-  /*
-  :global(li.selected:hover) {
-    /* selected and hovered options in the dropdown list */
-    /* probably not necessary to style this state in most cases */
- /* } */
-  :global(li.active) {
-    color:var(--barbi-pink) !important;
-    /* active means element was navigated to with up/down arrow keys */
-    /* ready to be selected by pressing enter */
-  }
- /* :global(li.selected.active) {
-  } */
-  
 #lines{
   display: "";
 
@@ -542,8 +756,10 @@ background-color:var(--lturk);
   display: "";
 }
 .amanat{
-  padding: 1rem;
-    text-shadow: 1px 1px 4px var(--gold) ;
+  padding: 0 1rem;
+    text-shadow: 1px 1px var(--barbi-pink) ;
+   background-color: var(--gold);
+          opacity: 0.8;
 
 }
 
@@ -581,13 +797,18 @@ background-color:var(--lturk);
   margin: 0 auto;
   padding: 0;
     text-shadow: 1px 1px 4px var(--gold) ;
+       background-color: transparent;
+          opacity: 1;
+
  }
 
   .mobile{
+             background-color: var(--gold);
+
     width: 100vw;
     height:100vh;
     margin:0px auto;
-    background-image: url(https://res.cloudinary.com/love1/image/upload/v1639088864/SHALOM1_awkhot.svg);
+    background-image: url(https://res.cloudinary.com/love1/image/upload/v1648338694/Gold-German-Imperial-Crown-No-Background_4_cpunhj.svg);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -595,23 +816,10 @@ background-color:var(--lturk);
     background-position: center;
     background-size:  130vw 100vh;
 }
- .amana{   
-   
-    padding: 1.5em 1em 1em 1em;
-    font-size: 120%;
-    font-family: 'StamSefarad', serif;
-    text-align: center;
-    font-weight: 900;
-    background-image: url(https://res.cloudinary.com/love1/image/upload/v1639088838/megila1_m6kvgh.png);
-    background-size: 180vw 180vh;
-    background-repeat: no-repeat;
-    background-position: center;
-    line-height: normal;
-    font-size-adjust: auto;
-    height: 80vh;
-    overflow-y: scroll;
-  }
+
   .aab{
+             background-color: var(--gold);
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -674,14 +882,17 @@ left: 45.2%;
   .button {
     justify-self: center;
           align-self: center;   
-    background-image: url(https://res.cloudinary.com/love1/image/upload/v1639322184/bu_bubcta.png);  
+    background-image: url(https://res.cloudinary.com/love1/image/upload/v1641162205/anglit-removebg-preview_dcb8nd.png);  
  background-repeat: no-repeat;
  background-size: 170px;
  margin: auto;
  min-height: 170px;
  min-width: 170px;
      cursor: url(https://res.cloudinary.com/love1/image/upload/v1639255090/Fingerprint-Heart-II_wqvlih.svg), auto;
-  }
+  -webkit-animation:spin 17s linear infinite;
+    -moz-animation:spin 17s linear infinite;
+    animation:spin 17s linear infinite;
+    }
   
  .flexi {
    padding-top: 2vh;
@@ -695,6 +906,18 @@ left: 45.2%;
 }
 
 @media(min-width:577px) and (max-width:1099px) {
+  
+    .card-inner {
+  width: 84vw;
+    height: 60vh;
+    font-size:1.8;
+  }
+  .amanat{
+  margin: 0 auto;
+  padding: 0;
+    text-shadow: 1px 1px 4px var(--gold) ;
+    background-color: transparent;
+}
   /*.centeron{
     background-image: url('ceter.png');
     background-repeat: no-repeat;
@@ -704,6 +927,8 @@ left: 45.2%;
     min-width: 50px;
  }*/
   .aab{
+             background-color: var(--gold);
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -711,10 +936,12 @@ left: 45.2%;
     height: 100vh;
   }
    .mobile{
+              background-color: var(--gold);
+
     width: 100vw;
     height:100vh;
     margin:0px auto;
-    background-image: url(https://res.cloudinary.com/love1/image/upload/v1639088888/SHALOM2_nd7evv.svg);
+    background-image: url(https://res.cloudinary.com/love1/image/upload/v1648335809/Gold-German-Imperial-Crown-No-Background_qs7cri.svg);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -727,26 +954,18 @@ left: 45.2%;
   .button {
     justify-self: center;
     align-self: center;
-    background-image: url(https://res.cloudinary.com/love1/image/upload/v1639322184/bu_bubcta.png);  
+    background-image: url(https://res.cloudinary.com/love1/image/upload/v1641162205/anglit-removebg-preview_dcb8nd.png);  
     background-repeat: no-repeat;
     background-size: 170px;
     margin: auto;
     min-height: 170px;
     min-width: 170px;
      cursor: url(https://res.cloudinary.com/love1/image/upload/v1639255090/Fingerprint-Heart-II_wqvlih.svg), auto;
-  }
-  .amana{
-    padding: 0px 13vw;
-    font-size: 100%;
-    font-family: 'StamSefarad', serif;
-    text-align: center;
-    font-weight: 900;
-    background-image: url(https://res.cloudinary.com/love1/image/upload/v1639088838/megila1_m6kvgh.png);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    align-self: center;
-  }
+  -webkit-animation:spin 17s linear infinite;
+    -moz-animation:spin 17s linear infinite;
+    animation:spin 17s linear infinite;
+    }
+  
   .container {
     padding-top: 26vh;
       display: flex;
@@ -783,9 +1002,20 @@ left: 45.2%;
   }
 
 }
-
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 @media(min-width:942px) and (max-width:1099px) {
+  .amanat{
+padding: 0 1rem;
+    text-shadow: 1px 1px var(--barbi-pink) ;
+        background-color: var(--gold);
+          opacity: 0.8;
+
+}
  .mobile{
+            background-color: var(--gold);
+
     width: 100vw;
     height:100vh;
     margin:0px auto;
@@ -806,29 +1036,18 @@ background-position: center;
   .button {
     justify-self: center;
     align-self: center;
-    background-image: url(https://res.cloudinary.com/love1/image/upload/v1639322184/bu_bubcta.png);  
+    background-image: url(https://res.cloudinary.com/love1/image/upload/v1641162205/anglit-removebg-preview_dcb8nd.png);  
     background-repeat: no-repeat;
     background-size: 170px;
     margin: auto;
     min-height: 170px;
     min-width: 170px;
      cursor: url(https://res.cloudinary.com/love1/image/upload/v1639255090/Fingerprint-Heart-II_wqvlih.svg), auto;
-
+-webkit-animation:spin 17s linear infinite;
+    -moz-animation:spin 17s linear infinite;
+    animation:spin 17s linear infinite;
   }
-  .amana{
-    width: 908px;
-    padding: 0px 25px;
-    font-size: 130%;
-    font-family: 'StamSefarad', serif;
-    text-align:center;
-    font-weight: 900;
-    background-image: url(https://res.cloudinary.com/love1/image/upload/v1639088838/megila1_m6kvgh.png);
-    background-size: 1100px;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin: 0 auto;
-    align-self: center;
-  }
+ 
   .container {
     display: flex;
     padding-top: 10em;
@@ -877,6 +1096,14 @@ background-position: center;
 }
 
 @media(min-width:1100px) {
+      .card-inner {
+  width: 84vw;
+    height: calc(66vh - 180px);
+    font-size: 1.9em;
+  }
+     .onlym{
+  display: none;
+}
   .flexid{
     display: flex;
     flex-direction: column;
@@ -909,28 +1136,22 @@ background-position: center;
   .button {
     justify-self: center;
     align-self: center;
-    background-image: url(https://res.cloudinary.com/love1/image/upload/v1639322184/bu_bubcta.png);  
+    background-image: url(https://res.cloudinary.com/love1/image/upload/v1641162205/anglit-removebg-preview_dcb8nd.png);  
     background-repeat: no-repeat;
     background-size: 130px;
     margin: auto;
     min-height: 130px;
     min-width: 130px;
      cursor: url(https://res.cloudinary.com/love1/image/upload/v1639255090/Fingerprint-Heart-II_wqvlih.svg), auto;
-
+-webkit-animation:spin 17s linear infinite;
+    -moz-animation:spin 17s linear infinite;
+    animation:spin 17s linear infinite;
+  }
+ .amana{
+    display: flex;
+    justify-content: center;
   }
 
-  .amana{
-    width: 100vw;
-    padding: 0px 120px;
-    font-size: 140%;
-    font-family: 'StamSefarad', serif;
-    text-align:center;
-    font-weight: 900;
-    background-image: url(https://res.cloudinary.com/love1/image/upload/v1639088838/megila1_m6kvgh.png);
-    background-size: 1150px  ;
-    background-repeat: no-repeat;
-    background-position: center;
-  }
   .container {
     display: flex;
     padding-top: 67px;
@@ -984,45 +1205,38 @@ background-position: center;
   }
 } 
 @media(min-width:1200px) {
-   .amana{
-    padding: 0 110px;
-    background-size: 1400px  ;
-  }
+
    .centeron{
    left: 48%;
   }
 }
 
 @media(min-width:1300px) {
-   .amana{
-    padding: 0 150px;
-    background-size: 1500px  ;
-  }
+  
    .centeron{
    left: 48%;
   }
 }
 
 @media(min-width:1450px) {
-   .amana{
-    padding: 0 210px;
-    background-size: 1600px  ;
-  }
+  
    .centeron{
    left: 48%;
   }
 }
 @media(min-width:1700px) {
-   .amana{
-    padding: 0 210px;
-    background-size: 1888px  ;
-  }
+  
    .centeron{
    left: 48%;
   }
+  .button{
+    background-size: 170px;
+    min-height: 170px;
+    min-width: 170px;
+  }
 }
  :global(.multiselect) {
-    width: 250px;
+    max-width: 250px;
    
   }
   </style> 

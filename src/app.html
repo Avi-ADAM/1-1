@@ -1,26 +1,118 @@
 ﻿<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="follow, index" />
-    <title>1❤️1</title>
-    <meta
-      content="האמנה העולמית לשלום וביטחון"
-      name="description"
-    />
-    <meta
-      property="og:title"
-      content="1❤️1"
-    />
-    <meta property="og:image" content="/favicon.ico" />
-       <meta name="theme-color" content="#EEE8AA">    
+<html lang=%lang%>
 
-   
-    %svelte.head%
-  </head>
-  <body>
-    <div id="svelte">%svelte.body%</div>
-  </body>
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    // מניעת flash של עיצוב לא נכון
+    (function () {
+      try {
+        const theme = localStorage.getItem('theme') || 'personal';
+        document.documentElement.classList.add(theme);
+        document.documentElement.setAttribute('data-theme', theme);
+
+        // עדכון CSS Variables מיד
+        const themeConfigs = {
+          personal: {
+            '--color-primary': '#3b82f6',
+            '--color-secondary': '#10b981',
+            '--color-background': '#f9fafb',
+            '--color-text': '#1f2937',
+            '--color-card': '#ffffff',
+            '--color-accent': '#8b5cf6',
+            '--color-muted': '#6b7280',
+            '--border-radius': '0.75rem',
+            '--shadow': '0 10px 15px -3px rgba(0, 0, 0, 0.1)'
+          },
+          business: {
+            '--color-primary': '#1f2937',
+            '--color-secondary': '#374151',
+            '--color-background': '#f3f4f6',
+            '--color-text': '#111827',
+            '--color-card': '#ffffff',
+            '--color-accent': '#059669',
+            '--color-muted': '#9ca3af',
+            '--border-radius': '0.25rem',
+            '--shadow': '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
+          }
+        };
+
+        const config = themeConfigs[theme];
+        if (config) {
+          Object.entries(config).forEach(([key, value]) => {
+            document.documentElement.style.setProperty(key, value);
+          });
+        }
+      } catch (e) {
+        console.warn('Theme initialization failed:', e);
+      }
+    })();
+  </script>
+ 
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+
+  <meta charset="UTF-8" />
+  <meta property="og:site_name" content="1lev1" />
+  <meta id="ogimage" property="og:image"
+    content="https://res.cloudinary.com/love1/image/upload/v1645647192/apple-touch-icon_irclue.png" />
+  <meta property="og:type" content="website" />
+
+  <link rel="apple-touch-icon"
+    href="https://res.cloudinary.com/love1/image/upload/v1645647192/apple-touch-icon_irclue.png">
+  <link rel="manifest" href="%manifest%">
+  <link rel="icon" href="/favicon.ico" />
+  <meta name='mobile-web-app-capable' content='yes'>
+  <meta name='apple-mobile-web-app-capable' content='yes'>
+  <meta name='apple-mobile-web-app-status-bar-style' content='black'>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@IOHTFzdIGHgPhoZ">
+  <meta name="twitter:creator" content="@IOHTFzdIGHgPhoZ">
+  <meta name="twitter:title" content="%xtitle%">
+  <meta name="twitter:description" content="%xdes%">
+  <meta name="twitter:image"
+    content="https://res.cloudinary.com/love1/image/upload/v1645647192/apple-touch-icon_irclue.png">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="follow, index" />
+  <meta name="theme-color" content="#EEE8AA">
+  <meta name="description" content="%desc%">
+
+  <!--<meta
+      content="1💗1 הסכמה עולמית על חירות"
+      name="description"
+    />-->
+  <title>%title%</title>
+  <meta http-equiv='content-language' content='%cl%'>
+  <meta name="msvalidate.01" content="401F6E4E20E82CED795C21C85ED50935" />
+  <meta property="og:url" content="https://www.1lev1.com" />
+  <link rel="alternate" hreflang="ar" href="https://1lev1.com?lang=ar" />
+  <link rel="alternate" hreflang="en" href="https://1lev1.com?lang=en" />
+  <link rel="alternate" hreflang="he" href="https://1lev1.com?lang=he" />
+  <meta property="og:type" content="platform" />
+  <meta property="og:description" content="%desci%" />
+  <meta property="og:image"
+    content="https://res.cloudinary.com/love1/image/upload/v1640020897/cropped-PicsArt_01-28-07.49.25-1_wvt4qz.png" />
+  <script type="application/ld+json">
+      {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "legalName": "1💗1",
+      "email": "baruch@1lev1.com",
+      "slogan": "create together harmoniously, WorldWide consensus for Security and Peace",
+      "url": "https://1llev1.com/",
+      "logo": "https://res.cloudinary.com/love1/image/upload/v1640020897/cropped-PicsArt_01-28-07.49.25-1_wvt4qz.png",
+      "description": "create harmonious partnerships, find partners and make the world better place together, manage agreements and trust your partners"
+      }
+      </script>
+  <meta name="google-site-verification" content="OBaTsyCpA22qESpUMYcqAnafQf4NxOYLICeWuudw30Y" />
+  %sveltekit.head%
+</head>
+
+<body>
+  <div id="svelte">%sveltekit.body%</div>
+</body>
+
 </html>

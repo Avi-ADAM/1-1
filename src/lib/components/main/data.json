@@ -1,0 +1,1022 @@
+[
+    {"agrees": 0,
+        "name": "Indonesia",
+        "iso3": "IDN"
+    },
+    {"agrees": 0,
+        "name": "Malaysia",
+        "iso3": "MYS"
+    },
+    {"agrees": 0,
+        "name": "Chile",
+        "iso3": "CHL"
+    },
+    {"agrees": 0,
+        "name": "Bolivia",
+        "iso3": "BOL"
+    },
+    {"agrees": 0,
+        "name": "Peru",
+        "iso3": "PER"
+    },
+    {"agrees": 0,
+        "name": "Argentina",
+        "iso3": "ARG"
+    },
+    {"agrees": 0,
+        "name": "Dhekelia",
+        "iso3": "ESB"
+    },
+    {"agrees": 0,
+        "name": "Cyprus",
+        "iso3": "CYP"
+    },
+    {"agrees": 0,
+        "name": "India",
+        "iso3": "IND"
+    },
+    {"agrees": 0,
+        "name": "China",
+        "iso3": "CHN"
+    },
+    {"agrees": 65,
+        "name": "Israel",
+        "iso3": "ISR"
+    },
+    {"agrees": 0,
+        "name": "Palestine",
+        "iso3": "PSX"
+    },
+    {"agrees": 0,
+        "name": "Lebanon",
+        "iso3": "LBN"
+    },
+    {"agrees": 0,
+        "name": "Ethiopia",
+        "iso3": "ETH"
+    },
+    {"agrees": 0,
+        "name": "S. Sudan",
+        "iso3": "SSD"
+    },
+    {"agrees": 0,
+        "name": "Somalia",
+        "iso3": "SOM"
+    },
+    {"agrees": 0,
+        "name": "Kenya",
+        "iso3": "KEN"
+    },
+    {"agrees": 0,
+        "name": "Pakistan",
+        "iso3": "PAK"
+    },
+    {"agrees": 0,
+        "name": "Malawi",
+        "iso3": "MWI"
+    },
+    {"agrees": 0,
+        "name": "Tanzania",
+        "iso3": "TZA"
+    },
+    {"agrees": 0,
+        "name": "Syria",
+        "iso3": "SYR"
+    },
+    {"agrees": 0,
+        "name": "Somaliland",
+        "iso3": "SOL"
+    },
+    {"agrees": 0,
+        "name": "France",
+        "iso3": "FRA"
+    },
+    {"agrees": 0,
+        "name": "Suriname",
+        "iso3": "SUR"
+    },
+    {"agrees": 0,
+        "name": "Guyana",
+        "iso3": "GUY"
+    },
+    {"agrees": 0,
+        "name": "South Korea",
+        "iso3": "KOR"
+    },
+    {"agrees": 0,
+        "name": "North Korea",
+        "iso3": "PRK"
+    },
+    {"agrees": 0,
+        "name": "Morocco",
+        "iso3": "MAR"
+    },
+    {"agrees": 0,
+        "name": "W. Sahara",
+        "iso3": "ESH"
+    },
+    {"agrees": 0,
+        "name": "Costa Rica",
+        "iso3": "CRI"
+    },
+    {"agrees": 0,
+        "name": "Nicaragua",
+        "iso3": "NIC"
+    },
+    {"agrees": 0,
+        "name": "Congo",
+        "iso3": "COG"
+    },
+    {"agrees": 0,
+        "name": "Dem. Rep. Congo",
+        "iso3": "COD"
+    },
+    {"agrees": 0,
+        "name": "Bhutan",
+        "iso3": "BTN"
+    },
+    {"agrees": 0,
+        "name": "Ukraine",
+        "iso3": "UKR"
+    },
+    {"agrees": 0,
+        "name": "Belarus",
+        "iso3": "BLR"
+    },
+    {"agrees": 0,
+        "name": "Namibia",
+        "iso3": "NAM"
+    },
+    {"agrees": 1,
+        "name": "South Africa",
+        "iso3": "ZAF"
+    },
+    {"agrees": 0,
+        "name": "St-Martin",
+        "iso3": "MAF"
+    },
+    {"agrees": 0,
+        "name": "Sint Maarten",
+        "iso3": "SXM"
+    },
+    {"agrees": 0,
+        "name": "Oman",
+        "iso3": "OMN"
+    },
+    {"agrees": 0,
+        "name": "Uzbekistan",
+        "iso3": "UZB"
+    },
+    {"agrees": 0,
+        "name": "Kazakhstan",
+        "iso3": "KAZ"
+    },
+    {"agrees": 0,
+        "name": "Tajikistan",
+        "iso3": "TJK"
+    },
+    {"agrees": 0,
+        "name": "Lithuania",
+        "iso3": "LTU"
+    },
+    {"agrees": 0,
+        "name": "Brazil",
+        "iso3": "BRA"
+    },
+    {"agrees": 0,
+        "name": "Uruguay",
+        "iso3": "URY"
+    },
+    {"agrees": 0,
+        "name": "Mongolia",
+        "iso3": "MNG"
+    },
+    {"agrees": 0,
+        "name": "Russia",
+        "iso3": "RUS"
+    },
+    {"agrees": 0,
+        "name": "Czechia",
+        "iso3": "CZE"
+    },
+    {"agrees": 0,
+        "name": "Germany",
+        "iso3": "DEU"
+    },
+    {"agrees": 0,
+        "name": "Estonia",
+        "iso3": "EST"
+    },
+    {"agrees": 0,
+        "name": "Latvia",
+        "iso3": "LVA"
+    },
+    {"agrees": 0,
+        "name": "Norway",
+        "iso3": "NOR"
+    },
+    {"agrees": 0,
+        "name": "Sweden",
+        "iso3": "SWE"
+    },
+    {"agrees": 0,
+        "name": "Finland",
+        "iso3": "FIN"
+    },
+    {"agrees": 0,
+        "name": "Vietnam",
+        "iso3": "VNM"
+    },
+    {"agrees": 0,
+        "name": "Cambodia",
+        "iso3": "KHM"
+    },
+    {"agrees": 0,
+        "name": "Luxembourg",
+        "iso3": "LUX"
+    },
+    {"agrees": 0,
+        "name": "United Arab Emirates",
+        "iso3": "ARE"
+    },
+    {"agrees": 0,
+        "name": "Belgium",
+        "iso3": "BEL"
+    },
+    {"agrees": 0,
+        "name": "Georgia",
+        "iso3": "GEO"
+    },
+    {"agrees": 0,
+        "name": "Macedonia",
+        "iso3": "MKD"
+    },
+    {"agrees": 0,
+        "name": "Albania",
+        "iso3": "ALB"
+    },
+    {"agrees": 0,
+        "name": "Azerbaijan",
+        "iso3": "AZE"
+    },
+    {"agrees": 0,
+        "name": "Kosovo",
+        "iso3": "KOS"
+    },
+    {"agrees": 0,
+        "name": "Turkey",
+        "iso3": "TUR"
+    },
+    {"agrees": 0,
+        "name": "Spain",
+        "iso3": "ESP"
+    },
+    {"agrees": 0,
+        "name": "Laos",
+        "iso3": "LAO"
+    },
+    {"agrees": 0,
+        "name": "Kyrgyzstan",
+        "iso3": "KGZ"
+    },
+    {"agrees": 0,
+        "name": "Armenia",
+        "iso3": "ARM"
+    },
+    {"agrees": 0,
+        "name": "Denmark",
+        "iso3": "DNK"
+    },
+    {"agrees": 0,
+        "name": "Libya",
+        "iso3": "LBY"
+    },
+    {"agrees": 0,
+        "name": "Tunisia",
+        "iso3": "TUN"
+    },
+    {"agrees": 0,
+        "name": "Romania",
+        "iso3": "ROU"
+    },
+    {"agrees": 0,
+        "name": "Hungary",
+        "iso3": "HUN"
+    },
+    {"agrees": 0,
+        "name": "Slovakia",
+        "iso3": "SVK"
+    },
+    {"agrees": 0,
+        "name": "Poland",
+        "iso3": "POL"
+    },
+    {"agrees": 0,
+        "name": "Ireland",
+        "iso3": "IRL"
+    },
+    {"agrees": 0,
+        "name": "United Kingdom",
+        "iso3": "GBR"
+    },
+    {"agrees": 0,
+        "name": "Greece",
+        "iso3": "GRC"
+    },
+    {"agrees": 0,
+        "name": "Zambia",
+        "iso3": "ZMB"
+    },
+    {"agrees": 0,
+        "name": "Sierra Leone",
+        "iso3": "SLE"
+    },
+    {"agrees": 0,
+        "name": "Guinea",
+        "iso3": "GIN"
+    },
+    {"agrees": 0,
+        "name": "Liberia",
+        "iso3": "LBR"
+    },
+    {"agrees": 0,
+        "name": "Central African Rep.",
+        "iso3": "CAF"
+    },
+    {"agrees": 0,
+        "name": "Sudan",
+        "iso3": "SDN"
+    },
+    {"agrees": 0,
+        "name": "Djibouti",
+        "iso3": "DJI"
+    },
+    {"agrees": 0,
+        "name": "Eritrea",
+        "iso3": "ERI"
+    },
+    {"agrees": 0,
+        "name": "Austria",
+        "iso3": "AUT"
+    },
+    {"agrees": 0,
+        "name": "Iraq",
+        "iso3": "IRQ"
+    },
+    {"agrees": 0,
+        "name": "Italy",
+        "iso3": "ITA"
+    },
+    {"agrees": 0,
+        "name": "Switzerland",
+        "iso3": "CHE"
+    },
+    {"agrees": 0,
+        "name": "Iran",
+        "iso3": "IRN"
+    },
+    {"agrees": 0,
+        "name": "Netherlands",
+        "iso3": "NLD"
+    },
+    {"agrees": 0,
+        "name": "Liechtenstein",
+        "iso3": "LIE"
+    },
+    {"agrees": 0,
+        "name": "Côte d'Ivoire",
+        "iso3": "CIV"
+    },
+    {"agrees": 0,
+        "name": "Serbia",
+        "iso3": "SRB"
+    },
+    {"agrees": 0,
+        "name": "Mali",
+        "iso3": "MLI"
+    },
+    {"agrees": 0,
+        "name": "Senegal",
+        "iso3": "SEN"
+    },
+    {"agrees": 0,
+        "name": "Nigeria",
+        "iso3": "NGA"
+    },
+    {"agrees": 0,
+        "name": "Benin",
+        "iso3": "BEN"
+    },
+    {"agrees": 0,
+        "name": "Angola",
+        "iso3": "AGO"
+    },
+    {"agrees": 0,
+        "name": "Croatia",
+        "iso3": "HRV"
+    },
+    {"agrees": 0,
+        "name": "Slovenia",
+        "iso3": "SVN"
+    },
+    {"agrees": 0,
+        "name": "Qatar",
+        "iso3": "QAT"
+    },
+    {"agrees": 0,
+        "name": "Saudi Arabia",
+        "iso3": "SAU"
+    },
+    {"agrees": 0,
+        "name": "Botswana",
+        "iso3": "BWA"
+    },
+    {"agrees": 0,
+        "name": "Zimbabwe",
+        "iso3": "ZWE"
+    },
+    {"agrees": 0,
+        "name": "Bulgaria",
+        "iso3": "BGR"
+    },
+    {"agrees": 0,
+        "name": "Thailand",
+        "iso3": "THA"
+    },
+    {"agrees": 0,
+        "name": "San Marino",
+        "iso3": "SMR"
+    },
+    {"agrees": 0,
+        "name": "Haiti",
+        "iso3": "HTI"
+    },
+    {"agrees": 0,
+        "name": "Dominican Rep.",
+        "iso3": "DOM"
+    },
+    {"agrees": 0,
+        "name": "Chad",
+        "iso3": "TCD"
+    },
+    {"agrees": 0,
+        "name": "Kuwait",
+        "iso3": "KWT"
+    },
+    {"agrees": 0,
+        "name": "El Salvador",
+        "iso3": "SLV"
+    },
+    {"agrees": 0,
+        "name": "Guatemala",
+        "iso3": "GTM"
+    },
+    {"agrees": 0,
+        "name": "Timor-Leste",
+        "iso3": "TLS"
+    },
+    {"agrees": 0,
+        "name": "Brunei",
+        "iso3": "BRN"
+    },
+    {"agrees": 0,
+        "name": "Monaco",
+        "iso3": "MCO"
+    },
+    {"agrees": 0,
+        "name": "Algeria",
+        "iso3": "DZA"
+    },
+    {"agrees": 0,
+        "name": "Mozambique",
+        "iso3": "MOZ"
+    },
+    {"agrees": 0,
+        "name": "eSwatini",
+        "iso3": "SWZ"
+    },
+    {"agrees": 0,
+        "name": "Burundi",
+        "iso3": "BDI"
+    },
+    {"agrees": 0,
+        "name": "Rwanda",
+        "iso3": "RWA"
+    },
+    {"agrees": 0,
+        "name": "Myanmar",
+        "iso3": "MMR"
+    },
+    {"agrees": 0,
+        "name": "Bangladesh",
+        "iso3": "BGD"
+    },
+    {"agrees": 0,
+        "name": "Andorra",
+        "iso3": "AND"
+    },
+    {"agrees": 0,
+        "name": "Afghanistan",
+        "iso3": "AFG"
+    },
+    {"agrees": 0,
+        "name": "Montenegro",
+        "iso3": "MNE"
+    },
+    {"agrees": 0,
+        "name": "Bosnia and Herz.",
+        "iso3": "BIH"
+    },
+    {"agrees": 0,
+        "name": "Uganda",
+        "iso3": "UGA"
+    },
+    {"agrees": 0,
+        "name": "USNB Guantanamo Bay",
+        "iso3": "USG"
+    },
+    {"agrees": 0,
+        "name": "Cuba",
+        "iso3": "CUB"
+    },
+    {"agrees": 0,
+        "name": "Honduras",
+        "iso3": "HND"
+    },
+    {"agrees": 0,
+        "name": "Ecuador",
+        "iso3": "ECU"
+    },
+    {"agrees": 0,
+        "name": "Colombia",
+        "iso3": "COL"
+    },
+    {"agrees": 0,
+        "name": "Paraguay",
+        "iso3": "PRY"
+    },
+    {"agrees": 0,
+        "name": "Portugal",
+        "iso3": "PRT"
+    },
+    {"agrees": 0,
+        "name": "Moldova",
+        "iso3": "MDA"
+    },
+    {"agrees": 0,
+        "name": "Turkmenistan",
+        "iso3": "TKM"
+    },
+    {"agrees": 0,
+        "name": "Jordan",
+        "iso3": "JOR"
+    },
+    {"agrees": 0,
+        "name": "Nepal",
+        "iso3": "NPL"
+    },
+    {"agrees": 0,
+        "name": "Lesotho",
+        "iso3": "LSO"
+    },
+    {"agrees": 0,
+        "name": "Cameroon",
+        "iso3": "CMR"
+    },
+    {"agrees": 0,
+        "name": "Gabon",
+        "iso3": "GAB"
+    },
+    {"agrees": 0,
+        "name": "Niger",
+        "iso3": "NER"
+    },
+    {"agrees": 0,
+        "name": "Burkina Faso",
+        "iso3": "BFA"
+    },
+    {"agrees": 0,
+        "name": "Togo",
+        "iso3": "TGO"
+    },
+    {"agrees": 0,
+        "name": "Ghana",
+        "iso3": "GHA"
+    },
+    {"agrees": 0,
+        "name": "Guinea-Bissau",
+        "iso3": "GNB"
+    },
+    {"agrees": 0,
+        "name": "Gibraltar",
+        "iso3": "GIB"
+    },
+    {"agrees": 1,
+        "name": "United States of America",
+        "iso3": "USA"
+    },
+    {"agrees": 0,
+        "name": "Canada",
+        "iso3": "CAN"
+    },
+    {"agrees": 0,
+        "name": "Mexico",
+        "iso3": "MEX"
+    },
+    {"agrees": 0,
+        "name": "Belize",
+        "iso3": "BLZ"
+    },
+    {"agrees": 0,
+        "name": "Panama",
+        "iso3": "PAN"
+    },
+    {"agrees": 0,
+        "name": "Venezuela",
+        "iso3": "VEN"
+    },
+    {"agrees": 0,
+        "name": "Papua New Guinea",
+        "iso3": "PNG"
+    },
+    {"agrees": 0,
+        "name": "Egypt",
+        "iso3": "EGY"
+    },
+    {"agrees": 0,
+        "name": "Yemen",
+        "iso3": "YEM"
+    },
+    {"agrees": 0,
+        "name": "Mauritania",
+        "iso3": "MRT"
+    },
+    {"agrees": 0,
+        "name": "Eq. Guinea",
+        "iso3": "GNQ"
+    },
+    {"agrees": 0,
+        "name": "Gambia",
+        "iso3": "GMB"
+    },
+    {"agrees": 1,
+        "name": "Hong Kong",
+        "iso3": "HKG"
+    },
+    {"agrees": 0,
+        "name": "Vatican",
+        "iso3": "VAT"
+    },
+    {"agrees": 0,
+        "name": "N. Cyprus",
+        "iso3": "CYN"
+    },
+    {"agrees": 0,
+        "name": "Cyprus U.N. Buffer Zone",
+        "iso3": "CNM"
+    },
+    {"agrees": 0,
+        "name": "Siachen Glacier",
+        "iso3": "KAS"
+    },
+    {"agrees": 0,
+        "name": "Baikonur",
+        "iso3": "KAB"
+    },
+    {"agrees": 0,
+        "name": "Akrotiri",
+        "iso3": "WSB"
+    },
+    {"agrees": 0,
+        "name": "Antarctica",
+        "iso3": "ATA"
+    },
+    {"agrees": 1,
+        "name": "Australia",
+        "iso3": "AUS"
+    },
+    {"agrees": 0,
+        "name": "Greenland",
+        "iso3": "GRL"
+    },
+    {"agrees": 0,
+        "name": "Fiji",
+        "iso3": "FJI"
+    },
+    {"agrees": 0,
+        "name": "New Zealand",
+        "iso3": "NZL"
+    },
+    {"agrees": 0,
+        "name": "New Caledonia",
+        "iso3": "NCL"
+    },
+    {"agrees": 0,
+        "name": "Madagascar",
+        "iso3": "MDG"
+    },
+    {"agrees": 0,
+        "name": "Philippines",
+        "iso3": "PHL"
+    },
+    {"agrees": 0,
+        "name": "Sri Lanka",
+        "iso3": "LKA"
+    },
+    {"agrees": 0,
+        "name": "Curaçao",
+        "iso3": "CUW"
+    },
+    {"agrees": 0,
+        "name": "Aruba",
+        "iso3": "ABW"
+    },
+    {"agrees": 0,
+        "name": "Bahamas",
+        "iso3": "BHS"
+    },
+    {"agrees": 0,
+        "name": "Turks and Caicos Is.",
+        "iso3": "TCA"
+    },
+    {"agrees": 0,
+        "name": "Taiwan",
+        "iso3": "TWN"
+    },
+    {"agrees": 0,
+        "name": "Japan",
+        "iso3": "JPN"
+    },
+    {"agrees": 0,
+        "name": "St. Pierre and Miquelon",
+        "iso3": "SPM"
+    },
+    {"agrees": 0,
+        "name": "Iceland",
+        "iso3": "ISL"
+    },
+    {"agrees": 0,
+        "name": "Pitcairn Is.",
+        "iso3": "PCN"
+    },
+    {"agrees": 0,
+        "name": "Fr. Polynesia",
+        "iso3": "PYF"
+    },
+    {"agrees": 0,
+        "name": "Fr. S. Antarctic Lands",
+        "iso3": "ATF"
+    },
+    {"agrees": 0,
+        "name": "Seychelles",
+        "iso3": "SYC"
+    },
+    {"agrees": 0,
+        "name": "Kiribati",
+        "iso3": "KIR"
+    },
+    {"agrees": 0,
+        "name": "Marshall Is.",
+        "iso3": "MHL"
+    },
+    {"agrees": 0,
+        "name": "Trinidad and Tobago",
+        "iso3": "TTO"
+    },
+    {"agrees": 0,
+        "name": "Grenada",
+        "iso3": "GRD"
+    },
+    {"agrees": 0,
+        "name": "St. Vin. and Gren.",
+        "iso3": "VCT"
+    },
+    {"agrees": 0,
+        "name": "Barbados",
+        "iso3": "BRB"
+    },
+    {"agrees": 0,
+        "name": "Saint Lucia",
+        "iso3": "LCA"
+    },
+    {"agrees": 0,
+        "name": "Dominica",
+        "iso3": "DMA"
+    },
+    {"agrees": 0,
+        "name": "U.S. Minor Outlying Is.",
+        "iso3": "UMI"
+    },
+    {"agrees": 0,
+        "name": "Montserrat",
+        "iso3": "MSR"
+    },
+    {"agrees": 0,
+        "name": "Antigua and Barb.",
+        "iso3": "ATG"
+    },
+    {"agrees": 0,
+        "name": "St. Kitts and Nevis",
+        "iso3": "KNA"
+    },
+    {"agrees": 0,
+        "name": "U.S. Virgin Is.",
+        "iso3": "VIR"
+    },
+    {"agrees": 0,
+        "name": "St-Barthélemy",
+        "iso3": "BLM"
+    },
+    {"agrees": 0,
+        "name": "Puerto Rico",
+        "iso3": "PRI"
+    },
+    {"agrees": 0,
+        "name": "Anguilla",
+        "iso3": "AIA"
+    },
+    {"agrees": 0,
+        "name": "British Virgin Is.",
+        "iso3": "VGB"
+    },
+    {"agrees": 0,
+        "name": "Jamaica",
+        "iso3": "JAM"
+    },
+    {"agrees": 0,
+        "name": "Cayman Is.",
+        "iso3": "CYM"
+    },
+    {"agrees": 0,
+        "name": "Bermuda",
+        "iso3": "BMU"
+    },
+    {"agrees": 0,
+        "name": "Heard I. and McDonald Is.",
+        "iso3": "HMD"
+    },
+    {"agrees": 0,
+        "name": "Saint Helena",
+        "iso3": "SHN"
+    },
+    {"agrees": 0,
+        "name": "Mauritius",
+        "iso3": "MUS"
+    },
+    {"agrees": 0,
+        "name": "Comoros",
+        "iso3": "COM"
+    },
+    {"agrees": 0,
+        "name": "São Tomé and Principe",
+        "iso3": "STP"
+    },
+    {"agrees": 0,
+        "name": "Cabo Verde",
+        "iso3": "CPV"
+    },
+    {"agrees": 0,
+        "name": "Malta",
+        "iso3": "MLT"
+    },
+    {"agrees": 0,
+        "name": "Jersey",
+        "iso3": "JEY"
+    },
+    {"agrees": 0,
+        "name": "Guernsey",
+        "iso3": "GGY"
+    },
+    {"agrees": 0,
+        "name": "Isle of Man",
+        "iso3": "IMN"
+    },
+    {"agrees": 0,
+        "name": "Åland",
+        "iso3": "ALD"
+    },
+    {"agrees": 0,
+        "name": "Faeroe Is.",
+        "iso3": "FRO"
+    },
+    {"agrees": 0,
+        "name": "Indian Ocean Ter.",
+        "iso3": "IOA"
+    },
+    {"agrees": 0,
+        "name": "Br. Indian Ocean Ter.",
+        "iso3": "IOT"
+    },
+    {"agrees": 0,
+        "name": "Singapore",
+        "iso3": "SGP"
+    },
+    {"agrees": 0,
+        "name": "Norfolk Island",
+        "iso3": "NFK"
+    },
+    {"agrees": 0,
+        "name": "Cook Is.",
+        "iso3": "COK"
+    },
+    {"agrees": 0,
+        "name": "Tonga",
+        "iso3": "TON"
+    },
+    {"agrees": 0,
+        "name": "Wallis and Futuna Is.",
+        "iso3": "WLF"
+    },
+    {"agrees": 0,
+        "name": "Samoa",
+        "iso3": "WSM"
+    },
+    {"agrees": 0,
+        "name": "Solomon Is.",
+        "iso3": "SLB"
+    },
+    {"agrees": 0,
+        "name": "Tuvalu",
+        "iso3": "TUV"
+    },
+    {"agrees": 0,
+        "name": "Maldives",
+        "iso3": "MDV"
+    },
+    {"agrees": 0,
+        "name": "Nauru",
+        "iso3": "NRU"
+    },
+    {"agrees": 0,
+        "name": "Micronesia",
+        "iso3": "FSM"
+    },
+    {"agrees": 0,
+        "name": "S. Geo. and the Is.",
+        "iso3": "SGS"
+    },
+    {"agrees": 0,
+        "name": "Falkland Is.",
+        "iso3": "FLK"
+    },
+    {"agrees": 0,
+        "name": "Vanuatu",
+        "iso3": "VUT"
+    },
+    {"agrees": 0,
+        "name": "Niue",
+        "iso3": "NIU"
+    },
+    {"agrees": 0,
+        "name": "American Samoa",
+        "iso3": "ASM"
+    },
+    {"agrees": 0,
+        "name": "Palau",
+        "iso3": "PLW"
+    },
+    {"agrees": 0,
+        "name": "Guam",
+        "iso3": "GUM"
+    },
+    {"agrees": 0,
+        "name": "N. Mariana Is.",
+        "iso3": "MNP"
+    },
+    {"agrees": 0,
+        "name": "Bahrain",
+        "iso3": "BHR"
+    },
+    {"agrees": 0,
+        "name": "Coral Sea Is.",
+        "iso3": "CSI"
+    },
+    {"agrees": 0,
+        "name": "Spratly Is.",
+        "iso3": "PGA"
+    },
+    {"agrees": 0,
+        "name": "Clipperton I.",
+        "iso3": "CLP"
+    },
+    {"agrees": 0,
+        "name": "Macao",
+        "iso3": "MAC"
+    },
+    {"agrees": 0,
+        "name": "Ashmore and Cartier Is.",
+        "iso3": "ATC"
+    },
+    {"agrees": 0,
+        "name": "Bajo Nuevo Bank",
+        "iso3": "BJN"
+    },
+    {"agrees": 0,
+        "name": "Serranilla Bank",
+        "iso3": "SER"
+    },
+    {"agrees": 0,
+        "name": "Scarborough Reef",
+        "iso3": "SCR"
+    }
+]
