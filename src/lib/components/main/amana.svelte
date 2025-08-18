@@ -2,7 +2,7 @@
   import { liUN } from '$lib/stores/liUN.js';
   import { Canvas } from '@threlte/core';
   import Scene from './globu.svelte';
-  import { doesLang, langUs } from '$lib/stores/lang.js';
+  import { doesLang, langUs, lang } from '$lib/stores/lang.js';
   import { goto } from '$app/navigation';
   import Maze from './maze.svelte';
   import MultiSelect from 'svelte-multiselect';
@@ -421,10 +421,9 @@ meta {
     { value: 243, label: 'Zimbabwe', heb: 'זימבבואה' }
   ];
   const name = `countries`;
-  let lang = 'he';
   let nameuse = $state(false);
   const placeholdr = { he: '', ar: '', en: '' };
-  const pl = `${placeholdr}.${lang}`;
+  const pl = `${placeholdr}.${$lang}`;
   const placeholder = `המקום שלי`;
   const required = true;
   let erorim = $state({
@@ -551,7 +550,10 @@ meta {
       regHelper.set(1);
       console.log(meData);
       fpval.set(meData.data.id);
-      console.log('fpval set:', $fpval); // Third log
+  
+      console.log($liUN)
+      console.log($email)
+      console.log($lang); // Third log
 
       let linko = `ref=true&id=${$fpval}&con=${find_contry_id(selected)}&un=${$liUN}&em=${$email}&lang=${$lang}`;
       console.log(linko);

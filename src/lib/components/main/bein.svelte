@@ -22,7 +22,7 @@ let { idx = 1 } = $props();
   };
 
   function goToRegister() {
-    window.location.href = "https://www.1lev1.com?" + encodeURIComponent(localStorage.getItem('linko'));
+    window.location.href = `https://www.1lev1.com?${encodeURIComponent(localStorage.getItem('linkos'))}`;
   }
   const levRecomend = {
     he: 'ברכותינו על הצטרפותך להסכמה! כעת אנו מזמינים אותך להירשם לאתר 1💗1 - פלטפורמה ייחודית לניהול ויצירת שותפויות בהסכמה. כאן תוכל ליצור קשרים משמעותיים ולהשתתף בפרויקטים משותפים למען עולם טוב יותר.',
@@ -91,8 +91,10 @@ let { idx = 1 } = $props();
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  background: linear-gradient(180deg, #fff 0%, #fff7fb 100%);
-  box-sizing: border-box;
+    background-color: #bbf0f3;
+    background-image: linear-gradient(315deg, #bbf0f3 0%, #f6d285 74%);
+    background-size: 100% 100%; 
+     box-sizing: border-box;
 }
 
 /* הכרטיס המרכזי */
