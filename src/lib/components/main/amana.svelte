@@ -509,12 +509,13 @@ meta {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           query: `
-      mutation CreateChezin($name: String!, $email: String!, $countries: [ID]!) {
-        createChezin(data: { name: $name, email: $email, countries: $countries }) {
+        mutation CreateChezin($name: String!, $email: String!, $countries: [ID]!, $publishedAt: DateTime) {
+        createChezin(data: { name: $name, email: $email, countries: $countries,publishedAt: $publishedAt }) {
           data { 
             id 
             attributes {
               name
+              publishedAt
               email
             }
           }
@@ -524,7 +525,8 @@ meta {
           variables: {
             name: formName,
             email: mail,
-            countries: find_contry_id(selected)
+            countries: find_contry_id(selected), 
+            publishedAt: new Date().toISOString()
           }
         })
       });
