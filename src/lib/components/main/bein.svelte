@@ -22,7 +22,7 @@ let { idx = 1 } = $props();
   };
 
   function goToRegister() {
-    window.location.href = `https://www.1lev1.com/hascama?${encodeURIComponent(localStorage.getItem('linkos'))}`;
+    window.location.href = `https://www.1lev1.com/hascama?${localStorage.getItem('linkos')}`;
   }
   const levRecomend = {
     he: 'ברכותינו על הצטרפותך להסכמה! כעת אנו מזמינים אותך להירשם לאתר 1💗1 - פלטפורמה ייחודית לניהול ויצירת שותפויות בהסכמה. כאן תוכל ליצור קשרים משמעותיים ולהשתתף בפרויקטים משותפים למען עולם טוב יותר.',
