@@ -4,7 +4,7 @@
   const PUBLIC_FACEBOOK_PAGE = ""
   const PUBLIC_GITHUB_PAGE = ""
   const PUBLIC_LINKEDIN_PROFILE = ""
-  const PUBLIC_SITE_URL = "https://love.1lev1.com"
+  const PUBLIC_SITE_URL = "https://agreement.1lev1.com"
   const PUBLIC_TELEGRAM_USERNAME = ""
   const PUBLIC_TIKTOK_USERNAME = ""
   const PUBLIC_TWITTER_USERNAME = ""
@@ -22,7 +22,7 @@ const website = {
   siteTitle: '1💗1',
   siteShortTitle: '1💗1',
   description:
-    '1💗1 Worldwide consensus for Security and Peace | collaboration platform, create together harmoniously | consensus based partnerships management platform | we can together',
+    '1💗1 Worldwide consensus for Security and Peace | we can together',
   siteUrl: PUBLIC_SITE_URL,
   backgroundColor: '#1b4079',
   themeColor: '#d62828',
