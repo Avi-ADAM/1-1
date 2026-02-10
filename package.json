@@ -55,6 +55,7 @@
     "svelte-sonner": "^1.0.5",
     "svelte-tour": "^1.0.7",
     "svelte-viewport-info": "^1.0.2",
+    "sveltekit-i18n": "^2.4.2",
     "tailwind-merge": "^2.6.0",
     "tailwind-variants": "^1.0.0",
     "tailwindcss-animate": "^1.0.7",

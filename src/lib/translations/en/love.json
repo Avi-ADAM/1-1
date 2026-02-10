@@ -1,0 +1,30 @@
+{
+    "title": "Total agreements",
+    "tooltip": {
+        "Name": "Name",
+        "iso3": "ISO3",
+        "Agrees": "Agreements"
+    },
+    "legend": {
+        "title": "Data Key",
+        "high": "High (100+)",
+        "medium": "Medium (10-99)",
+        "low": "Low (1-9)",
+        "none": "None yet"
+    },
+    "scroll": "Scroll down",
+    "cta": {
+        "header": "💗 Want to join the map?",
+        "sub": "Join thousands who choose to live by mutual consent",
+        "btn1": "Sign the agreement",
+        "btn2": "Start creating networks",
+        "footer": "Already signed? Great! Now make the vision a reality"
+    },
+    "stats": {
+        "title": "Live Statistics",
+        "total": "Total Agreements",
+        "top": "Top Country",
+        "countries": "Active Countries"
+    },
+    "loading": "One moment please"
+}
