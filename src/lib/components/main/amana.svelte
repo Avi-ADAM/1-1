@@ -437,8 +437,8 @@ meta {
   let erorims = $state(false);
 
   // Form state variables
-  let formName = $state('');
-  let formEmail = $state('');
+  let formName = $state($userName || '');
+  let formEmail = $state($email || '');
   let formErrors = $state({ name: '', email: '' });
   let g = $state(false);
   let datar;
@@ -476,10 +476,9 @@ meta {
   }
   let isSubmitting = $state(false);
 
-
   // Form submit handler
   async function handleSubmit() {
-      if (isSubmitting) return;
+    if (isSubmitting) return;
 
     track('tryToSign', {}, { flags: ['tryToSign'] });
     nameuse = false;
@@ -498,11 +497,11 @@ meta {
       scrolltotop();
       return;
     }
- try {
-    isSubmitting = true;
-    g = true;
-    erorim.st = false;
-    const mail = formEmail.toLowerCase().trim();
+    try {
+      isSubmitting = true;
+      g = true;
+      erorim.st = false;
+      const mail = formEmail.toLowerCase().trim();
 
       const response = await fetch(baseUrl + '/graphql', {
         method: 'POST',
@@ -525,7 +524,7 @@ meta {
           variables: {
             name: formName,
             email: mail,
-            countries: find_contry_id(selected), 
+            countries: find_contry_id(selected),
             publishedAt: new Date().toISOString()
           }
         })
@@ -536,41 +535,43 @@ meta {
       if (result.errors) {
         throw new Error(result.errors[0].message);
       }
-          meData = result.data.createChezin;
+      meData = result.data.createChezin;
 
       g = false;
       already = true;
       document.cookie =
         `email=${mail}; expires=` + new Date(2027, 0, 1).toUTCString();
       document.cookie =
-        `un=${formName}; expires=` +
-        new Date(2027, 0, 1).toUTCString();
+        `un=${formName}; expires=` + new Date(2027, 0, 1).toUTCString();
       userName.set(formName);
       liUN.set(formName);
       email.set(mail);
       contriesi.set(find_contry_id(selected));
-      regHelper.set(1);
-      console.log(meData);
       fpval.set(meData.data.id);
-  
-      console.log($liUN)
-      console.log($email)
-      console.log($lang); // Third log
 
-      let linko = `ref=true&id=${$fpval}&con=${find_contry_id(selected)}&un=${$liUN}&em=${$email}&lang=${$lang}`;
-      console.log(linko);
-      console.log(`https://www.1lev1.com?${encodeURIComponent(linko)}`);
+      const returnParam = new URLSearchParams(window.location.search).get(
+        'return'
+      );
+
+      let linko = `ref=true&id=${meData.data.id}&con=${find_contry_id(selected)}&un=${formName}&em=${mail}&lang=${$lang}`;
       linkos.set(linko);
       localStorage.setItem('linkos', linko);
+
+      if (returnParam) {
+        window.location.href = `https://www.1lev1.com/hascama?${linko}`;
+        return;
+      }
+
+      regHelper.set(1);
     } catch (error) {
       g = false;
       erorim.st = true;
       if (!error.response) {
         erorim.msg = 'השרת נרדם 😴, הערנו אותו, אנו מנסים שוב';
-       // sendError(JSON.stringify(error) ?? null, '/amana.svelte 467', fetch);
+        // sendError(JSON.stringify(error) ?? null, '/amana.svelte 467', fetch);
       } else {
         erorim.msg = ` ${error.response.data.message}  ${error.response.data.statusCode} :טעות לעולם חוזרת, הנה הפרטים היבשים `;
-      //  sendError(erorim.msg, '/amana.svelte 470', fetch);
+        //  sendError(erorim.msg, '/amana.svelte 470', fetch);
       }
     }
   }
@@ -640,6 +641,25 @@ const lines = document.getElementById("lines")
       }, 0);
     }
   });
+
+  $effect(() => {
+    if ($contriesi && $contriesi.length > 0 && selected.length === 0) {
+      // If contriesi contains IDs (numbers), we should convert to names
+      // If it contains names, we use them directly.
+      let first = $contriesi[0];
+      if (!isNaN(first)) {
+        // It's ID
+        let names = [];
+        for (let id of $contriesi) {
+          let c = country.find((c) => c.value == id);
+          if (c) names.push(c.heb);
+        }
+        selected = names;
+      } else {
+        selected = [...$contriesi];
+      }
+    }
+  });
 </script>
 
 <Head {title} {description} {image} {url} />
@@ -689,14 +709,12 @@ const lines = document.getElementById("lines")
   </div>
 </DialogOverlay>
 
-
 <button
   style="position: absolute; color: var(--gold); font-weight:bold; height:20px width:20px; z-index:500;"
   onclick={() => info()}
   class="ww">?</button
 >
 <div bind:clientWidth={wid} class="all">
- 
   <div
     style="position:absolute ; left: 1%; top: 1%; display: flex; flex-direction: column ; z-index: 699;"
   >
@@ -923,7 +941,7 @@ const lines = document.getElementById("lines")
                     </h1>
                   </div>
                 </div>
-                 רק בהסכמה הדדית.
+                רק בהסכמה הדדית.
               </div>
               <!----
 אני <span style="color:black; font-family:StamSefarad;  text-shadow: 1px 1px var(--mturk);">{$form.name ? $form.name : "__"}</span> אתן את אמוני בטוב הבסיסי שבאדם, ולכך מקווה ומצפה שכאשר כל האנושות כולה תסכים אלימות, קרבות וכפיה בכוח יפסיקו להיות צורה של תקשורת אנושית.
