@@ -497,7 +497,7 @@
               const returnParam = new URLSearchParams(
                 window.location.search
               ).get('return');
-              let linko = `ref=true&id=${response.data.data.id}&con=${find_contry_id(selected)}&un=${$form.name}&em=${mail}&lang=${$lang}`;
+              let linko = `ref=true&id=${response.data.data.id}&con=${find_contry_id(selected)}&un=${encodeURIComponent($form.name)}&em=${encodeURIComponent(mail)}&lang=${$lang}`;
               linkos.set(linko);
               localStorage.setItem('linkos', linko);
 

@@ -67,11 +67,11 @@
 
     if (x != null) {
       userName.set(page.url.searchParams.get('un'));
-      kvar = page.url.searchParams.get('em');
-      email.set(page.url.searchParams.get('em'));
+      kvar = decodeURIComponent(page.url.searchParams.get('em'));
+      email.set(decodeURIComponent(page.url.searchParams.get('em')));
       //cuontry freeppid
       document.cookie =
-        `email=${page.url.searchParams.get('em')}; expires=` +
+        `email=${decodeURIComponent(page.url.searchParams.get('em'))}; expires=` +
         new Date(2026, 0, 1).toUTCString();
       document.cookie =
         `un=${page.url.searchParams.get('un')}; expires=` +

@@ -553,7 +553,7 @@ meta {
         'return'
       );
 
-      let linko = `ref=true&id=${meData.data.id}&con=${find_contry_id(selected)}&un=${formName}&em=${mail}&lang=${$lang}`;
+      let linko = `ref=true&id=${meData.data.id}&con=${find_contry_id(selected)}&un=${encodeURIComponent(formName)}&em=${encodeURIComponent(mail)}&lang=${$lang}`;
       linkos.set(linko);
       localStorage.setItem('linkos', linko);
 
