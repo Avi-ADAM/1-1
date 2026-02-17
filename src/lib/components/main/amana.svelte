@@ -643,6 +643,18 @@ const lines = document.getElementById("lines")
   });
 
   $effect(() => {
+    if ($userName) {
+      formName = $userName;
+    }
+  });
+
+  $effect(() => {
+    if ($email) {
+      formEmail = $email;
+    }
+  });
+
+  $effect(() => {
     if ($contriesi && $contriesi.length > 0 && selected.length === 0) {
       // If contriesi contains IDs (numbers), we should convert to names
       // If it contains names, we use them directly.

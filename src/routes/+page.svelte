@@ -30,7 +30,9 @@
     const x = page.url.searchParams.get('ref');
     const nameParam = page.url.searchParams.get('name');
     const emailParam = page.url.searchParams.get('email');
-    const countryParam = page.url.searchParams.get('country');
+    const countryParam =
+      page.url.searchParams.get('country') ||
+      page.url.searchParams.get('location');
     const langParam = page.url.searchParams.get('lang');
     console.log(langParam, nameParam);
 
@@ -49,8 +51,18 @@
     }
     if (countryParam) {
       // Assuming country might be a comma separated list of IDs or names
-      // For now we set it directly, and the amana component will handle conversion if needed
-      contriesi.set(countryParam.split(','));
+      // Or a JSON string array
+      let countries = [];
+      try {
+        if (countryParam.trim().startsWith('[')) {
+          countries = JSON.parse(countryParam);
+        } else {
+          countries = countryParam.split(',');
+        }
+      } catch (e) {
+        countries = countryParam.split(',');
+      }
+      contriesi.set(countries);
     }
 
     if (x != null) {
@@ -76,7 +88,7 @@
       const unt = document.cookie
         .split('; ')
         .find((row) => row.startsWith('un='));
-      if (unt != null) {
+      if (unt != null && !nameParam) {
         const un = document.cookie
           .split('; ')
           .find((row) => row.startsWith('un='))
@@ -97,7 +109,7 @@
       const cookieValuet = document.cookie
         .split('; ')
         .find((row) => row.startsWith('email='));
-      if (cookieValuet != null) {
+      if (cookieValuet != null && !emailParam) {
         const cookieValue = document.cookie
           .split('; ')
           .find((row) => row.startsWith('email='))
