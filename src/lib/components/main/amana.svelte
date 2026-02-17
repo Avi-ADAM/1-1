@@ -590,8 +590,8 @@ const lines = document.getElementById("lines")
   }
 
   let isOpen = $state(false);
-  let a = $state(0),
-    h = $state();
+  let a = $state(0);
+  let h = $state(0);
 
   function sell() {
     isOpen = true;

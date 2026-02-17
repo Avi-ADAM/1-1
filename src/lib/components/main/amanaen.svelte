@@ -580,6 +580,7 @@
     }
   }
   let w = $state(0);
+  let h = $state(0);
 
   $effect(() => {
     if ($contriesi && $contriesi.length > 0 && selected.length === 0) {
