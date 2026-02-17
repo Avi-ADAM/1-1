@@ -471,7 +471,8 @@
                 data: {
                   name: $form.name,
                   email: mail,
-                  countries: find_contry_id(selected)
+                  countries: find_contry_id(selected),
+                  fullAgreement: true
                 }
               },
               {

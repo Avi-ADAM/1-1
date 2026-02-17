@@ -509,7 +509,7 @@ meta {
         body: JSON.stringify({
           query: `
         mutation CreateChezin($name: String!, $email: String!, $countries: [ID]!, $publishedAt: DateTime) {
-        createChezin(data: { name: $name, email: $email, countries: $countries,publishedAt: $publishedAt }) {
+        createChezin(data: { name: $name, email: $email, countries: $countries, publishedAt: $publishedAt, fullAgreement: true }) {
           data { 
             id 
             attributes {

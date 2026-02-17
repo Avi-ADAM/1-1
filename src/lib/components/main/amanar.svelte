@@ -667,7 +667,8 @@
           data: {
             name: $form.name,
             email: $form.email,
-            countries: find_contry_id(selected)
+            countries: find_contry_id(selected),
+            fullAgreement: true
           }
         })
       })
