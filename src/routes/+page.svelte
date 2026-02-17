@@ -32,6 +32,7 @@
     const emailParam = page.url.searchParams.get('email');
     const countryParam = page.url.searchParams.get('country');
     const langParam = page.url.searchParams.get('lang');
+    console.log(langParam, nameParam);
 
     if (langParam) {
       lang.set(langParam);
