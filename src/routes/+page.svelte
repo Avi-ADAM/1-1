@@ -2,7 +2,7 @@
   import { liUN } from '$lib/stores/liUN.js';
   import { fbl } from '$lib/stores/fbl.js';
 
-  import { lang } from '$lib/stores/lang.js';
+  import { lang, doesLang, langUs } from '$lib/stores/lang.js';
   import { page } from '$app/state';
   //const emaili = page.url.searchParams.get('code')
   import { goto } from '$app/navigation';
@@ -31,6 +31,13 @@
     const nameParam = page.url.searchParams.get('name');
     const emailParam = page.url.searchParams.get('email');
     const countryParam = page.url.searchParams.get('country');
+    const langParam = page.url.searchParams.get('lang');
+
+    if (langParam) {
+      lang.set(langParam);
+      doesLang.set(true);
+      langUs.set(langParam);
+    }
 
     if (nameParam) {
       userName.set(nameParam);
