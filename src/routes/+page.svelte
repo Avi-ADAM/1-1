@@ -46,7 +46,6 @@
     }
     if (emailParam) {
       email.set(emailParam);
-      kvar = emailParam;
     }
     if (countryParam) {
       // Assuming country might be a comma separated list of IDs or names
