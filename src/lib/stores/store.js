@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 
-export const userName = writable("מוישה זוכמיר");
+export const userName = writable("");
 
 
 
