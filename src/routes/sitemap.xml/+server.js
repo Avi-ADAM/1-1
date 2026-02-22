@@ -11,20 +11,20 @@ export async function GET() {
          xmlns:video="https://www.google.com/schemas/sitemap-video/1.1"  
        >
              <url>
-             <loc>https://love.1lev1.com/</loc>
+             <loc>https://agreement.1lev1.com/</loc>
              <lastmod>2024-03-29T20:57:22+00:00</lastmod>
              <priority>1.00</priority>
              <changefreq>weekly</changefreq>
              </url>
                        
              <url>
-             <loc>https://love.1lev1.com/love</loc>
+             <loc>https://agreement.1lev1.com/love</loc>
              <lastmod>2023-06-29T20:57:22+00:00</lastmod>
              <priority>0.85</priority>
              <changefreq>daily</changefreq>
              </url>
              <url>
-             <loc>https://1lev1.com/about</loc>
+             <loc>https://agreement.1lev1.com/about</loc>
              <lastmod>2023-06-29T20:57:22+00:00</lastmod>
              <priority>0.95</priority>
              <changefreq>weekly</changefreq>
