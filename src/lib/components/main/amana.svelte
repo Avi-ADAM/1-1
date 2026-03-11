@@ -1,4 +1,4 @@
-﻿<script>
+<script>
   import { liUN } from '$lib/stores/liUN.js';
   import { Canvas } from '@threlte/core';
   import Scene from './globu.svelte';
@@ -11,6 +11,7 @@
   import { contriesi } from '../registration/contries.js';
   import { fpval } from '../registration/fpval.js';
   import { regHelper } from '../../stores/regHelper.js';
+  import { t } from '$lib/translations';
 
   import { RingLoader } from 'svelte-loading-spinners';
   import { DialogOverlay, DialogContent } from 'svelte-accessible-dialog';
@@ -87,9 +88,10 @@ meta {
 
   function find_contry_id(contry_name_arr) {
     var arr = [];
+    let field = $lang === 'he' ? 'heb' : $lang === 'ar' ? 'ar' : 'label';
     for (let j = 0; j < contry_name_arr.length; j++) {
       for (let i = 0; i < country.length; i++) {
-        if (country[i].heb === contry_name_arr[j]) {
+        if (country[i][field] === contry_name_arr[j]) {
           arr.push(country[i].value);
         }
       }
@@ -127,9 +129,6 @@ meta {
     { value: 18, label: 'Bangladesh', heb: 'בנגלדש' },
     { value: 19, label: 'Barbados', heb: 'ברבדוס' },
     { value: 20, label: 'Belarus', heb: 'בלרוס' },
-    { value: 21, label: 'Belgium', heb: 'בלגיה' },
-    { value: 22, label: 'Belize', heb: 'בליז' },
-    { value: 26, label: 'Benin', heb: 'בנין' },
     { value: 24, label: 'Bermuda', heb: 'ברמודה' },
     { value: 27, label: 'Bhutan', heb: 'בהוטאן' },
     { value: 23, label: 'Bolivia', heb: 'בוליביה' },
@@ -567,11 +566,9 @@ meta {
       g = false;
       erorim.st = true;
       if (!error.response) {
-        erorim.msg = 'השרת נרדם 😴, הערנו אותו, אנו מנסים שוב';
-        // sendError(JSON.stringify(error) ?? null, '/amana.svelte 467', fetch);
+        erorim.msg = 'The server is asleep 😴, we woke it up, trying again';
       } else {
-        erorim.msg = ` ${error.response.data.message}  ${error.response.data.statusCode} :טעות לעולם חוזרת, הנה הפרטים היבשים `;
-        //  sendError(erorim.msg, '/amana.svelte 470', fetch);
+        erorim.msg = ` ${error.response.data.message}  ${error.response.data.statusCode} : An error occurred, here are the details `;
       }
     }
   }
@@ -621,15 +618,9 @@ const lines = document.getElementById("lines")
     a = 5;
   }
   function change(la) {
-    if (la == 'en') {
-      doesLang.set(true);
-      langUs.set('en');
-      lang.set('en');
-    } else if (la == 'ar') {
-      doesLang.set(true);
-      langUs.set('ar');
-      lang.set('ar');
-    }
+    doesLang.set(true);
+    langUs.set(la);
+    lang.set(la);
   }
   let w = $state(0);
   let wid = $state(0);
@@ -672,6 +663,28 @@ const lines = document.getElementById("lines")
       }
     }
   });
+
+  let countriesJoined = $derived.by(() => {
+    const list = selected.length > 0 ? selected : ['__'];
+    if ($lang === 'he') {
+      return list.length < 2 ? list[0] : list.join(' וכל אוכלוסיית ');
+    }
+    if ($lang === 'ar') {
+      return list.length < 2 ? list[0] : list.join(' وكل سكان ');
+    }
+    return list.join(', ');
+  });
+
+  let countriesArmyJoined = $derived.by(() => {
+    const list = selected.length > 0 ? selected : ['__'];
+    if ($lang === 'he') {
+      return list.length < 2 ? list[0] : list.join(' ושל צבא ');
+    }
+    return list.join(', ');
+  });
+
+  let countriesPlural = $derived(selected.length > 1);
+  let appointWord = $derived(countriesPlural ? 'ממנות' : 'ממנה');
 </script>
 
 <Head {title} {description} {image} {url} />
@@ -692,26 +705,26 @@ const lines = document.getElementById("lines")
           <TRan onDone={done} onErore={erorer} />
         {:else if a == 1}
           <div class="sp bg-gold">
-            <h3 class="text-barbi">נשלח בהצלחה, תודה רבה לך נעמוד בקשר</h3>
+            <h3 class="text-barbi">{$t('love.status.success')}</h3>
           </div>
         {:else if a == 2}
           <div class="flex text-center items-center justify-center bg-gold">
-            <h3 class="text-barbi">רק רגע בבקשה</h3>
+            <h3 class="text-barbi">{$t('love.status.loading')}</h3>
             <br />
             <RingLoader size="260" color="#ff00ae" unit="px" duration="2s"
             ></RingLoader>
           </div>
         {:else if a == 3}
-          <h1>אירעה שגיאה</h1>
+          <h1>{$t('love.status.error')}</h1>
           <button
             class="hover:bg-barbi text-barbi hover:text-gold bg-gold rounded-full"
-            onclick={() => (a = 0)}>לנסות שוב</button
+            onclick={() => (a = 0)}>{$t('love.status.try_again')}</button
           >
         {:else if a == 5}
-          <h1>אירעה שגיאה</h1>
+          <h1>{$t('love.status.error')}</h1>
           <button
             class="hover:bg-barbi text-barbi hover:text-gold bg-gold rounded-full"
-            onclick={() => ($a = 4)}>לנסות שוב</button
+            onclick={() => (a = 4)}>{$t('love.status.try_again')}</button
           >
         {:else if a == 6}
           <Maze />
@@ -748,8 +761,12 @@ const lines = document.getElementById("lines")
         </svg></button
       >
       <button
+        onclick={() => change('he')}
+        class="text-barbi border-2 border-gold text-bold hover:text-lturk bg-lturk text-center hover:bg-barbi px-1 py-0.5"
+        >עברית</button
+      >
+      <button
         onclick={() => change('en')}
-        title="change language to English"
         class="text-barbi border-2 border-gold text-bold hover:text-lturk bg-lturk text-center hover:bg-barbi px-1 py-0.5"
         >English</button
       >
@@ -758,37 +775,46 @@ const lines = document.getElementById("lines")
         class="text-barbi border-2 border-gold text-bold hover:text-lturk text-center bg-lturk hover:bg-barbi px-1 py-0.5"
         >العربية</button
       >
+      <button
+        onclick={() => change('fr')}
+        class="text-barbi border-2 border-gold text-bold hover:text-lturk text-center bg-lturk hover:bg-barbi px-1 py-0.5"
+        >Français</button
+      >
+      <button
+        onclick={() => change('es')}
+        class="text-barbi border-2 border-gold text-bold hover:text-lturk text-center bg-lturk hover:bg-barbi px-1 py-0.5"
+        >Español</button
+      >
+      <button
+        onclick={() => change('ru')}
+        class="text-barbi border-2 border-gold text-bold hover:text-lturk text-center bg-lturk hover:bg-barbi px-1 py-0.5"
+        >Русский</button
+      >
+      <button
+        onclick={() => change('zh')}
+        class="text-barbi border-2 border-gold text-bold hover:text-lturk text-center bg-lturk hover:bg-barbi px-1 py-0.5"
+        >中文</button
+      >
+
       <a
         class="text-barbi border-2 border-gold text-bold hover:text-lturk bg-lturk text-center hover:bg-barbi px-1 py-0.5"
-        title=" 1💗1 אודות "
+        title={$t('love.menu.about')}
         data-sveltekit-prefetch
         href="/about"
       >
-        אודות</a
-      >
-      <button
-        onclick={info}
-        title="הסבר ומידע"
-        class="text-barbi border-2 border-gold text-bold hover:text-lturk bg-lturk text-center hover:bg-barbi px-1 py-0.5"
-        >הסבר ומידע</button
-      >
-      <button
-        onclick={() => goto('/he')}
-        title="1💗1"
-        class="text-barbi border-2 border-gold text-bold hover:text-lturk bg-lturk text-center hover:bg-barbi px-1 py-0.5"
-        ><Text1lev1 /></button
+        {$t('love.menu.about')}</a
       >
       <button
         onclick={sell}
-        title="בקשת שינוי"
+        title={$t('love.menu.suggest_change')}
         class="text-barbi border-2 border-gold text-bold hover:text-lturk bg-lturk text-center hover:bg-barbi px-1 py-0.5"
-        >בקשת שינוי לטקסט</button
+        >{$t('love.menu.suggest_change')}</button
       >
       <button
         onclick={tr}
-        title="תרגום לשפות נוספות"
+        title={$t('love.menu.translate')}
         class="text-barbi border-2 border-gold text-bold hover:text-lturk bg-lturk text-center hover:bg-barbi px-1 py-0.5"
-        >תרגום לשפות נוספות</button
+        >{$t('love.menu.translate')}</button
       >
       <a
         class="text-barbi border-2 border-gold text-bold hover:text-lturk text-center bg-lturk hover:bg-barbi px-1 py-0.5"
@@ -803,22 +829,22 @@ const lines = document.getElementById("lines")
         <h3
           class="amanat"
           style="font-weight: 900; white-space: nowrap; font-family: StamSefarad, serif; font-size: 1.2em; line-height: normal;"
-          dir="rtl"
+          dir={$t('love.lang.dir')}
         >
-          שמי:
+          {$t('love.form.name_label')}
         </h3>
         <input
           id="name"
           name="name"
-          placeholder="השם שלי"
+          placeholder={$t('love.form.name_placeholder')}
           required
           bind:value={formName}
         />
         {#if formErrors.name}
-          <small style="color: red;">{formErrors.name}</small>
+          <small style="color: red;">{$t('love.form.error_name')}</small>
         {/if}
         {#if nameuse}
-          <small style="color: red;">השם שנבחר כבר תפוס</small>
+          <small style="color: red;">{$t('love.form.error_name_taken')}</small>
         {/if}
       </div>
       <div class="flexi1" style="white-space:nowrap;">
@@ -827,9 +853,9 @@ const lines = document.getElementById("lines")
             class="amanat"
             id="m"
             style="font-weight: 900; font-family: StamSefarad, serif; font-size: 1em;"
-            dir="rtl"
+            dir={$t('love.lang.dir')}
           >
-            מ:
+            {$t('love.form.country_label')}
           </h3>
         </div>
         <div>
@@ -838,31 +864,33 @@ const lines = document.getElementById("lines")
             outerDivClass="!bg-gold !text-barbi"
             inputClass="!bg-gold !text-barbi"
             liSelectedClass="!bg-barbi !text-gold"
-            {placeholder}
-            options={country.map((c) => c.heb)}
+            placeholder={$t('love.form.country_placeholder')}
+            options={country.map(
+              (c) => c[$lang === 'he' ? 'heb' : $lang === 'ar' ? 'ar' : 'label']
+            )}
           />
         </div>
         {#if erorims == true}
-          <small style="color: red;">יש לבחור לפחות מקום 1</small>
+          <small style="color: red;">{$t('love.form.error_country')}</small>
         {/if}
       </div>
       <div class="flexi2">
         <h3
           class="amanat"
           style=" font-weight: 900;   white-space: nowrap; font-family: 'StamSefarad', serif; font-size: 1.2em; line-height:normal;"
-          dir="rtl"
+          dir={$t('love.lang.dir')}
         >
-          דואר L.
+          {$t('love.form.email_label')}
         </h3>
         <input
-          placeholder="המייל שלי"
+          placeholder={$t('love.form.email_placeholder')}
           id="email"
           name="email"
           required
           bind:value={formEmail}
         />
         {#if formErrors.email}
-          <small style="color: red;">{formErrors.email}</small>
+          <small style="color: red;">{$t('love.form.error_email')}</small>
         {/if}
       </div>
     </section>
@@ -883,43 +911,29 @@ const lines = document.getElementById("lines")
       >
         <div class="card-overlay"></div>
         <div class="card-inner d overflow-y-auto">
-          <h1 dir="rtl" style="color:#cc0066; text-shadow: 1px 1px black ; ">
-            הצהרת העצמאות של
-            <span
-              style=" text-shadow: 1px 1px var(--mturk); font-family: 'Gan';"
-              >{formName ? formName : '__'}</span
-            >
-            :
+          <h1
+            dir={$t('love.lang.dir')}
+            style="color:#cc0066; text-shadow: 1px 1px black ; "
+          >
+            {$t('love.declaration.title', { name: formName || '__' })}
           </h1>
           <span
             style="font-family:David;"
             class="text-bold text-transparent bg-clip-text bg-[linear-gradient(to_bottom_right,theme(colors.gra),theme(colors.grc),theme(colors.gre),theme(colors.grc),theme(colors.gra))]"
           >
             <span style="font-family:StamSefarad,David;">
-              אני <span
-                style="color:black; font-family:StamSefarad;   text-shadow: 1px 1px var(--mturk);"
-                >{formName ? formName : '__'}</span
-              >
-              לא רוצה לפגוע באף אדם ולעולם לא אפגע באף אדם.<!--חיובי-->
+              {$t('love.declaration.body_1', { name: formName || '__' })}
               <br />
-              כי לדעתי אין שום סמכות, ערך, מטרה, אמונה, ממון או אינטרס אשר יוכל להצדיק
-              פגיעה באדם, אלימות וכפיה בכוח.
+              {$t('love.declaration.body_2', { name: formName || '__' })}
               <br />
               <div
                 class="text-center justify-center flex items-center text-bold text-transparent bg-clip-text bg-[linear-gradient(to_bottom_right,theme(colors.gra),theme(colors.grc),theme(colors.gre),theme(colors.grc),theme(colors.gra))]"
                 style="flex-wrap: wrap; font-family:StamSefarad,David;"
+                dir={$t('love.lang.dir')}
               >
-                אני <span
-                  style="color:black; font-family:StamSefarad;  text-shadow: 1px 1px var(--mturk);"
-                  >{formName ? formName : '__'}</span
-                >
-                תמיד אצור, אתנהל ואפתור חילוקי דעות ב<span
-                  role="contentinfo"
-                  class="hover:text-barbi"
-                  onkeypress={() => info()}
-                  onclick={() => info()}>"רקמות"</span
-                >
-                המתנהלות באתר
+                {$t('love.declaration.body_3_start', {
+                  name: formName || '__'
+                })}
                 <div
                   dir="ltr"
                   style="text-shadow:none;"
@@ -953,46 +967,20 @@ const lines = document.getElementById("lines")
                     </h1>
                   </div>
                 </div>
-                רק בהסכמה הדדית.
+                {$t('love.declaration.body_3_end', { name: formName || '__' })}
               </div>
-              <!----
-אני <span style="color:black; font-family:StamSefarad;  text-shadow: 1px 1px var(--mturk);">{$form.name ? $form.name : "__"}</span> אתן את אמוני בטוב הבסיסי שבאדם, ולכך מקווה ומצפה שכאשר כל האנושות כולה תסכים אלימות, קרבות וכפיה בכוח יפסיקו להיות צורה של תקשורת אנושית.
-          <br> -->
-              כאשר כל אוכלוסיית
-              <span
-                style="color: black; font-family:StamSefarad;  text-shadow: 1px 1px var(--barbi-pink);"
-                >{selected.length > 0
-                  ? `${selected.length < 2 ? selected : selected.join(' וכל אוכלוסיית ')}`
-                  : '__'}</span
-              >
-              תסכים ותחיה לפי אמנה זו אני
-              <span
-                style="color:black; font-family:StamSefarad;  text-shadow: 1px 1px var(--mturk);"
-                >{formName ? formName : '__'}</span
-              >
-              אוותר עם כל השאר על כלי הנשק שלי ועל השוטרים החמושים שמדינת
-              <span
-                style="color:black; font-family:StamSefarad;  text-shadow: 1px 1px var(--barbi-pink);"
-                >{selected.length > 0
-                  ? `${selected.length < 2 ? selected : selected.join(' ומדינת ')}`
-                  : '__'}</span
-              >
-              {selected.length > 1 ? 'ממנות' : 'ממנה'} בשמי ונחיה בהסכמה הדדית.
+              {$t('love.declaration.body_4', {
+                name: formName || '__',
+                countries: countriesJoined || '__',
+                appoint: appointWord
+              })}
               <br />
-              כאשר כל האנושות תסכים ותחיה לפי אמנה זו אני
-              <span
-                style="color:black;font-family:StamSefarad;   text-shadow: 1px 1px var(--mturk);"
-                >{formName ? formName : '__'}</span
-              >
-              אוותר על כלי הנשק של צבא
-              <span
-                style="color: black; font-family:StamSefarad;  text-shadow: 1px 1px var(--barbi-pink);"
-                >{selected.length > 0
-                  ? `${selected.length < 2 ? selected : selected.join(' ושל צבא ')}` +
-                    '.'
-                  : '__.'}</span
-              > כאשר בו זמנית יוותרו כל צבאות העולם על נשקם ונהפוך לאנושות מפורזת
-              וחופשית
+              {$t('love.declaration.body_5', {
+                name: formName || '__',
+                countries: countriesArmyJoined
+              })}
+              <br />
+              {$t('love.declaration.body_6')}
             </span>
           </span>
         </div>
@@ -1006,7 +994,7 @@ const lines = document.getElementById("lines")
             {#if $progress < 1}
               <button
                 class="button hover:scale-150"
-                title="לחצת ויצאת לחופשי"
+                title={$t('love.form.submit_title')}
                 onsubmit={handleSubmit}
                 type="submit"
               >
@@ -1022,7 +1010,7 @@ const lines = document.getElementById("lines")
             </div>
           {:else if g == true}
             <div class="sp text-center">
-              <h3 class="text-barbi">רק רגע בבקשה</h3>
+              <h3 class="text-barbi">{$t('love.status.loading')}</h3>
               <br />
               <RingLoader size="140" color="#ff00ae" unit="px" duration="2s"
               ></RingLoader>
@@ -1042,6 +1030,20 @@ const lines = document.getElementById("lines")
 </div>
 
 <style>
+  :root {
+    --cosmic-bg: #0d0a1a;
+    --card-dark: #1a0d00;
+    --card-mid: #2a1500;
+    --gold-bright: #f5d98b;
+    --gold-main: #c8a84b;
+    --gold-dim: #7a5c1e;
+    --parchment: #fef3d0;
+    --parchment-dim: #f2dfa8;
+    --ink: #1a0900;
+    --barbi-accent: #ff4fa3;
+    --turq-accent: #1de7d8;
+  }
+
   .card {
     --bg: #e8e8e8;
     --contrast: #e2e0e0;
@@ -1253,10 +1255,9 @@ animation: AnimationName 3s ease infinite;*/
       background-color: #000000;
       background-image: linear-gradient(147deg, #000000 0%, #04619f 74%);
       background-size: 400% 400%;
-      /*  -webkit-animation: AnimationName 13s ease infinite;
--moz-animation: AnimationName 13s ease infinite;
-animation: AnimationName 13s ease infinite;*/
       width: 78vw;
+      overflow: visible !important;
+      z-index: 800;
     }
   }
   .onlym {
@@ -1382,35 +1383,248 @@ animation: AnimationName 13s ease infinite;*/
   #amana-show {
     display: '';
   }
-  .amanat {
-    padding: 0 1rem;
-    text-shadow: 1px 1px var(--barbi-pink);
-    background-color: #bbf0f3;
-    background-image: linear-gradient(315deg, #bbf0f3 0%, #f6d285 74%);
-    background-size: 400% 400%;
-    -webkit-animation: AnimationName 3s ease infinite;
-    -moz-animation: AnimationName 3s ease infinite;
-    animation: AnimationName 3s ease infinite;
-    opacity: 0.8;
-  }
-  small {
-    background-color: white;
-  }
-  input {
-    font-family: inherit;
-    font-size: inherit;
-    max-width: 200px;
-    box-sizing: border-box;
-    border: 1px solid var(--barbi-pink);
-    border-radius: 4px;
-    transition: all 150ms ease;
-    background: var(--gold);
+  /* ─── מיכל שורת הקלט ─── */
+  .container {
+    position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.9em 1.4em 0.9em;
+    margin: 0 auto;
+    max-width: 1024px;
+    z-index: 650;
+    overflow: visible !important;
+
+    /* רקע — מדליה שקופה עדינה */
+    background-image: url(https://res.cloudinary.com/love1/image/upload/v1639089083/BG_umwddj.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    /* גבול זהוב עדין */
+    border-bottom: 1px solid rgba(200, 168, 75, 0.2);
   }
 
+  /* ─── תווית שם השדה (שמי / מ / דואר) ─── */
+  .amanat {
+    font-family: 'StamSefarad', serif;
+    font-weight: 900;
+    font-size: 1.05em;
+    color: var(--gold-bright);
+    text-shadow:
+      0 0 12px rgba(245, 217, 139, 0.6),
+      1px 1px 2px rgba(0, 0, 0, 0.9);
+    padding: 0 0.5rem;
+    white-space: nowrap;
+    background: transparent;
+    opacity: 1;
+    /* ביטול אנימציה ישנה */
+    animation: none;
+    -webkit-animation: none;
+  }
+
+  /* ─── עטיפת כל שדה (flexi) ─── */
+  .flexi,
+  .flexi1,
+  .flexi2 {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    position: relative;
+  }
+
+  /* ─── תיבת הקלט — עיצוב חדש ─── */
+  input {
+    font-family: 'StamSefarad', serif;
+    font-size: 0.97em;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+
+    max-width: 200px;
+    min-width: 120px;
+    padding: 0.35em 0.75em;
+    box-sizing: border-box;
+
+    /* רקע קלף */
+    background: linear-gradient(
+      135deg,
+      var(--parchment) 0%,
+      #fff8e8 60%,
+      var(--parchment) 100%
+    );
+
+    /* גבול זהוב עדין */
+    border: 1.5px solid var(--gold-main);
+    border-radius: 6px;
+
+    /* צל פנימי עדין */
+    box-shadow:
+      inset 0 1px 3px rgba(90, 50, 0, 0.15),
+      0 2px 8px rgba(200, 168, 75, 0.2),
+      0 0 0 0px rgba(200, 168, 75, 0);
+
+    transition:
+      box-shadow 220ms ease,
+      border-color 220ms ease,
+      background 220ms ease;
+  }
+
+  input::placeholder {
+    color: var(--gold-dim);
+    font-weight: 400;
+    font-style: italic;
+    opacity: 0.85;
+  }
+
+  /* ─── פוקוס — זוהר זהוב ─── */
   input:focus {
     outline: none;
-    box-shadow: 0 0 0 4px var(--barbi-pink);
-    border-color: var(--barbi-pink);
+    background: #fffdf5;
+    border-color: var(--gold-bright);
+    box-shadow:
+      inset 0 1px 2px rgba(90, 50, 0, 0.1),
+      0 0 0 3px rgba(200, 168, 75, 0.35),
+      0 0 16px rgba(245, 217, 139, 0.25);
+  }
+
+  /* ─── שגיאות ─── */
+  small {
+    font-size: 0.78em;
+    font-weight: 600;
+    color: #cc0044;
+    background: rgba(255, 240, 200, 0.95);
+    border: 1px solid rgba(200, 168, 75, 0.4);
+    border-radius: 4px;
+    padding: 1px 6px;
+    display: block;
+    margin-top: 2px;
+    white-space: nowrap;
+  }
+
+  /* ─── MultiSelect (כפתור בחירת מקום) — עקיפת ברירת מחדל ─── */
+  /* מכסה את outerDivClass שמוגדר inline */
+  :global(.multiselect) {
+    --sms-bg: var(--parchment) !important;
+    --sms-border: 1.5px solid var(--gold-main) !important;
+    --sms-focus-border: 1.5px solid var(--gold-bright) !important;
+    --sms-text-color: var(--ink) !important;
+    --sms-selected-bg: var(--gold-main) !important;
+    --sms-selected-color: var(--parchment) !important;
+
+    --sms-dropdown-z-index: 9999 !important;
+    z-index: 100;
+
+    border-radius: 6px !important;
+    min-width: 140px;
+    max-width: 200px;
+    box-shadow: 0 2px 8px rgba(200, 168, 75, 0.2) !important;
+  }
+
+  :global(.multiselect input) {
+    background: transparent !important;
+    color: var(--ink) !important;
+  }
+
+  /* ══════════════════════════════════════
+   MOBILE ≤576px — שינויים לשדות
+══════════════════════════════════════ */
+  @media (max-width: 576px) {
+    .container {
+      flex-direction: column;
+      gap: 0.8rem;
+      padding: 1.2em 1em;
+      background-image: none; /* ללא מדליה — נקי יותר */
+      border-bottom: none;
+      width: 100vw;
+    }
+
+    .flexi,
+    .flexi1,
+    .flexi2 {
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      width: 80vw;
+    }
+
+    .amanat {
+      font-size: 1em;
+      text-align: center;
+      color: var(--gold-bright);
+    }
+
+    input {
+      width: 72vw;
+      max-width: unset;
+      min-width: unset;
+      font-size: 1em;
+      padding: 0.45em 0.9em;
+    }
+
+    :global(.multiselect) {
+      min-width: 72vw !important;
+      max-width: 72vw !important;
+    }
+  }
+
+  /* ══════════════════════════════════════
+   TABLET 577–1099px
+══════════════════════════════════════ */
+  @media (min-width: 577px) and (max-width: 1099px) {
+    .container {
+      padding-top: 28vh;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .flexi,
+    .flexi1,
+    .flexi2 {
+      flex-direction: row;
+      width: auto;
+    }
+
+    input {
+      max-width: 180px;
+    }
+  }
+
+  /* ══════════════════════════════════════
+   DESKTOP ≥1100px
+══════════════════════════════════════ */
+  @media (min-width: 1100px) {
+    .container {
+      height: 170px;
+      flex-flow: row nowrap;
+      padding-top: 67px;
+
+      /* זכוכית קלה — רק במחשב */
+      backdrop-filter: blur(6px) saturate(1.2);
+      -webkit-backdrop-filter: blur(6px) saturate(1.2);
+    }
+
+    .flexi {
+      order: 1;
+      padding: 1rem;
+    }
+    .flexi1 {
+      order: 2;
+      padding: 2rem 1rem;
+      flex-direction: row;
+    }
+    .flexi2 {
+      order: 3;
+      padding: 2rem 1rem;
+      flex-direction: row;
+      white-space: nowrap;
+    }
+
+    input {
+      max-width: 210px;
+    }
   }
 
   input:disabled,
@@ -1434,13 +1648,6 @@ animation: AnimationName 13s ease infinite;*/
       padding: 1.8em 1.8em;
     }
 
-    .amanat {
-      margin: 0 auto;
-      padding: 0;
-      text-shadow: 1px 1px 4px var(--gold);
-      background-color: transparent;
-      opacity: 1;
-    }
     .mobile {
       width: 100vw;
       height: 100vh;
@@ -1479,33 +1686,6 @@ animation: AnimationName 13s ease infinite;*/
       max-height: 20vh;
     }
 
-    .flexi1 {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      order: 2;
-      line-height: normal;
-    }
-    .flexi2 {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      order: 3;
-      line-height: normal;
-    }
-    .container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      width: 100vw;
-      /*  background-size: cover;
-    background-image: url(newcoin.svg);
-  background-position: center center;
-  padding:9vh 0;*/
-    }
     /*
 .centeron{
     background-image: url('ceter.png');
@@ -1538,28 +1718,12 @@ left: 45.2%;
       -moz-animation: spin 17s linear infinite;
       animation: spin 17s linear infinite;
     }
-
-    .flexi {
-      padding-top: 2vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      order: 1;
-      white-space: nowrap;
-    }
   }
 
   @media (min-width: 577px) and (max-width: 1099px) {
     .card-inner {
       width: 84vw;
       height: 60vh;
-    }
-    .amanat {
-      margin: 0 auto;
-      padding: 0;
-      text-shadow: 1px 1px 4px var(--gold);
-      background-color: transparent;
     }
     .flexid {
       display: flex;
@@ -1615,39 +1779,6 @@ min-width: 50px;
       -moz-animation: spin 17s linear infinite;
       animation: spin 17s linear infinite;
     }
-
-    .container {
-      padding-top: 26vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    .flexi {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      order: 1;
-      white-space: nowrap;
-    }
-    .flexi1 {
-      display: flex;
-
-      order: 2;
-      flex: 0.5;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-    }
-    .flexi2 {
-      display: flex;
-
-      order: 3;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-    }
   }
 
   @media (min-width: 942px) and (max-width: 1099px) {
@@ -1657,14 +1788,6 @@ min-width: 50px;
       left: 92%;
       font-size: 1em;
       padding: 2em 2em;
-    }
-    .amanat {
-      padding: 0 1rem;
-      text-shadow: 1px 1px var(--barbi-pink);
-      background-color: var(--gold);
-      background-color: #bbf0f3;
-      background-image: linear-gradient(315deg, #bbf0f3 0%, #f6d285 74%);
-      opacity: 0.8;
     }
     .mobile {
       width: 100vw;
@@ -1704,43 +1827,7 @@ min-width: 50px;
     .amana {
       opacity: 0.9;
     }
-    .container {
-      display: flex;
-      padding-top: 10em;
-      background-image: url(https://res.cloudinary.com/love1/image/upload/v1639089083/BG_umwddj.png);
-      background-size: contain;
-      height: 170px;
-      background-repeat: no-repeat;
-      background-position: center;
-      flex-flow: row nowrap;
-      align-items: center;
-      justify-content: center;
-      flex: 0.5;
-      background-color: transparent;
-      max-width: 769px;
-    }
 
-    .flexi {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      order: 1;
-    }
-    .flexi1 {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      order: 2;
-    }
-    .flexi2 {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      order: 3;
-    }
     .flexid {
       display: flex;
       flex-direction: column;
@@ -1817,54 +1904,7 @@ left: 47.9%;
       display: flex;
       justify-content: center;
     }
-    .container {
-      display: flex;
-      padding-top: 67px;
-      background-image: url(https://res.cloudinary.com/love1/image/upload/v1639089083/BG_umwddj.png);
-      background-size: contain;
-      height: 170px;
-      background-repeat: no-repeat;
-      background-position: center;
-      flex-flow: row nowrap;
-      align-items: center;
-      justify-content: center;
-      flex: 0.5;
-      width: 100%;
-      background-color: transparent;
-      margin: 0 auto;
-      max-width: 1024px;
-    }
 
-    .flexi {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      order: 1;
-      padding: 1rem;
-      margin-top: 0.2rem;
-    }
-    .flexi1 {
-      order: 2;
-      flex-direction: row;
-      padding: 2rem 1rem;
-      margin-top: 0.2rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      line-height: normal;
-    }
-    .flexi2 {
-      order: 3;
-      flex-direction: row;
-      padding: 2rem 1rem;
-      margin-top: 0.2rem;
-      white-space: nowrap;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      line-height: normal;
-    }
     .all {
       height: 100vh;
     }

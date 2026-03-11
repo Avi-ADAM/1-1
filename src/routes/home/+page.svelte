@@ -26,7 +26,11 @@
   const languages = [
     { code: 'he', label: 'עברית', flag: '🇮🇱' },
     { code: 'en', label: 'English', flag: '🇺🇸' },
-    { code: 'ar', label: 'عربي', flag: '🇸🇦' }
+    { code: 'ar', label: 'عربي', flag: '🇸🇦' },
+    { code: 'fr', label: 'Français', flag: '🇫🇷' },
+    { code: 'es', label: 'Español', flag: '🇪🇸' },
+    { code: 'ru', label: 'Русский', flag: '🇷🇺' },
+    { code: 'zh', label: '中文', flag: '🇨🇳' }
   ];
 
   async function switchLang(code) {

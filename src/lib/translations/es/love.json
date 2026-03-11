@@ -1,0 +1,60 @@
+{
+    "title": " 1💗1 | Consenso Global por la Libertad",
+    "description": "El Consenso Global por la Libertad representa un acuerdo colectivo para defender la no violencia, el respeto mutuo y la bondad inherente de la humanidad. Al participar en este consenso, los individuos se comprometen a crear un mundo donde la coerción, el conflicto y la agresión ya no definan la comunicación humana. | Quienes acepten estos principios pueden unirse y registrarse en la plataforma 1💗1, donde pueden crear y gestionar asociaciones de manera consensuada. | Construyamos un mundo donde prevalezca la libertad y los desacuerdos encuentren resolución a través del consentimiento compartido.",
+    "form": {
+        "name_label": "La Declaración de:",
+        "name_placeholder": "mi nombre",
+        "country_label": "de:",
+        "country_placeholder": "Mi lugar",
+        "email_label": "Correo electrónico:",
+        "email_placeholder": "mi correo",
+        "submit_title": "clic por la libertad",
+        "error_name": "Se requiere el nombre",
+        "error_email": "Se requiere un correo válido",
+        "error_country": "Elija al menos un lugar",
+        "error_name_taken": "Este nombre ya está en uso"
+    },
+    "declaration": {
+        "title": "Declaración de Independencia de {{name}}:",
+        "body_1": "Yo, {{name}}, nunca usaré la violencia ni dañaré a nadie.",
+        "body_2": "Porque yo, {{name}}, no quiero ser víctima de la violencia, y porque no hay autoridad, valor, propósito, fe, dinero o interés que justifique dañar la vida de una persona a través de la violencia o la coerción.",
+        "body_3_start": "Además, me comprometo a crear, gestionar y resolver desacuerdos en la plataforma ",
+        "body_3_end": " a través del mutuo acuerdo.",
+        "body_4": "Cuando todo {{countries}} se convierta en signatario de esta Convención, yo, {{name}}, renunciaré à mis armas y a los policías armados que actúan en nombre del Estado de {{countries}}.",
+        "body_5": "También renunciaré a las armas del Ejército de {{countries}} cuando toda la humanidad se convierta en signataria de esta Convención.",
+        "body_6": "Confío en la bondad inherente de la humanidad, y espero que cuando toda la humanidad firme esta Convención, la violencia, el conflicto y la coerción dejen de ser formas de comunicación humana."
+    },
+    "status": {
+        "loading": "un momento por favor",
+        "success": "¡éxito! estaremos en contacto",
+        "error": "error",
+        "try_again": "intentar de nuevo"
+    },
+    "menu": {
+        "suggest_change": "sugerir cambio de texto",
+        "translate": "traducir",
+        "about": "acerca de"
+    },
+    "maze": {
+        "title": "¿Algo no está claro? ¡Ordenemos un poco!",
+        "site_intro": "Esta página es la página de inicio de",
+        "agreement_name": "Consenso Mundial por la Libertad",
+        "is_fabric": "que es un \"tejido\" gestionado en el sitio",
+        "prerequisite": "Esta página también es un requisito previo obligatorio para registrarse en",
+        "after_agreement": "Tras completar el acuerdo y hacer clic en el botón, se abre el registro en",
+        "details_title": "Con más detalle:",
+        "about_1lev1_title": "¿Qué es 1💗1?",
+        "about_1lev1_body": "1💗1 es un sitio web separado para gestionar acuerdos. Puede reunir y gestionar grupos llamados tejidos en torno a cualquier sueño u objetivo. Se pueden negociar acuerdos dentro de un tejido y llegar a una decisión conjunta.",
+        "about_fabric_title": "Consenso Mundial por la Libertad",
+        "about_fabric_body": "Uno de los tejidos en 1💗1 es el Consenso Mundial por la Libertad. Su objetivo es unir el acuerdo de toda la humanidad sobre una conducta libre. Como los tejidos en 1💗1 operan libremente, acordar esto es un requisito previo.",
+        "how_works": "¿Cómo funciona?",
+        "step1": "Completa nombre, lugar y correo electrónico arriba — el texto se personalizará",
+        "step2": "Haz clic en el botón del globo para enviar el acuerdo",
+        "step3": "El registro en 1💗1 se abrirá inmediatamente después",
+        "visit_1lev1": "Visitar 1💗1",
+        "label": "Idioma"
+    },
+    "lang": {
+        "dir": "ltr"
+    }
+}

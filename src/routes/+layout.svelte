@@ -2,48 +2,49 @@
 	import "../app.postcss";
 
 import { lang, doesLang, langUs } from '$lib/stores/lang.js'
-  import { onMount } from 'svelte';
-  let { data, children } = $props();
-function getLang() {
-  console.log(data)
+import { onMount } from 'svelte';
+import { loadTranslations, locale } from '$lib/translations';
+
+let { data, children } = $props();
+
+async function getLang() {
     let la;
-    const fromSe = data.userAgent
+    const fromSe = data.userAgent || "";
     if ($doesLang == false) {
-       
-   if (fromSe.includes("he")){
-        la = "he"
-  } else if (fromSe.includes("ar")){
-        la = "ar"
-   } else{
-      la = "en"
+        if (fromSe.includes("he")) {
+            la = "he";
+        } else if (fromSe.includes("ar")) {
+            la = "ar";
+        } else if (fromSe.includes("fr")) {
+            la = "fr";
+        } else if (fromSe.includes("ru")) {
+            la = "ru";
+        } else if (fromSe.includes("es")) {
+            la = "es";
+        } else {
+            la = "en";
+        }
+    } else {
+        la = $langUs;
     }
-   }
     
-    else {
-        la = $langUs
-    }
-   // if (navigator.languages != undefined)
-   //     return navigator.languages[0];
-   // return navigator.language;
-    lang.set(la)
-    document.cookie = `lang=${$lang}; expires=` + new Date(2029, 0, 1).toUTCString();
+    lang.set(la);
+    locale.set(la);
+    await loadTranslations(la);
+    document.cookie = `lang=${la}; expires=` + new Date(2029, 0, 1).toUTCString();
 }
 
 onMount(async () => {
-   getLang()
-   let x;
-   let user;
-   /*
-   if($lang != "he" && $lang != "ar" && x == null && user == 0){
-        console.log('after', $lang)
-    goto("/en")
-  } else if($lang == "ar" && x == null && user == 0){
-      console.log('Registration', $lang)
+    await getLang();
+});
 
-    goto("/ar")
-  }
-  */
-})
+// Sync locale whenever lang store changes
+$effect(() => {
+    if ($lang) {
+        locale.set($lang);
+        loadTranslations($lang);
+    }
+});
 </script>
 
 	{@render children?.()}

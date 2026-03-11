@@ -16,8 +16,7 @@
   import { onMount } from 'svelte';
   import { email } from '$lib/components/registration/email.js';
   import { linkos } from '$lib/stores/linkos.js';
-  import Amanaen from '$lib/components/main/amanaen.svelte';
-  import Amanar from '$lib/components/main/amanar.svelte';
+
 
   let idx = $state(1);
   let error;
@@ -250,13 +249,7 @@ regHelperL = 0;
   {:else if regHelperL == 1}
     <One {idx} />
   {:else if regHelperL == 0}
-    {#if $lang == 'he'}
-      <Amana1 {idx} />
-    {:else if $lang == 'ar'}
-      <Amanar {idx} />
-    {:else}
-      <Amanaen {idx} />
-    {/if}
+    <Amana1 {idx} />
   {/if}
 </div>
 

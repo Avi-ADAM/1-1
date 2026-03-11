@@ -1,0 +1,97 @@
+{
+    "title": "已同意总数",
+    "tooltip": {
+        "Name": "姓名",
+        "iso3": "ISO3",
+        "Agrees": "同意"
+    },
+    "legend": {
+        "title": "数据键",
+        "high": "高 (100+)",
+        "medium": "中 (10-99)",
+        "low": "低 (1-9)",
+        "none": "暂无"
+    },
+    "scroll": "向下滚动",
+    "cta": {
+        "header": "💗 想要加入地图吗？",
+        "sub": "加入成千上万选择共同协商生活的人们",
+        "btn1": "签署协议",
+        "btn2": "开始创建网络",
+        "footer": "已经签署了？太棒了！现在让愿景成为现实"
+    },
+    "stats": {
+        "title": "实时统计",
+        "total": "总协议数",
+        "top": "领先国家",
+        "countries": "活跃国家"
+    },
+    "loading": "请稍候",
+    "hero_title": "关于自由与安全的全球协议",
+    "hero_subtitle": "通往基于爱、自由和所有人类安全的全球愿景之门。选择您的下一步。",
+    "card_agreement_title": "协议 📜",
+    "card_agreement_desc": "阅读完整的协议文件并加入历史性的变革。",
+    "card_love_title": "协议地图 🗺️",
+    "card_love_desc": "查看有多少人已经加入并同意爱与自由的愿景。",
+    "card_about_title": "关于我们 🌍",
+    "card_about_desc": "了解我们、我们的愿景以及我们为什么开始这段旅程。",
+    "btn_agreement": "前往协议！",
+    "btn_love": "查看有多少人同意",
+    "btn_about": "进入阅读",
+    "form": {
+        "name_label": "宣言人：",
+        "name_placeholder": "我的姓名",
+        "country_label": "来自：",
+        "country_placeholder": "我的地点",
+        "email_label": "电子邮件：",
+        "email_placeholder": "我的电子邮件",
+        "submit_title": "点击以获得自由",
+        "error_name": "姓名是必填项",
+        "error_email": "需要有效的电子邮件",
+        "error_country": "请至少选择一个地点",
+        "error_name_taken": "该姓名已被占用"
+    },
+    "declaration": {
+        "title": "{{name}} 的独立宣言：",
+        "body_1": "我，{{name}}，绝不使用暴力或伤害任何人。",
+        "body_2": "因为我，{{name}}，不想成为暴力的受害者，而且没有任何权力、价值、目的、信仰、金钱或利益可以证明通过暴力或胁迫伤害人的生命是正当的。",
+        "body_3_start": "此外，我承诺在 ",
+        "body_3_end": " 平台上通过共同协商来创建、管理和解决分歧。",
+        "body_4": "当整个 {{countries}} 成为本公约的签署方时，我，{{name}}，将放弃我的武器以及代表 {{countries}} 国家行事的武装警察。",
+        "body_5": "当全人类都成为本公约的签署方时，我也将放弃 {{countries}} 军队的武器。",
+        "body_6": "我相信人性本善，我希望当全人类签署本公约时，暴力、冲突和胁迫将不再是人类交流的形式。"
+    },
+    "status": {
+        "loading": "请稍候",
+        "success": "成功！我们将保持联系",
+        "error": "错误",
+        "try_again": "重试"
+    },
+    "menu": {
+        "suggest_change": "建议更改文本",
+        "translate": "翻译",
+        "about": "关于"
+    },
+    "maze": {
+        "title": "有什么不明白的？来理清思路！",
+        "site_intro": "此页面是",
+        "agreement_name": "全球自由共识",
+        "is_fabric": "的主页，它是在网站上管理的一个\"织物\"",
+        "prerequisite": "此页面也是注册网站的必要前提条件",
+        "after_agreement": "填写协议并点击按钮后，注册将在",
+        "details_title": "更多详情：",
+        "about_1lev1_title": "什么是 1💗1？",
+        "about_1lev1_body": "1💗1 是一个独立的协议管理网站。它可以围绕任何梦想或目标聚集和管理称为\"织物\"的群体。可以在织物内协商协议并达成共同决定。协议覆盖了织物所做的一切——任务分配、资源和收益。",
+        "about_fabric_title": "全球自由共识",
+        "about_fabric_body": "1💗1 上的织物之一是全球自由共识。其目标是凝聚全人类对自由行为的共识。由于 1💗1 上的织物自由运作，同意此协议是注册的前提条件。",
+        "how_works": "如何运作？",
+        "step1": "在上方填写姓名、地点和电子邮件——文本将个性化",
+        "step2": "点击地球按钮提交协议",
+        "step3": "之后将立即开放 1💗1 的注册",
+        "visit_1lev1": "访问 1💗1",
+        "label": "语言"
+    },
+    "lang": {
+        "dir": "ltr"
+    }
+}

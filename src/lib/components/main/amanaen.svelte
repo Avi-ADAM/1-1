@@ -6,7 +6,7 @@
   import { regHelper } from '../../stores/regHelper.js';
   import * as yup from 'yup';
   import { liUN } from '$lib/stores/liUN.js';
-
+  import { t } from '$lib/translations';
   import axios from 'axios';
   import { lang, doesLang, langUs } from '$lib/stores/lang.js';
   import { goto } from '$app/navigation';
