@@ -26,5 +26,19 @@
         "top": "Top Country",
         "countries": "Active Countries"
     },
-    "loading": "One moment please"
+    "loading": "One moment please",
+    "hero_title": "Global Agreement on Freedom and Security",
+    "hero_subtitle": "The gateway to a vision of a world based on love, freedom, and security for all humans. Choose your next step.",
+    "card_agreement_title": "The Agreement 📜",
+    "card_agreement_desc": "Read the full agreement document and join the historic change.",
+    "card_love_title": "Agreement Map 🗺️",
+    "card_love_desc": "See how many people have already joined and agreed to a vision of love and freedom.",
+    "card_about_title": "About Us 🌍",
+    "card_about_desc": "Get to know us, our vision, and why we started this journey.",
+    "btn_agreement": "To Agreement!",
+    "btn_love": "See how many agreed",
+    "btn_about": "Enter to read",
+    "lang": {
+        "dir": "ltr"
+    }
 }

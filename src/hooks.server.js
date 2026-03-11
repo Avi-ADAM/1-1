@@ -59,6 +59,13 @@ export async function handle({ event, resolve }) {
   // Set language cookie based on URL path
   if (event.url.pathname === '/en' || event.url.pathname === '/ar' || event.url.pathname === '/he') {
     event.cookies.set('lang', lang, { path: '/' });
+    //navigate to "/"
+    return new Response(null, {
+      status: 302,
+      headers: {
+        Location: '/'
+      }
+    });
   }
 
   // Redirect logic based on authentication

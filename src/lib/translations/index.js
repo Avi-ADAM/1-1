@@ -11,7 +11,7 @@ export const config = {
         {
             locale: 'en',
             key: 'love',
-            routes: ['/love'], 
+            routes: ['/love', '/home'], 
             loader: async () => (await import('./en/love.json')).default,
         },
         {
@@ -22,7 +22,7 @@ export const config = {
         {
             locale: 'he',
             key: 'love',
-            routes: ['/love'], 
+            routes: ['/love', '/home'], 
             loader: async () => (await import('./he/love.json')).default,
         },
         {
@@ -34,7 +34,7 @@ export const config = {
         {
             locale: 'ar',
             key: 'love',
-            routes: ['/love'], 
+            routes: ['/love', '/home'], 
             loader: async () => (await import('./ar/love.json')).default,
         },
         {
