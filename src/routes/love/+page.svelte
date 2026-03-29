@@ -100,9 +100,11 @@
 {:then value}
   <div class="page-wrapper">
     <div class="map-section">
-      <h1 class="main-title">
-        {$t('love.title')} - {noof}
-      </h1>
+      <header class="page-header">
+        <h1 class="main-title">{$t('love.site_title')}</h1>
+        <h2 class="secondary-title">{$t('love.site_subtitle')}</h2>
+        <p class="stats-count">{$t('love.title')}: {noof}</p>
+      </header>
 
       {#if value.length > 0 && isok}
         <div class="wwa">
@@ -339,13 +341,39 @@
     background-color: rgb(103, 232, 249);
   }
 
-  .main-title {
-    font-size: 24px;
-    margin-top: 20px;
-    margin-bottom: 10px;
+  /* Page Header */
+  .page-header {
     text-align: center;
+    padding: 20px 16px 10px;
+  }
+
+  .main-title {
+    font-size: clamp(1.75rem, 5vw, 2.75rem);
+    font-weight: 800;
+    margin: 0 0 4px;
     color: #ff0092;
-    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+    text-shadow: 0 2px 4px rgba(255, 0, 146, 0.2);
+    letter-spacing: -0.01em;
+  }
+
+  .secondary-title {
+    font-size: clamp(0.9rem, 2.5vw, 1.15rem);
+    font-weight: 500;
+    margin: 0 0 8px;
+    color: rgba(0, 0, 0, 0.6);
+    line-height: 1.4;
+  }
+
+  .stats-count {
+    font-size: clamp(0.85rem, 2vw, 1rem);
+    font-weight: 600;
+    margin: 0;
+    color: #667eea;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 6px 16px;
+    border-radius: 999px;
+    display: inline-block;
+    backdrop-filter: blur(8px);
   }
 
   /* Stats Section */

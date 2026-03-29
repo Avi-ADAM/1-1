@@ -1,11 +1,21 @@
-﻿
+
+<script>
+	import { t } from '$lib/translations';
+	import { lang } from '$lib/stores/lang.js';
+</script>
+
 <svelte:head>
-	<title>אודות הסכמה על שלום וביטחון</title>
+	<title>{$t('love.site_title')} | {$t('love.card_about_title')}</title>
 </svelte:head>
 
 
 	  
-<div class="body">	  
+<div class="body">
+	<!-- Page Header -->
+	<header class="about-page-header" dir={$t('love.lang.dir')}>
+		<h1 class="about-main-title">{$t('love.site_title')}</h1>
+		<h2 class="about-secondary-title">{$t('love.site_subtitle')}</h2>
+	</header>
 		
 <div class="welcome" dir="rtl">
 	<picture>
@@ -64,6 +74,31 @@
 </div>
 
 <style>
+	/* About Page Header */
+	.about-page-header {
+		text-align: center;
+		padding: 24px 16px 16px;
+		background: linear-gradient(180deg, rgba(0, 0, 0, 0.8), transparent);
+	}
+
+	.about-main-title {
+		font-size: clamp(1.75rem, 5vw, 2.5rem);
+		font-weight: 800;
+		margin: 0 0 6px;
+		background: linear-gradient(135deg, #ffffff 0%, #c7d2fe 50%, #fecdd3 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+
+	.about-secondary-title {
+		font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+		font-weight: 400;
+		margin: 0;
+		color: rgba(255, 255, 255, 0.65);
+		line-height: 1.4;
+	}
+
 		.body  {
 
 			height: 100vh;

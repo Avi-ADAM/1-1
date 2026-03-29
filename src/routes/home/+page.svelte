@@ -155,8 +155,11 @@
         {/if}
 
         <h1 class="hero-title">
-          {$t('love.hero_title')}
+          {$t('love.site_title')}
         </h1>
+        <h2 class="hero-secondary-title">
+          {$t('love.site_subtitle')}
+        </h2>
         <p class="hero-subtitle">
           {$t('love.hero_subtitle')}
         </p>
@@ -634,9 +637,9 @@
   }
 
   .hero-title {
-    font-size: clamp(2rem, 5vw, 3.75rem);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
     font-weight: 800;
-    line-height: 1.15;
+    line-height: 1.1;
     background: linear-gradient(
       135deg,
       #ffffff 0%,
@@ -648,7 +651,18 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
     max-width: 700px;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.25rem;
+  }
+
+  .hero-secondary-title {
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 600px;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.01em;
   }
 
   .hero-subtitle {
