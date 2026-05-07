@@ -4,8 +4,8 @@
   import { derived } from 'svelte/store';
 
   // ── Infographic images (place in /static/infographics/) ──────────────────
-  const INFOGRAPHIC_1 = '/he/infographic-consensus.png'; // unnamed.png  → rename
-  const INFOGRAPHIC_2 = '/he/infographic-agreement.png'; // unnamed__1___2_.png → rename
+  //const INFOGRAPHIC_1 = '/he/infographic-consensus.png'; // unnamed.png  → rename
+  //const INFOGRAPHIC_2 = '/he/infographic-agreement.png'; // unnamed__1___2_.png → rename
 
   // ── Language metadata ─────────────────────────────────────────────────────
   const RTL_LANGS = ['he', 'ar'];
@@ -519,7 +519,7 @@ Es un viaje de 9 mil millones de pasos. Solo puedes dar tu propio paso, y es cru
   <div class="max-w-6xl mx-auto px-4 pb-10">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
       <!-- Infographic 1 -->
-      {#if lang == 'he'}
+     <!--- {#if lang == 'he'}
         <figure
           class="rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-pink-900/20 bg-white/5"
         >
@@ -548,7 +548,7 @@ Es un viaje de 9 mil millones de pasos. Solo puedes dar tu propio paso, y es cru
             {content.infographic2Caption}
           </figcaption>
         </figure>
-      {/if}
+      {/if}-->
     </div>
   </div>
 
