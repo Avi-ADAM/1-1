@@ -30,7 +30,7 @@
       principleTitle: 'העיקרון המנחה',
       principleText: `מסד נתונים של הסכמות יוכיח כי הרוב הדומם ברחבי העולם שותף לשאיפה בסיסית לחיים ללא אלימות וכפייה, חרף הבדלים פוליטיים ותרבותיים עמוקים.`,
 
-      audienceTabs:[
+      audienceTabs: [
         {
           id: 'secular',
           label: 'חופש ואוטונומיה',
@@ -83,7 +83,7 @@
       principleTitle: 'Guiding Principle',
       principleText: `A database of agreements will prove that the world's silent majority shares a fundamental aspiration for a life free from violence and coercion, despite deep political and cultural differences.`,
 
-      audienceTabs:[
+      audienceTabs: [
         {
           id: 'conservative',
           label: 'Freedom and Liberty',
@@ -136,7 +136,7 @@ It is a journey of 9 billion steps. You can only take your own single step, and 
       principleTitle: 'المبدأ التوجيهي',
       principleText: `قاعدة بيانات من الاتفاقيات ستُثبت أن الأغلبية الصامتة في العالم تشترك في تطلع أساسي لحياة خالية من العنف والإكراه، رغم الاختلافات السياسية والثقافية العميقة.`,
 
-      audienceTabs:[
+      audienceTabs: [
         {
           id: 'traditional',
           label: 'الصُّلح، المصالحة والأمان',
@@ -190,7 +190,7 @@ It is a journey of 9 billion steps. You can only take your own single step, and 
       principleTitle: 'Руководящий принцип',
       principleText: `База данных соглашений докажет, что молчаливое большинство мира разделяет фундаментальное стремление к жизни без насилия и принуждения, несмотря на глубокие политические и культурные различия.`,
 
-      audienceTabs:[
+      audienceTabs: [
         {
           id: 'main',
           label: 'Свобода без принуждения',
@@ -237,7 +237,7 @@ It is a journey of 9 billion steps. You can only take your own single step, and 
       principleTitle: 'Principe directeur',
       principleText: `Une base de données d'accords prouvera que la majorité silencieuse du monde partage une aspiration fondamentale à une vie sans violence ni coercition, malgré de profondes différences politiques et culturelles.`,
 
-      audienceTabs:[
+      audienceTabs: [
         {
           id: 'main',
           label: 'Liberté sans coercition',
@@ -284,7 +284,7 @@ C'est un voyage de 9 milliards de pas. Vous ne pouvez faire que votre propre pas
       principleTitle: '指导原则',
       principleText: `协议数据库将证明，世界上沉默的大多数人共同渴望过上没有暴力和强制的生活，尽管存在深刻的政治和文化差异。`,
 
-      audienceTabs:[
+      audienceTabs: [
         {
           id: 'main',
           label: '没有强制的自由',
@@ -331,7 +331,7 @@ C'est un voyage de 9 milliards de pas. Vous ne pouvez faire que votre propre pas
       principleTitle: 'Principio rector',
       principleText: `Una base de datos de acuerdos demostrará que la mayoría silenciosa del mundo comparte una aspiración fundamental a una vida sin violencia ni coerción, a pesar de las profundas diferencias políticas y culturales.`,
 
-      audienceTabs:[
+      audienceTabs: [
         {
           id: 'main',
           label: 'Libertad sin coerción',
@@ -368,6 +368,17 @@ Es un viaje de 9 mil millones de pasos. Solo puedes dar tu propio paso, y es cru
   let currentLang = $state('he');
   let activeTab = $state(0);
 
+  // ── Background image rotation ─────────────────────────────────────────────
+  const BG_IMAGES = [3, 6];
+  let bgIndex = $state(0);
+
+  $effect(() => {
+    const interval = setInterval(() => {
+      bgIndex = (bgIndex + 1) % BG_IMAGES.length;
+    }, 15000);
+    return () => clearInterval(interval);
+  });
+
   // Listen to the store
   $effect(() => {
     const unsubscribe = locale.subscribe((val) => {
@@ -383,7 +394,7 @@ Es un viaje de 9 mil millones de pasos. Solo puedes dar tu propio paso, y es cru
   let isRTL = $derived(RTL_LANGS.includes(currentLang));
 
   // All supported languages for the switcher
-  const LANGUAGES =[
+  const LANGUAGES = [
     { code: 'he', label: 'עברית', flag: '🇮🇱' },
     { code: 'en', label: 'English', flag: '🇺🇸' },
     { code: 'ar', label: 'العربية', flag: '🌍' },
@@ -409,27 +420,33 @@ Es un viaje de 9 mil millones de pasos. Solo puedes dar tu propio paso, y es cru
      ABOUT PAGE
 ════════════════════════════════════════════════════════════════════════════ -->
 <div
-  class="about-root min-h-screen bg-black text-white overflow-x-hidden"
+  class="about-root min-h-screen bg-black text-white overflow-x-hidden relative"
   dir={content.dir}
   lang={currentLang}
 >
+  <!-- Light dimming overlay -->
+  <div class="fixed inset-0 pointer-events-none bg-black/20 z-[60]"></div>
+
   <!-- ── Hero banner ──────────────────────────────────────────────────────── -->
 
   <div class="relative w-full overflow-hidden" style="aspect-ratio: 9/2;">
-    {#if lang == 'he'}
-      <picture>
-        <source
-          srcset="https://res.cloudinary.com/love1/image/upload/v1639246150/%D7%A9%D7%9C%D7%95%D7%9D_ej69q7.jpg"
-          type="image/webp"
-        />
-        <img
-          src="https://res.cloudinary.com/love1/image/upload/v1639246150/%D7%A9%D7%9C%D7%95%D7%9D_ej69q7.jpg"
-          alt="שלום"
-          class="absolute inset-0 w-full h-full object-cover"
-        />
-      </picture>{/if}
+    {#each BG_IMAGES as bg, i}
+      <div 
+        class="absolute inset-0 w-full h-full transition-all duration-[3000ms] ease-in-out {bgIndex === i ? 'opacity-100 scale-105' : 'opacity-0 scale-100'}"
+      >
+        <picture>
+          <source srcset="/bg/{bg}.png" type="image/webp" />
+          <img
+            src="/bg/{bg}.png"
+            alt="שלום"
+            class="w-full h-full object-cover"
+          />
+        </picture>
+      </div>
+    {/each}
+
     <div
-      class="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/80"
+      class="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/80 z-10"
     ></div>
 
     <!-- Language switcher — always top-right visually -->
@@ -518,8 +535,8 @@ Es un viaje de 9 mil millones de pasos. Solo puedes dar tu propio paso, y es cru
   <!-- ── Infographics ────────────────────────────────────────────────────── -->
   <div class="max-w-6xl mx-auto px-4 pb-10">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
-      <!-- Infographic 1 -->
-     <!--- {#if lang == 'he'}
+      <!-- Infographic 1 
+      {#if lang == 'he'}
         <figure
           class="rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-pink-900/20 bg-white/5"
         >
@@ -534,7 +551,8 @@ Es un viaje de 9 mil millones de pasos. Solo puedes dar tu propio paso, y es cru
           </figcaption>
         </figure>
 
-        <!-- Infographic 2 -->
+      -->
+      <!-- Infographic 2  --><!----
         <figure
           class="rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-cyan-900/20 bg-white/5"
         >
@@ -628,7 +646,9 @@ Es un viaje de 9 mil millones de pasos. Solo puedes dar tu propio paso, y es cru
         class="absolute inset-0 bg-gradient-to-t from-pink-900/20 to-transparent pointer-events-none"
       ></div>
 
-      <h3 class="text-2xl sm:text-3xl font-bold text-pink-400 mb-6 drop-shadow-md">
+      <h3
+        class="text-2xl sm:text-3xl font-bold text-pink-400 mb-6 drop-shadow-md"
+      >
         {content.journeyTitle}
       </h3>
       <p
@@ -733,6 +753,22 @@ Es un viaje de 9 mil millones de pasos. Solo puedes dar tu propio paso, y es cru
         1💗1
       </a>
     </p>
+  </div>
+
+  <!-- ── Bottom Decorative Image ────────────────────────────────────────── -->
+  <div
+    class="w-full relative overflow-hidden mt-12"
+    style="aspect-ratio: 1881/836; min-height: 300px;"
+  >
+    <img
+      src="/bg/1.png"
+      alt="background decoration"
+      class="w-full h-full object-cover"
+    />
+    <!-- Gradient: Dimmed at top, full brightness at bottom -->
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-black via-black/40 to-transparent"
+    ></div>
   </div>
 </div>
 
