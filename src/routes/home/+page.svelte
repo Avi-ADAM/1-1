@@ -176,7 +176,7 @@
       <div class="cards-grid">
         <!-- Agreement Card -->
         <a
-          href="/"
+          href="/hascama"
           class="card card-agreement"
           in:fly={{ y: 60, duration: 700, delay: 300 }}
         >
@@ -240,7 +240,7 @@
 
         <!-- About Card -->
         <a
-          href="/about"
+          href="/"
           class="card card-about"
           in:fly={{ y: 60, duration: 700, delay: 700 }}
         >
@@ -276,7 +276,7 @@
     {#if visible}
       <section class="bottom-cta" in:fade={{ duration: 800, delay: 1000 }}>
         <p class="cta-text">{$t('love.cta.sub')}</p>
-        <a href="/" class="cta-button">
+        <a href="/hascama" class="cta-button">
           <span class="cta-button-bg"></span>
           <span class="cta-button-text">{$t('love.cta.btn1')}</span>
         </a>

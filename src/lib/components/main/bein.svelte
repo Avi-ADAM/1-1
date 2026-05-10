@@ -54,7 +54,7 @@ let { idx = 1 } = $props();
 
     <aside class="actions">
       <div class="navigation-links">
-        <a href="/about" class="nav-link about-link">
+        <a href="/" class="nav-link about-link">
           {$lang === 'he' ? 'אודות האמנה' : $lang === 'en' ? 'About the Charter' : 'حول الميثاق'}
         </a>
         <a href="/love" class="nav-link love-link">

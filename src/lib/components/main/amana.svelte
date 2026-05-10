@@ -800,7 +800,7 @@ const lines = document.getElementById("lines")
         class="text-barbi border-2 border-gold text-bold hover:text-lturk bg-lturk text-center hover:bg-barbi px-1 py-0.5"
         title={$t('love.menu.about')}
         data-sveltekit-prefetch
-        href="/about"
+        href="/"
       >
         {$t('love.menu.about')}</a
       >
