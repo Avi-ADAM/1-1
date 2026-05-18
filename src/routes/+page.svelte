@@ -672,7 +672,6 @@ Es un viaje de 9 mil millones de pasos. Solo puedes dar tu propio paso, y es cru
       <p class="text-white/70 mb-6">{content.ctaText}</p>
       <a
         href="https://agreement.1lev1.com/hascama"
-        target="_blank"
         class="inline-block bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-400 hover:to-purple-400
                text-white font-bold py-3 px-8 rounded-full transition-all duration-200
                shadow-lg shadow-pink-500/30 hover:shadow-pink-500/50 hover:scale-105"
