@@ -431,8 +431,11 @@ Es un viaje de 9 mil millones de pasos. Solo puedes dar tu propio paso, y es cru
 
   <div class="relative w-full overflow-hidden" style="aspect-ratio: 9/2;">
     {#each BG_IMAGES as bg, i}
-      <div 
-        class="absolute inset-0 w-full h-full transition-all duration-[3000ms] ease-in-out {bgIndex === i ? 'opacity-100 scale-105' : 'opacity-0 scale-100'}"
+      <div
+        class="absolute inset-0 w-full h-full transition-all duration-[3000ms] ease-in-out {bgIndex ===
+        i
+          ? 'opacity-100 scale-105'
+          : 'opacity-0 scale-100'}"
       >
         <picture>
           <source srcset="/bg/{bg}.png" type="image/webp" />
@@ -668,7 +671,7 @@ Es un viaje de 9 mil millones de pasos. Solo puedes dar tu propio paso, y es cru
       <h2 class="text-white font-bold text-2xl mb-2">{content.ctaTitle}</h2>
       <p class="text-white/70 mb-6">{content.ctaText}</p>
       <a
-        href="https://agreement.1lev1.com"
+        href="https://agreement.1lev1.com/hascama"
         target="_blank"
         class="inline-block bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-400 hover:to-purple-400
                text-white font-bold py-3 px-8 rounded-full transition-all duration-200
