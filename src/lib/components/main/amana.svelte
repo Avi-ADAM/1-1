@@ -683,6 +683,16 @@ const lines = document.getElementById("lines")
   onclick={() => info()}
   class="ww">?</button
 >
+<div
+  class="globe-bg"
+  aria-hidden="true"
+  bind:clientWidth={w}
+  bind:clientHeight={h}
+>
+  <Canvas size={{ width: w, height: h }}>
+    <Scene onClick={() => {}} onSubmit={handleSubmit} />
+  </Canvas>
+</div>
 <div bind:clientWidth={wid} class="all">
   <div
     style="position:absolute ; left: 1%; top: 1%; display: flex; flex-direction: column ; z-index: 699;"
@@ -972,7 +982,7 @@ const lines = document.getElementById("lines")
     </div>
 
     <form>
-      <div class="flexid" bind:clientWidth={w} bind:clientHeight={h}>
+      <div class="flexid">
         {#if already == false}
           {#if g == false}
             <button
@@ -983,24 +993,6 @@ const lines = document.getElementById("lines")
             >
               {$t('love.form.submit_button')}
             </button>
-            {#if $progress < 1}
-              <button
-                class="button hover:scale-150"
-                title={$t('love.form.submit_title')}
-                onclick={handleSubmit}
-                type="button"
-                aria-label={$t('love.form.submit_title')}
-              >
-              </button>
-            {/if}
-            <div class="cor">
-              <Canvas size={{ width: w, height: h }}>
-                <Scene
-                  onClick={() => console.log('hhuibi')}
-                  onSubmit={handleSubmit}
-                />
-              </Canvas>
-            </div>
           {:else if g == true}
             <div class="sp text-center">
               <h3 class="text-barbi">{$t('love.status.loading')}</h3>
@@ -1037,13 +1029,46 @@ const lines = document.getElementById("lines")
     --turq-accent: #1de7d8;
   }
 
+  /* ─── כדור הארץ — רקע קבוע מאחורי הכול ─── */
+  .globe-bg {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+    background-color: #bbf0f3;
+    background-image: linear-gradient(315deg, #bbf0f3 0%, #f6d285 74%);
+    background-size: 400% 400%;
+    -webkit-animation: AnimationName 30s ease infinite;
+    -moz-animation: AnimationName 30s ease infinite;
+    animation: AnimationName 30s ease infinite;
+  }
+
+  .all {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* חץ הגלילה נטוע במסך הראשון */
+  .mobile {
+    position: relative;
+  }
+
   /* ─── Hero: הקונטקסט לפני הטופס ─── */
   .hero {
     text-align: center;
-    padding: 1.2rem 1rem 0.4rem;
-    max-width: 820px;
-    margin: 0 auto;
+    padding: 0.9rem 1.2rem;
+    width: min(92%, 820px);
+    margin: 0.9rem auto 0.4rem;
     z-index: 650;
+    /* פנל קלף — קריאוּת על כל רקע */
+    background: rgba(254, 243, 208, 0.93);
+    border: 1.5px solid var(--gold-main);
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(90, 50, 0, 0.2);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
   }
 
   .hero-headline {
@@ -1051,16 +1076,13 @@ const lines = document.getElementById("lines")
     font-size: 1.6em;
     font-weight: 900;
     color: #cc0066;
-    text-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.85),
-      0 2px 6px rgba(0, 0, 0, 0.15);
     margin: 0 0 0.45em;
     line-height: 1.25;
   }
 
   .hero-counter {
     display: inline-block;
-    background: var(--parchment);
+    background: #fffdf5;
     color: var(--ink);
     border: 1.5px solid var(--gold-main);
     border-radius: 999px;
@@ -1330,11 +1352,6 @@ const lines = document.getElementById("lines")
     font-weight: 900;
     color: #c7c4c4;
     text-align: center;
-  }
-  .cor {
-    cursor:
-      url(https://res.cloudinary.com/love1/image/upload/v1639255090/Fingerprint-Heart-II_wqvlih.svg),
-      auto;
   }
   .ww {
     top: calc(100% - 40px);
@@ -1902,8 +1919,10 @@ animation: AnimationName 3s ease infinite;*/
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background-position: center;
-      background-size: 130vw 100vh;
+      background-position: center top;
+      /* שער אחד על כל המסך הראשון — שומר פרופורציות, בלי הכפלה */
+      background-size: cover;
+      background-repeat: no-repeat;
       padding: 0.8rem 0 1.2rem;
     }
     .amana {
@@ -1916,19 +1935,14 @@ animation: AnimationName 3s ease infinite;*/
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      background-color: #bbf0f3;
-      background-image: linear-gradient(315deg, #bbf0f3 0%, #f6d285 74%);
-      background-size: 400% 400%;
-      -webkit-animation: AnimationName 30s ease infinite;
-      -moz-animation: AnimationName 30s ease infinite;
-      animation: AnimationName 30s ease infinite;
+      background: transparent;
     }
     .flexid {
       display: flex;
       flex-direction: column;
       align-items: center;
       order: 1;
-      max-height: 20vh;
+      padding: 0.4rem 0 1.4rem;
     }
 
     /*
@@ -1975,7 +1989,7 @@ left: 45.2%;
       flex-direction: column;
       align-items: center;
       order: 1;
-      max-height: 20vh;
+      padding: 0.4rem 0 1.4rem;
     }
     /*.centeron{
 background-image: url('ceter.png');
@@ -1986,13 +2000,12 @@ min-height: 50px;
 min-width: 50px;
 }*/
     .aab {
-      background-color: #bbf0f3;
-      background-image: linear-gradient(315deg, #bbf0f3 0%, #f6d285 74%);
+      background: transparent;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
     }
     .mobile {
       background-color: var(--gold);
@@ -2003,9 +2016,10 @@ min-width: 50px;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background-position: center;
+      background-position: center top;
       padding: 0 1vw;
-      background-size: 98vw 100vh;
+      /* שער אחד על כל המסך הראשון — שומר פרופורציות, בלי הכפלה */
+      background-size: cover;
       background-repeat: no-repeat;
     }
     .button {
@@ -2072,21 +2086,21 @@ min-width: 50px;
     .amana {
       opacity: 0.9;
     }
-
-    .flexid {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      order: 1;
-      max-height: 20vh;
-    }
   }
 
   @media (min-width: 1100px) {
+    /* מגילה — כל ההצהרה פרוסה, ללא גלילה פנימית */
     .card-inner {
-      width: 84vw;
-      height: calc(66vh - 180px);
+      width: min(84vw, 1100px);
+      height: auto;
+      min-height: 40vh;
       font-size: 1.2em;
+      padding: 1.2em 1.5em;
+    }
+
+    .aab {
+      background: transparent;
+      padding: 5vh 0 3vh;
     }
     .onlym {
       display: none;
@@ -2103,15 +2117,18 @@ min-width: 50px;
       flex-direction: column;
       align-items: center;
       order: 1;
-      max-height: 33vh;
-      height: 100%;
+      padding: 1rem 0 3rem;
     }
     .mobile {
       max-width: 1024px;
       width: 100%;
+      min-height: 100vh;
       margin: 0 auto;
-      background: inherit;
-      background-size: inherit;
+      background: transparent;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
     /*
 .centeron{
