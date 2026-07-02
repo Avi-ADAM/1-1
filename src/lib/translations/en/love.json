@@ -51,7 +51,8 @@
         "error_name": "Name is required",
         "error_email": "Valid email is required",
         "error_country": "Choose at least one place",
-        "error_name_taken": "The name is already taken"
+        "error_name_taken": "The name is already taken",
+        "submit_button": "I agree 💗"
     },
     "declaration": {
         "title": "{{name}}'s Declaration of Independence:",
@@ -61,7 +62,14 @@
         "body_3_end": " platform through mutual agreement.",
         "body_4": "When the entire {{countries}} becomes a signatory to this Convention, I, {{name}}, will relinquish my weapons and the armed policemen acting on behalf of the {{countries}} State.",
         "body_5": "I will also give up the weapons of the {{countries}} Army when all of humanity becomes a signatory to this Convention.",
-        "body_6": "I trust in the inherent goodness of humanity, and I hope that when all of humanity signs this Convention, violence, conflict, and coercion will cease to be forms of human communication."
+        "body_6": "I trust in the inherent goodness of humanity, and I hope that when all of humanity signs this Convention, violence, conflict, and coercion will cease to be forms of human communication.",
+        "title_empty": "My Declaration:",
+        "default_name": "the undersigned",
+        "step1_title": "Step One — Starting Today",
+        "step2_title": "Step Two — When My Whole Country Joins",
+        "step3_title": "Step Three — When All of Humanity Joins",
+        "mutual_badge": "Unlocks only with full, simultaneous mutuality",
+        "reassurance": "A small, important note: steps two and three take effect only with full mutuality. Until then — you have given up nothing. You have only signed for who you already are today."
     },
     "status": {
         "loading": "one moment please",
@@ -95,5 +103,15 @@
     },
     "lang": {
         "dir": "ltr"
+    },
+    "hascama": {
+        "headline": "We all already agree on a world without violence. Let's prove it.",
+        "counter": "{{count}} people have already declared",
+        "explain_1_title": "The problem",
+        "explain_1": "In every language and culture people want the same thing: a life without violence and coercion. And yet there are wars.",
+        "explain_2_title": "The simple truth",
+        "explain_2": "The silent majority agrees. It has simply never been counted.",
+        "explain_3_title": "The solution",
+        "explain_3": "One page, one personal declaration — a journey of 9 billion steps. This one is yours."
     }
 }
