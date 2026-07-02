@@ -1923,7 +1923,56 @@ animation: AnimationName 3s ease infinite;*/
       /* שער אחד על כל המסך הראשון — שומר פרופורציות, בלי הכפלה */
       background-size: cover;
       background-repeat: no-repeat;
-      padding: 0.8rem 0 1.2rem;
+      /* התוכן מתחיל מתחת לכתר, בתוך פתח השער */
+      padding: 20vh 0 1.2rem;
+      justify-content: flex-start;
+    }
+
+    /* ─── גלאס: האלמנטים שקופים ומשתלבים בשער ─── */
+    .hero,
+    .explain-card {
+      background: rgba(255, 253, 245, 0.32);
+      border: 1px solid rgba(245, 217, 139, 0.65);
+      backdrop-filter: blur(7px) saturate(1.15);
+      -webkit-backdrop-filter: blur(7px) saturate(1.15);
+      box-shadow: 0 2px 10px rgba(90, 50, 0, 0.12);
+    }
+
+    .hero {
+      margin-top: 0;
+      padding: 0.7rem 1rem;
+      width: 88%;
+    }
+
+    .explain {
+      margin: 0.5rem auto;
+      gap: 0.4rem;
+      width: 86%;
+      padding: 0;
+    }
+
+    .explain-card {
+      padding: 0.45em 0.75em;
+    }
+
+    .explain-card p {
+      font-size: 0.8em;
+    }
+
+    /* גם שדות הטופס בתוך פתח השער — על גלאס */
+    .container {
+      background: rgba(255, 253, 245, 0.32) !important;
+      border: 1px solid rgba(245, 217, 139, 0.65);
+      border-radius: 14px;
+      backdrop-filter: blur(7px) saturate(1.15);
+      -webkit-backdrop-filter: blur(7px) saturate(1.15);
+      width: 86vw;
+      margin: 0.3rem auto 0;
+    }
+
+    .amanat {
+      color: var(--gold-dim);
+      text-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);
     }
     .amana {
       text-align: center;
@@ -2017,10 +2066,38 @@ min-width: 50px;
       justify-content: center;
       align-items: center;
       background-position: center top;
-      padding: 0 1vw;
-      /* שער אחד על כל המסך הראשון — שומר פרופורציות, בלי הכפלה */
+      /* כתר וחופה על כל המסך הראשון — שומר פרופורציות, בלי הכפלה */
       background-size: cover;
       background-repeat: no-repeat;
+      /* התוכן בתוך החופה, מתחת לכתר */
+      padding: 38vh 1vw 1.2rem;
+      justify-content: flex-start;
+    }
+
+    /* ─── גלאס: האלמנטים שקופים ומשתלבים בשער ─── */
+    .hero,
+    .explain-card,
+    .container {
+      background: rgba(255, 253, 245, 0.32) !important;
+      border: 1px solid rgba(245, 217, 139, 0.65);
+      backdrop-filter: blur(7px) saturate(1.15);
+      -webkit-backdrop-filter: blur(7px) saturate(1.15);
+      box-shadow: 0 2px 10px rgba(90, 50, 0, 0.12);
+    }
+
+    .hero {
+      margin-top: 0;
+    }
+
+    .container {
+      border-radius: 14px;
+      width: min(86vw, 700px);
+      margin: 0.3rem auto 0;
+    }
+
+    .amanat {
+      color: var(--gold-dim);
+      text-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);
     }
     .button {
       justify-self: center;
