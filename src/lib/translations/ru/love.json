@@ -15,7 +15,7 @@
         "error_email": "Требуется корректный email",
         "error_country": "Выберите хотя бы одно место",
         "error_name_taken": "Это имя уже занято",
-        "submit_button": "Я согласен(на) 💗"
+        "submit_button": "Соглашаюсь 💗"
     },
     "declaration": {
         "title": "Декларация независимости {{name}}:",
