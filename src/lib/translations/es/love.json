@@ -14,7 +14,8 @@
         "error_name": "Se requiere el nombre",
         "error_email": "Se requiere un correo válido",
         "error_country": "Elija al menos un lugar",
-        "error_name_taken": "Este nombre ya está en uso"
+        "error_name_taken": "Este nombre ya está en uso",
+        "submit_button": "Estoy de acuerdo 💗"
     },
     "declaration": {
         "title": "Declaración de Independencia de {{name}}:",
@@ -24,7 +25,14 @@
         "body_3_end": " a través del mutuo acuerdo.",
         "body_4": "Cuando todo {{countries}} se convierta en signatario de esta Convención, yo, {{name}}, renunciaré à mis armas y a los policías armados que actúan en nombre del Estado de {{countries}}.",
         "body_5": "También renunciaré a las armas del Ejército de {{countries}} cuando toda la humanidad se convierta en signataria de esta Convención.",
-        "body_6": "Confío en la bondad inherente de la humanidad, y espero que cuando toda la humanidad firme esta Convención, la violencia, el conflicto y la coerción dejen de ser formas de comunicación humana."
+        "body_6": "Confío en la bondad inherente de la humanidad, y espero que cuando toda la humanidad firme esta Convención, la violencia, el conflicto y la coerción dejen de ser formas de comunicación humana.",
+        "title_empty": "Mi Declaración:",
+        "default_name": "quien suscribe",
+        "step1_title": "Primer paso — desde hoy",
+        "step2_title": "Segundo paso — cuando todo mi país se una",
+        "step3_title": "Tercer paso — cuando toda la humanidad se una",
+        "mutual_badge": "Se activa solo con reciprocidad plena y simultánea",
+        "reassurance": "Una nota pequeña e importante: los pasos dos y tres solo entran en vigor con reciprocidad plena. Hasta entonces, no has renunciado a nada. Solo has firmado por quien ya eres hoy."
     },
     "status": {
         "loading": "un momento por favor",
@@ -58,5 +66,15 @@
     },
     "lang": {
         "dir": "ltr"
+    },
+    "hascama": {
+        "headline": "Todos ya estamos de acuerdo en un mundo sin violencia. Demostrémoslo.",
+        "counter": "{{count}} personas ya lo han declarado",
+        "explain_1_title": "El problema",
+        "explain_1": "En cada idioma y cultura la gente quiere lo mismo: vivir sin violencia ni coerción. Y sin embargo hay guerras.",
+        "explain_2_title": "La verdad simple",
+        "explain_2": "La mayoría silenciosa está de acuerdo. Simplemente nadie la ha contado nunca.",
+        "explain_3_title": "La solución",
+        "explain_3": "Una página, una declaración personal: un viaje de 9 mil millones de pasos. Este paso es tuyo."
     }
 }

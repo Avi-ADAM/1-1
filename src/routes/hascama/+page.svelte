@@ -277,7 +277,7 @@ regHelperL = 0;
       display: flex;
       flex-direction: column;
       width: 100%;
-      height: 100vh;
+      min-height: 100vh;
       box-sizing: border-box;
       margin: 0px;
       background-image: url(https://res.cloudinary.com/love1/image/upload/v1639597594/Prismatic-Hearts-World-Map-4_ge7z9u.svg);

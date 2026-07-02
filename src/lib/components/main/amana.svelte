@@ -18,7 +18,6 @@
   import { fly } from 'svelte/transition';
   import Tikun from './tikunolam.svelte';
   import TRan from './translatehe.svelte';
-  import { onMount } from 'svelte';
   import { linkos } from '$lib/stores/linkos.js';
   import { useProgress } from '@threlte/extras';
   const { progress } = useProgress();
@@ -34,57 +33,7 @@
     'הסכמה העולמית על חירות היא חלק מרכזי ב- 1💗1. על ידי הסכמה להצהרה זו, ניתן להירשם לפלטפורמה השיתופית 1💗1 ומשתתפים ביצירת עולם יותר בטוח. על ידי ההתחייבות ההדדית לאי-אלימות, לפתרון סכסוכים בהסכמה ולכבוד הדדי, אנו ניצור עולם בו כוח ואלימות מפסיקים להיות צורות של תקשורת אנושית. הצטרפו אלינו לקידום שלום, הסכמות וחופש. ביחד, אנחנו יכולים ליצור עולם שבו הטוב הבסיסי מנצח ובו חילוקי דעות נפתרים בהסכמה משותפת.';
   let url = 'https://1lev1.com/hascama';
 
-  let fpp = [];
-  let fppp = [];
   const baseUrl = import.meta.env.VITE_URL;
-
-  let error1 = null;
-  onMount(async () => {
-    const parseJSON = (resp) => (resp.json ? resp.json() : resp);
-    const checkStatus = (resp) => {
-      if (resp.status >= 200 && resp.status < 300) {
-        return resp;
-      }
-      return parseJSON(resp).then((resp) => {
-        throw resp;
-      });
-    };
-    const headers = {
-      'Content-Type': 'application/json'
-    };
-
-    try {
-      const res = await fetch(baseUrl + '/graphql', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          query: `query {
-chezins {
- data {
-  attributes {
-    name
-  }
-  }
-meta {
-  pagination {
-    total
-  }
-}
-}
-}
-          `
-        })
-      })
-        .then(checkStatus)
-        .then(parseJSON);
-      fppp = res.data.chezins;
-      fpp = fppp.data.map((c) => c.attributes.name);
-    } catch (e) {
-      error1 = e;
-    }
-  });
 
   function find_contry_id(contry_name_arr) {
     var arr = [];
@@ -420,7 +369,6 @@ meta {
     { value: 243, label: 'Zimbabwe', heb: 'זימבבואה' }
   ];
   const name = `countries`;
-  let nameuse = $state(false);
   const placeholdr = { he: '', ar: '', en: '' };
   const pl = `${placeholdr}.${$lang}`;
   const placeholder = `המקום שלי`;
@@ -480,7 +428,6 @@ meta {
     if (isSubmitting) return;
 
     track('tryToSign', {}, { flags: ['tryToSign'] });
-    nameuse = false;
 
     if (!validate()) {
       setTimeout(() => {
@@ -489,13 +436,6 @@ meta {
       return;
     }
 
-    const jjj = formName;
-    if (fpp.includes(jjj)) {
-      console.log('sssss');
-      nameuse = true;
-      scrolltotop();
-      return;
-    }
     try {
       isSubmitting = true;
       g = true;
@@ -685,6 +625,10 @@ const lines = document.getElementById("lines")
 
   let countriesPlural = $derived(selected.length > 1);
   let appointWord = $derived(countriesPlural ? 'ממנות' : 'ממנה');
+
+  let displayName = $derived(
+    formName ? formName : $t('love.declaration.default_name')
+  );
 </script>
 
 <Head {title} {description} {image} {url} />
@@ -739,6 +683,16 @@ const lines = document.getElementById("lines")
   onclick={() => info()}
   class="ww">?</button
 >
+<div
+  class="globe-bg"
+  aria-hidden="true"
+  bind:clientWidth={w}
+  bind:clientHeight={h}
+>
+  <Canvas size={{ width: w, height: h }}>
+    <Scene onClick={() => {}} onSubmit={handleSubmit} />
+  </Canvas>
+</div>
 <div bind:clientWidth={wid} class="all">
   <div
     style="position:absolute ; left: 1%; top: 1%; display: flex; flex-direction: column ; z-index: 699;"
@@ -824,6 +778,28 @@ const lines = document.getElementById("lines")
     {/if}
   </div>
   <div class="mobile">
+    <header class="hero" dir={$t('love.lang.dir')}>
+      <h1 class="hero-headline">{$t('love.hascama.headline')}</h1>
+      {#if idx > 1}
+        <p class="hero-counter">
+          💗 {$t('love.hascama.counter', { count: idx })}
+        </p>
+      {/if}
+    </header>
+    <section class="explain" dir={$t('love.lang.dir')}>
+      <div class="explain-card">
+        <h3>{$t('love.hascama.explain_1_title')}</h3>
+        <p>{$t('love.hascama.explain_1')}</p>
+      </div>
+      <div class="explain-card">
+        <h3>{$t('love.hascama.explain_2_title')}</h3>
+        <p>{$t('love.hascama.explain_2')}</p>
+      </div>
+      <div class="explain-card">
+        <h3>{$t('love.hascama.explain_3_title')}</h3>
+        <p>{$t('love.hascama.explain_3')}</p>
+      </div>
+    </section>
     <section class="container" dir="rtl" id="lines">
       <div class="flexi">
         <h3
@@ -842,9 +818,6 @@ const lines = document.getElementById("lines")
         />
         {#if formErrors.name}
           <small style="color: red;">{$t('love.form.error_name')}</small>
-        {/if}
-        {#if nameuse}
-          <small style="color: red;">{$t('love.form.error_name_taken')}</small>
         {/if}
       </div>
       <div class="flexi1" style="white-space:nowrap;">
@@ -915,33 +888,25 @@ const lines = document.getElementById("lines")
             dir={$t('love.lang.dir')}
             style="color:#cc0066; text-shadow: 1px 1px black ; "
           >
-            {$t('love.declaration.title', { name: formName || '__' })}
+            {formName
+              ? $t('love.declaration.title', { name: formName })
+              : $t('love.declaration.title_empty')}
           </h1>
-          <span
-            style="font-family:David;"
-            class="text-bold text-transparent bg-clip-text bg-[linear-gradient(to_bottom_right,theme(colors.gra),theme(colors.grc),theme(colors.gre),theme(colors.grc),theme(colors.gra))]"
-          >
-            <span style="font-family:StamSefarad,David;">
-              {$t('love.declaration.body_1', { name: formName || '__' })}
-              <br />
-              {$t('love.declaration.body_2', { name: formName || '__' })}
-              <br />
-              <div
-                class="text-center justify-center flex items-center text-bold text-transparent bg-clip-text bg-[linear-gradient(to_bottom_right,theme(colors.gra),theme(colors.grc),theme(colors.gre),theme(colors.grc),theme(colors.gra))]"
-                style="flex-wrap: wrap; font-family:StamSefarad,David;"
-                dir={$t('love.lang.dir')}
-              >
-                {$t('love.declaration.body_3_start', {
-                  name: formName || '__'
-                })}
-                <div
-                  dir="ltr"
-                  style="text-shadow:none;"
-                  class=" font-bold mx-2 mt-2 text-transparent
-          bg-clip-text bg-[length:auto_200%] animate-gradienty
-          bg-[linear-gradient(to_top,theme(colors.barbi),theme(colors.fuchsia.400),theme(colors.sky.400),theme(colors.mturk),theme(colors.sky.400),theme(colors.fuchsia.400),theme(colors.barbi))]
-          flex-wrap flex flex-row"
-                >
+          <ol class="steps" dir={$t('love.lang.dir')}>
+            <li class="step step-now">
+              <div class="step-head">
+                <span class="step-badge">1</span>
+                <h2 class="step-title">
+                  {$t('love.declaration.step1_title')}
+                </h2>
+              </div>
+              <p class="step-body">
+                {$t('love.declaration.body_1', { name: displayName })}
+                {$t('love.declaration.body_2', { name: displayName })}
+              </p>
+              <div class="step-body platform-line">
+                {$t('love.declaration.body_3_start', { name: displayName })}
+                <div dir="ltr" class="logo-1lev1 font-bold flex flex-row">
                   <div class="flip">
                     <h1
                       class="font-bold text-transparent bg-clip-text bg-[length:auto_200%] animate-gradienty
@@ -967,47 +932,67 @@ const lines = document.getElementById("lines")
                     </h1>
                   </div>
                 </div>
-                {$t('love.declaration.body_3_end', { name: formName || '__' })}
+                {$t('love.declaration.body_3_end', { name: displayName })}
               </div>
-              {$t('love.declaration.body_4', {
-                name: formName || '__',
-                countries: countriesJoined || '__',
-                appoint: appointWord
-              })}
-              <br />
-              {$t('love.declaration.body_5', {
-                name: formName || '__',
-                countries: countriesArmyJoined
-              })}
-              <br />
-              {$t('love.declaration.body_6')}
-            </span>
-          </span>
+            </li>
+            <li class="step step-later">
+              <div class="step-head">
+                <span class="step-badge">2</span>
+                <h2 class="step-title">
+                  {$t('love.declaration.step2_title')}
+                </h2>
+              </div>
+              <p class="step-body">
+                {$t('love.declaration.body_4', {
+                  name: displayName,
+                  countries: countriesJoined || '__',
+                  appoint: appointWord
+                })}
+              </p>
+              <span class="step-lock">
+                🔒→💗 {$t('love.declaration.mutual_badge')}
+              </span>
+            </li>
+            <li class="step step-later">
+              <div class="step-head">
+                <span class="step-badge">3</span>
+                <h2 class="step-title">
+                  {$t('love.declaration.step3_title')}
+                </h2>
+              </div>
+              <p class="step-body">
+                {$t('love.declaration.body_5', {
+                  name: displayName,
+                  countries: countriesArmyJoined
+                })}
+              </p>
+              <span class="step-lock">
+                🔒→💗 {$t('love.declaration.mutual_badge')}
+              </span>
+            </li>
+          </ol>
+          <p class="decl-closing" dir={$t('love.lang.dir')}>
+            {$t('love.declaration.body_6')}
+          </p>
+          <p class="decl-reassurance" dir={$t('love.lang.dir')}>
+            💗 {$t('love.declaration.reassurance')}
+          </p>
         </div>
       </div>
     </div>
 
     <form>
-      <div class="flexid" bind:clientWidth={w} bind:clientHeight={h}>
+      <div class="flexid">
         {#if already == false}
           {#if g == false}
-            {#if $progress < 1}
-              <button
-                class="button hover:scale-150"
-                title={$t('love.form.submit_title')}
-                onsubmit={handleSubmit}
-                type="submit"
-              >
-              </button>
-            {/if}
-            <div class="cor">
-              <Canvas size={{ width: w, height: h }}>
-                <Scene
-                  onClick={() => console.log('hhuibi')}
-                  onSubmit={handleSubmit}
-                />
-              </Canvas>
-            </div>
+            <button
+              class="agree-btn"
+              title={$t('love.form.submit_title')}
+              onclick={handleSubmit}
+              type="button"
+            >
+              {$t('love.form.submit_button')}
+            </button>
           {:else if g == true}
             <div class="sp text-center">
               <h3 class="text-barbi">{$t('love.status.loading')}</h3>
@@ -1042,6 +1027,287 @@ const lines = document.getElementById("lines")
     --ink: #1a0900;
     --barbi-accent: #ff4fa3;
     --turq-accent: #1de7d8;
+  }
+
+  /* ─── כדור הארץ — רקע קבוע מאחורי הכול ─── */
+  .globe-bg {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+    background-color: #bbf0f3;
+    background-image: linear-gradient(315deg, #bbf0f3 0%, #f6d285 74%);
+    background-size: 400% 400%;
+    -webkit-animation: AnimationName 30s ease infinite;
+    -moz-animation: AnimationName 30s ease infinite;
+    animation: AnimationName 30s ease infinite;
+  }
+
+  .all {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* חץ הגלילה נטוע במסך הראשון */
+  .mobile {
+    position: relative;
+  }
+
+  /* ─── Hero: הקונטקסט לפני הטופס ─── */
+  .hero {
+    text-align: center;
+    padding: 0.9rem 1.2rem;
+    width: min(92%, 820px);
+    margin: 0.9rem auto 0.4rem;
+    z-index: 650;
+    /* פנל קלף — קריאוּת על כל רקע */
+    background: rgba(254, 243, 208, 0.93);
+    border: 1.5px solid var(--gold-main);
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(90, 50, 0, 0.2);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  .hero-headline {
+    font-family: 'StamSefarad', David, serif;
+    font-size: 1.6em;
+    font-weight: 900;
+    color: #cc0066;
+    margin: 0 0 0.45em;
+    line-height: 1.25;
+  }
+
+  .hero-counter {
+    display: inline-block;
+    background: #fffdf5;
+    color: var(--ink);
+    border: 1.5px solid var(--gold-main);
+    border-radius: 999px;
+    padding: 0.25em 1em;
+    font-weight: 700;
+    font-size: 1em;
+    box-shadow: 0 2px 8px rgba(200, 168, 75, 0.3);
+    margin: 0;
+  }
+
+  /* ─── ההסבר של 30 שניות ─── */
+  .explain {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.6rem;
+    max-width: 900px;
+    margin: 0.8rem auto;
+    padding: 0 1rem;
+    z-index: 650;
+  }
+
+  .explain-card {
+    background: rgba(254, 243, 208, 0.94);
+    border: 1px solid var(--gold-main);
+    border-radius: 10px;
+    padding: 0.6em 0.85em;
+    color: var(--ink);
+    text-align: start;
+    box-shadow: 0 2px 8px rgba(200, 168, 75, 0.2);
+  }
+
+  .explain-card h3 {
+    margin: 0 0 0.2em;
+    font-size: 0.98em;
+    font-weight: 900;
+    color: #cc0066;
+    font-family: 'StamSefarad', David, serif;
+  }
+
+  .explain-card p {
+    margin: 0;
+    font-size: 0.85em;
+    line-height: 1.45;
+  }
+
+  @media (max-width: 720px) {
+    .explain {
+      grid-template-columns: 1fr;
+      gap: 0.45rem;
+    }
+  }
+
+  /* ─── ההצהרה בשלוש מדרגות — דיו על קלף ─── */
+  .steps {
+    list-style: none;
+    margin: 0.8em auto 0;
+    padding: 0;
+    max-width: 62ch;
+    text-align: start;
+    position: relative;
+  }
+
+  /* ציר זמן — קו שמחבר את המדרגות */
+  .steps::before {
+    content: '';
+    position: absolute;
+    top: 1.2em;
+    bottom: 1.2em;
+    inset-inline-start: 1.05em;
+    width: 2px;
+    background: linear-gradient(
+      to bottom,
+      var(--gold-bright),
+      var(--gold-main),
+      var(--gold-dim)
+    );
+    z-index: 0;
+  }
+
+  .step {
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(
+      135deg,
+      var(--parchment) 0%,
+      #fff8e8 60%,
+      var(--parchment) 100%
+    );
+    border: 1.5px solid var(--gold-main);
+    border-radius: 12px;
+    padding: 0.7em 1em 0.8em;
+    margin-bottom: 1em;
+    color: var(--ink);
+    font-size: 0.72em;
+    font-weight: 700;
+    line-height: 1.55;
+    box-shadow: 0 2px 10px rgba(200, 168, 75, 0.28);
+  }
+
+  .step-now {
+    font-size: 0.82em;
+    border-color: var(--gold-bright);
+    box-shadow:
+      0 0 0 3px rgba(245, 217, 139, 0.35),
+      0 4px 14px rgba(200, 168, 75, 0.35);
+  }
+
+  .step-later {
+    opacity: 0.93;
+  }
+
+  .step-head {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    margin-bottom: 0.35em;
+  }
+
+  .step-badge {
+    flex: none;
+    width: 1.7em;
+    height: 1.7em;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold-bright), var(--gold-main));
+    color: var(--ink);
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 4px rgba(90, 50, 0, 0.35);
+  }
+
+  .step-title {
+    margin: 0;
+    font-size: 1.05em;
+    font-weight: 900;
+    color: #cc0066;
+    font-family: 'StamSefarad', David, serif;
+    line-height: 1.3;
+  }
+
+  .step-body {
+    margin: 0 0 0.3em;
+    font-family: 'StamSefarad', David, serif;
+  }
+
+  .platform-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.15em;
+    text-align: center;
+  }
+
+  .logo-1lev1 {
+    margin: 0 0.4em;
+  }
+
+  .logo-1lev1 h1 {
+    font-size: 1.6em;
+    margin: 0;
+  }
+
+  .step-lock {
+    display: inline-block;
+    font-size: 0.82em;
+    background: rgba(200, 168, 75, 0.14);
+    border: 1px dashed var(--gold-main);
+    border-radius: 999px;
+    padding: 0.1em 0.8em;
+    color: var(--gold-dim);
+    font-weight: 700;
+  }
+
+  .decl-closing {
+    max-width: 62ch;
+    margin: 0.9em auto 0;
+    font-size: 0.72em;
+    font-weight: 700;
+    line-height: 1.55;
+    color: #3a2a10;
+    font-family: 'StamSefarad', David, serif;
+    text-align: start;
+  }
+
+  .decl-reassurance {
+    max-width: 62ch;
+    margin: 0.7em auto 0.4em;
+    font-size: 0.58em;
+    font-style: italic;
+    line-height: 1.5;
+    color: #6b5a35;
+    text-align: start;
+  }
+
+  /* ─── כפתור הסכמה רגיל וברור ─── */
+  .agree-btn {
+    font-family: 'StamSefarad', David, serif;
+    font-size: 1.35em;
+    font-weight: 900;
+    color: #fff;
+    background: linear-gradient(135deg, var(--barbi-accent), #cc0066);
+    border: 2px solid var(--gold-bright);
+    border-radius: 999px;
+    padding: 0.45em 1.6em;
+    margin: 0.7em auto 0.2em;
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(255, 79, 163, 0.45);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    z-index: 200;
+  }
+
+  .agree-btn:hover,
+  .agree-btn:focus-visible {
+    transform: scale(1.05);
+    box-shadow: 0 6px 24px rgba(255, 79, 163, 0.6);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .agree-btn,
+    .agree-btn:hover {
+      transition: none;
+      transform: none;
+    }
   }
 
   .card {
@@ -1086,11 +1352,6 @@ const lines = document.getElementById("lines")
     font-weight: 900;
     color: #c7c4c4;
     text-align: center;
-  }
-  .cor {
-    cursor:
-      url(https://res.cloudinary.com/love1/image/upload/v1639255090/Fingerprint-Heart-II_wqvlih.svg),
-      auto;
   }
   .ww {
     top: calc(100% - 40px);
@@ -1575,7 +1836,7 @@ animation: AnimationName 3s ease infinite;*/
 ══════════════════════════════════════ */
   @media (min-width: 577px) and (max-width: 1099px) {
     .container {
-      padding-top: 28vh;
+      padding-top: 2rem;
       flex-direction: column;
       gap: 0.7rem;
     }
@@ -1650,7 +1911,7 @@ animation: AnimationName 3s ease infinite;*/
 
     .mobile {
       width: 100vw;
-      height: 100vh;
+      min-height: 100vh;
       margin: 0px auto;
       background-color: var(--gold);
       background-image: url(https://res.cloudinary.com/love1/image/upload/v1648338694/Gold-German-Imperial-Crown-No-Background_4_cpunhj.svg);
@@ -1658,8 +1919,60 @@ animation: AnimationName 3s ease infinite;*/
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background-position: center;
-      background-size: 130vw 100vh;
+      background-position: center top;
+      /* שער אחד על כל המסך הראשון — שומר פרופורציות, בלי הכפלה */
+      background-size: cover;
+      background-repeat: no-repeat;
+      /* התוכן מתחיל מתחת לכתר, בתוך פתח השער */
+      padding: 20vh 0 1.2rem;
+      justify-content: flex-start;
+    }
+
+    /* ─── גלאס: האלמנטים שקופים ומשתלבים בשער ─── */
+    .hero,
+    .explain-card {
+      background: rgba(255, 253, 245, 0.32);
+      border: 1px solid rgba(245, 217, 139, 0.65);
+      backdrop-filter: blur(7px) saturate(1.15);
+      -webkit-backdrop-filter: blur(7px) saturate(1.15);
+      box-shadow: 0 2px 10px rgba(90, 50, 0, 0.12);
+    }
+
+    .hero {
+      margin-top: 0;
+      padding: 0.7rem 1rem;
+      width: 88%;
+    }
+
+    .explain {
+      margin: 0.5rem auto;
+      gap: 0.4rem;
+      width: 86%;
+      padding: 0;
+    }
+
+    .explain-card {
+      padding: 0.45em 0.75em;
+    }
+
+    .explain-card p {
+      font-size: 0.8em;
+    }
+
+    /* גם שדות הטופס בתוך פתח השער — על גלאס */
+    .container {
+      background: rgba(255, 253, 245, 0.32) !important;
+      border: 1px solid rgba(245, 217, 139, 0.65);
+      border-radius: 14px;
+      backdrop-filter: blur(7px) saturate(1.15);
+      -webkit-backdrop-filter: blur(7px) saturate(1.15);
+      width: 86vw;
+      margin: 0.3rem auto 0;
+    }
+
+    .amanat {
+      color: var(--gold-dim);
+      text-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);
     }
     .amana {
       text-align: center;
@@ -1670,20 +1983,15 @@ animation: AnimationName 3s ease infinite;*/
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      background-color: #bbf0f3;
-      background-image: linear-gradient(315deg, #bbf0f3 0%, #f6d285 74%);
-      background-size: 400% 400%;
-      -webkit-animation: AnimationName 30s ease infinite;
-      -moz-animation: AnimationName 30s ease infinite;
-      animation: AnimationName 30s ease infinite;
+      min-height: 100vh;
+      background: transparent;
     }
     .flexid {
       display: flex;
       flex-direction: column;
       align-items: center;
       order: 1;
-      max-height: 20vh;
+      padding: 0.4rem 0 1.4rem;
     }
 
     /*
@@ -1730,7 +2038,7 @@ left: 45.2%;
       flex-direction: column;
       align-items: center;
       order: 1;
-      max-height: 20vh;
+      padding: 0.4rem 0 1.4rem;
     }
     /*.centeron{
 background-image: url('ceter.png');
@@ -1741,27 +2049,55 @@ min-height: 50px;
 min-width: 50px;
 }*/
     .aab {
-      background-color: #bbf0f3;
-      background-image: linear-gradient(315deg, #bbf0f3 0%, #f6d285 74%);
+      background: transparent;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
     }
     .mobile {
       background-color: var(--gold);
-      height: 100vh;
+      min-height: 100vh;
       margin: 0px auto;
       background-image: url(https://res.cloudinary.com/love1/image/upload/v1648335809/Gold-German-Imperial-Crown-No-Background_qs7cri.svg);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background-position: center;
-      padding: 0 1vw;
-      background-size: 98vw 100vh;
+      background-position: center top;
+      /* כתר וחופה על כל המסך הראשון — שומר פרופורציות, בלי הכפלה */
+      background-size: cover;
       background-repeat: no-repeat;
+      /* התוכן בתוך החופה, מתחת לכתר */
+      padding: 38vh 1vw 1.2rem;
+      justify-content: flex-start;
+    }
+
+    /* ─── גלאס: האלמנטים שקופים ומשתלבים בשער ─── */
+    .hero,
+    .explain-card,
+    .container {
+      background: rgba(255, 253, 245, 0.32) !important;
+      border: 1px solid rgba(245, 217, 139, 0.65);
+      backdrop-filter: blur(7px) saturate(1.15);
+      -webkit-backdrop-filter: blur(7px) saturate(1.15);
+      box-shadow: 0 2px 10px rgba(90, 50, 0, 0.12);
+    }
+
+    .hero {
+      margin-top: 0;
+    }
+
+    .container {
+      border-radius: 14px;
+      width: min(86vw, 700px);
+      margin: 0.3rem auto 0;
+    }
+
+    .amanat {
+      color: var(--gold-dim);
+      text-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);
     }
     .button {
       justify-self: center;
@@ -1827,21 +2163,21 @@ min-width: 50px;
     .amana {
       opacity: 0.9;
     }
-
-    .flexid {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      order: 1;
-      max-height: 20vh;
-    }
   }
 
   @media (min-width: 1100px) {
+    /* מגילה — כל ההצהרה פרוסה, ללא גלילה פנימית */
     .card-inner {
-      width: 84vw;
-      height: calc(66vh - 180px);
+      width: min(84vw, 1100px);
+      height: auto;
+      min-height: 40vh;
       font-size: 1.2em;
+      padding: 1.2em 1.5em;
+    }
+
+    .aab {
+      background: transparent;
+      padding: 5vh 0 3vh;
     }
     .onlym {
       display: none;
@@ -1858,15 +2194,18 @@ min-width: 50px;
       flex-direction: column;
       align-items: center;
       order: 1;
-      max-height: 33vh;
-      height: 100%;
+      padding: 1rem 0 3rem;
     }
     .mobile {
       max-width: 1024px;
       width: 100%;
+      min-height: 100vh;
       margin: 0 auto;
-      background: inherit;
-      background-size: inherit;
+      background: transparent;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
     /*
 .centeron{
@@ -1906,7 +2245,7 @@ left: 47.9%;
     }
 
     .all {
-      height: 100vh;
+      min-height: 100vh;
     }
   }
   @-moz-keyframes spin {
