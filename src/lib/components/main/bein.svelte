@@ -60,6 +60,9 @@ let { idx = 1 } = $props();
         <a href="/love" class="nav-link love-link">
           {$lang === 'he' ? 'מפת ההסכמה' : $lang === 'en' ? 'Agreement Map' : 'خريطة الاتفاقية'}
         </a>
+        <a href="https://www.1lev1.com/project/15" class="nav-link volunteer-link" target="_blank" rel="noopener noreferrer">
+          {$lang === 'he' ? 'להתנדבות ותמיכה בעשיה' : $lang === 'en' ? 'Volunteer and support the initiative' : 'للتطوع ودعم المبادرة'}
+        </a>
       </div>
       <div class="p-4 shadow-xl shadow-barbi">
             <div class="texts">
