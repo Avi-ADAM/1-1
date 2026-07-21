@@ -1243,7 +1243,7 @@ const lines = document.getElementById("lines")
   }
 
   .logo-1lev1 h1 {
-    font-size: 1.6em;
+    font-size: 1em;
     margin: 0;
   }
 
