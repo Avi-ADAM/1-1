@@ -1,3 +1,11 @@
+import {
+  DEFAULT_LOCALE,
+  SUPPORTED_LOCALES,
+  detectLocale,
+  isSupportedLocale,
+  localeMeta
+} from '$lib/config/locales.js';
+
 const manifestLink = {
   he: "https://res.cloudinary.com/love1/raw/upload/v1749551626/manifest_with_new_routes_qktyc3.json?v=3",
   en: "https://res.cloudinary.com/love1/raw/upload/v1749552534/eng-mani-updated_xpcxdf.json?v=2",
@@ -7,41 +15,52 @@ const manifestLink = {
 const desc = {
   he: 'הסכמה עולמית על חירות.',
   en: 'WorldWide consensus for Security and Peace.',
-  ar: 'نظام إدارة الشراكات القائم على التوافق، يمكننا معًا'
+  ar: 'نظام إدارة الشراكات القائم على التوافق، يمكننا معًا',
+  es: 'Consenso mundial por la libertad y la seguridad.',
+  fr: 'Consensus mondial pour la liberté et la sécurité.',
+  de: 'Weltweiter Konsens für Freiheit und Sicherheit.',
+  ru: 'Всемирный консенсус за свободу и безопасность.',
+  zh: '关于自由与安全的全球共识。',
+  ja: '自由と安全に関する世界的合意。'
 };
 
 const title = {
   en: 'Worldwide Consensus for Freedom',
   he: 'הסכמה עולמית על חירות וביטחון',
-  ar: '1💗1 | نخلق معًا بتناغم | اتفاق عالمي للحرية'
+  ar: '1💗1 | نخلق معًا بتناغم | اتفاق عالمي للحرية',
+  es: '1💗1 | Consenso Mundial por la Libertad',
+  fr: '1💗1 | Consensus Mondial pour la Liberté',
+  de: '1💗1 | Weltweiter Konsens für Freiheit',
+  ru: '1💗1 | Всемирный консенсус за свободу',
+  zh: '1💗1 | 关于自由的全球共识',
+  ja: '1💗1 | 自由に関する世界的合意'
 };
 
-const cl = {
-  he: 'he-IL',
-  en: 'en-gb',
-  ar: 'ar-EG'
-};
+// Language landing paths (/en, /he, /ja, …): set the cookie and bounce to "/"
+const LANG_PATHS = SUPPORTED_LOCALES.map((code) => `/${code}`);
 
-let lang = 'he'; // Default language set to Hebrew
+/** Fall back to English metadata for languages without dedicated copy. */
+function pick(map, code) {
+  return map[code] ?? map.en;
+}
+
+let lang = DEFAULT_LOCALE; // Default language set to Hebrew
 
 // Helper function to get language from URL or cookies
 function getLanguage(event) {
-  let qlang = event.url.searchParams.get('lang');
+  const qlang = event.url.searchParams.get('lang');
   const coociLang = event.cookies.get('lang');
   const userAgent = event.request.headers.get('accept-language');
+  const pathLang = event.url.pathname.slice(1);
 
-  if (qlang && ['he', 'en', 'ar'].includes(qlang)) {
+  if (isSupportedLocale(qlang)) {
     return qlang;
-  } else if (event.url.pathname === '/en') {
-    return 'en';
-  } else if (event.url.pathname === '/ar') {
-    return 'ar';
-  } else if (event.url.pathname === '/he') {
-    return 'he';
-  } else if (!coociLang) {
-    return userAgent?.includes('he') ? 'he' : 'en';
-  } else {
+  } else if (isSupportedLocale(pathLang)) {
+    return pathLang;
+  } else if (isSupportedLocale(coociLang)) {
     return coociLang;
+  } else {
+    return detectLocale(userAgent, 'en');
   }
 }
 /** @type {import('@sveltejs/kit').Handle} */
@@ -57,7 +76,7 @@ export async function handle({ event, resolve }) {
   event.locals.email = event.cookies.get('email') || false;
   console.log(lang,event.url.pathname)
   // Set language cookie based on URL path
-  if (event.url.pathname === '/en' || event.url.pathname === '/ar' || event.url.pathname === '/he') {
+  if (LANG_PATHS.includes(event.url.pathname)) {
     event.cookies.set('lang', lang, { path: '/' });
     //navigate to "/"
     return new Response(null, {
@@ -77,13 +96,13 @@ export async function handle({ event, resolve }) {
     transformPageChunk: ({ html }) =>
       html
         .replace('%lang%', lang)
-        .replace('%xtitle%', title[lang])
-        .replace('%title%', title[lang])
-        .replace('%desc%', desc[lang])
-        .replace('%xdes%', desc[lang])
-        .replace('%desci%', desc[lang])
-        .replace('%cl%', cl[lang])
-        .replace('%manifest%', manifestLink[lang])
+        .replace('%xtitle%', pick(title, lang))
+        .replace('%title%', pick(title, lang))
+        .replace('%desc%', pick(desc, lang))
+        .replace('%xdes%', pick(desc, lang))
+        .replace('%desci%', pick(desc, lang))
+        .replace('%cl%', localeMeta(lang).htmlLang)
+        .replace('%manifest%', pick(manifestLink, lang))
   });
 }
 

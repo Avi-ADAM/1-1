@@ -1,6 +1,7 @@
 <script>
   import { t, locale, loadTranslations } from '$lib/translations';
-  import { lang, doesLang, langUs } from '$lib/stores/lang.js';
+  import { lang, setLanguage } from '$lib/stores/lang.js';
+  import { LANGUAGES } from '$lib/config/locales.js';
   import { onMount } from 'svelte';
   import { fly, fade, scale } from 'svelte/transition';
   import { format } from 'd3-format';
@@ -23,23 +24,12 @@
   let statsLoaded = $state(false);
   let langMenuOpen = $state(false);
 
-  const languages = [
-    { code: 'he', label: 'עברית', flag: '🇮🇱' },
-    { code: 'en', label: 'English', flag: '🇺🇸' },
-    { code: 'ar', label: 'عربي', flag: '🇸🇦' },
-    { code: 'fr', label: 'Français', flag: '🇫🇷' },
-    { code: 'es', label: 'Español', flag: '🇪🇸' },
-    { code: 'ru', label: 'Русский', flag: '🇷🇺' },
-    { code: 'zh', label: '中文', flag: '🇨🇳' }
-  ];
+  const languages = LANGUAGES;
 
   async function switchLang(code) {
-    doesLang.set(true);
-    langUs.set(code);
-    lang.set(code);
+    setLanguage(code);
     locale.set(code);
     await loadTranslations(code, $page.url.pathname);
-    document.cookie = `lang=${code}; expires=` + new Date(2029, 0, 1).toUTCString();
     langMenuOpen = false;
   }
 

@@ -1,20 +1,12 @@
 <script>
   // === i18n translations ===
   import { t, locale } from '$lib/translations';
+  import { LANGUAGES, localeDir } from '$lib/config/locales.js';
+  import { setLanguage } from '$lib/stores/lang.js';
 
-  const rtlLangs = ['he', 'ar'];
-  let isRTL = $derived(rtlLangs.includes($locale));
-  let dir = $derived(isRTL ? 'rtl' : 'ltr');
+  let dir = $derived(localeDir($locale));
 
-  const languages = [
-    { code: 'he', label: 'עברית', flag: '🇮🇱' },
-    { code: 'en', label: 'English', flag: '🇺🇸' },
-    { code: 'ar', label: 'العربية', flag: '🌍' },
-    { code: 'es', label: 'Español', flag: '🇪🇸' },
-    { code: 'fr', label: 'Français', flag: '🇫🇷' },
-    { code: 'ru', label: 'Русский', flag: '🇷🇺' },
-    { code: 'zh', label: '中文', flag: '🇨🇳' }
-  ];
+  const languages = LANGUAGES;
 </script>
 
 <div class="maze-overlay" {dir}>
@@ -24,7 +16,7 @@
       {#each languages as lang}
         <button
           class="lang-btn {$locale === lang.code ? 'active' : ''}"
-          onclick={() => ($locale = lang.code)}
+          onclick={() => setLanguage(lang.code)}
         >
           {lang.flag}
           {lang.label}
