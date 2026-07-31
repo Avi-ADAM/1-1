@@ -12,7 +12,6 @@ let amorthq = "אני || שם || אוותר על כלי הנשק של צבא || 
 let already = $state(false);
   let more = $state(), come = $state(), name = $state(), email = $state();
 let error1;
-const baseUrl = import.meta.env.VITE_URL
 
 /**
  * @typedef {Object} Props
@@ -24,38 +23,27 @@ const baseUrl = import.meta.env.VITE_URL
 let { onDone, onErore } = $props();
 
 let miDatan = [];
-let linkg = baseUrl+'/graphql';
 async function add (){
 already = true;
- let d = new Date
         try {
-            await fetch(linkg, {
+            miDatan = await fetch('https://www.1lev1.com/api/tikun', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        query: `mutation 
-                        { createTikunolam(
-      data: {
-         publishedAt: "${d.toISOString()}",       
-        amort: "${amort}",
-             name:  "${name}",
-             amorts: "${amorts}",
-             amortt: "${amortt}",
-             amortf: "${amortf}",
-              amorth: "${amorth}",
-             more: "${more}",
-             notes: "${come}",
-             email: ${email}",
-                  }
-  ) {data{id }}
-
-}
-`})
+                        amort,
+                        amorts,
+                        amortt,
+                        amortf,
+                        amorth,
+                        more,
+                        notes: come,
+                        name,
+                        email
+                    })
                 })
-                .then(r => r.json())
-                .then(data => miDatan = data);
+                .then(r => r.json());
             console.log(miDatan);
             onDone?.()
         } catch (e) {

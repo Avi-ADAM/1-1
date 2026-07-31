@@ -80,7 +80,9 @@
     "menu": {
         "suggest_change": "suggest text change",
         "translate": "translate",
-        "about": "about"
+        "about": "about",
+        "map": "Agreement map",
+        "register": "Register to 1💗1"
     },
     "maze": {
         "title": "Confused? Let's sort things out!",

@@ -20,7 +20,6 @@
 
   let idx = $state(1);
   let error;
-  const baseUrl = import.meta.env.VITE_URL;
 
   let user = 0;
 
@@ -144,44 +143,14 @@
           console.log('Registration failed with ' + error);
         });
     }
-    let error1, fppp;
-    const parseJSON = (resp) => (resp.json ? resp.json() : resp);
-    const checkStatus = (resp) => {
-      if (resp.status >= 200 && resp.status < 300) {
-        return resp;
-      }
-      return parseJSON(resp).then((resp) => {
-        throw resp;
-      });
-    };
-    const headers = {
-      'Content-Type': 'application/json'
-    };
-
+    let error1;
     try {
-      const res = await fetch(baseUrl + '/graphql', {
+      const res = await fetch('https://www.1lev1.com/api/chezin', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          query: `query {
-  chezins { 
-   meta {
-      pagination {
-        total
-      }
-    }
-  }
-}
-              `
-        })
-      })
-        .then(checkStatus)
-        .then(parseJSON);
-      fppp = res.data.chezins;
-
-      idx = fppp.meta.pagination.total;
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'list' })
+      }).then((r) => r.json());
+      idx = res.data.chezins.meta.pagination.total;
     } catch (e) {
       error1 = e;
     }

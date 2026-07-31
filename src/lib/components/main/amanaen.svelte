@@ -6,8 +6,8 @@
   import { regHelper } from '../../stores/regHelper.js';
   import * as yup from 'yup';
   import { liUN } from '$lib/stores/liUN.js';
+  import { linkos } from '$lib/stores/linkos.js';
   import { t } from '$lib/translations';
-  import axios from 'axios';
   import { lang, doesLang, langUs } from '$lib/stores/lang.js';
   import { goto } from '$app/navigation';
 
@@ -39,7 +39,6 @@
   }
   let fpp = [];
   let fppp = [];
-  const baseUrl = import.meta.env.VITE_URL;
 
   let error1 = null;
   onMount(async () => {
@@ -57,28 +56,12 @@
     };
 
     try {
-      const res = await fetch(baseUrl + '/graphql', {
+      const res = await fetch('https://www.1lev1.com/api/chezin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          query: `query {
-  chezins { 
-     data {
-      attributes {
-        name
-      }
-      }
-   meta {
-      pagination {
-        total
-      }
-    }
-  }
-}
-              `
-        })
+        body: JSON.stringify({ action: 'list' })
       })
         .then(checkStatus)
         .then(parseJSON);
@@ -426,9 +409,7 @@
   let selected = $state([]);
   let already = $state(false);
   let erorims = $state(false);
-  let datar;
   let idx = 1;
-  let data;
   let g = $state(false);
   import { useProgress } from '@threlte/extras';
   const { progress } = useProgress();
@@ -464,25 +445,25 @@
           erorims = false;
           const mail = $form.email.toLowerCase().trim();
           console.log('t');
-          axios
-            .post(
-              baseUrl + '/api/chezins',
-              {
-                data: {
-                  name: $form.name,
-                  email: mail,
-                  countries: find_contry_id(selected),
-                  fullAgreement: true
-                }
-              },
-              {
-                headers: {
-                  'Content-Type': 'application/json'
-                }
+          fetch('https://www.1lev1.com/api/chezin', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              action: 'create',
+              name: $form.name,
+              email: mail,
+              countries: find_contry_id(selected),
+              publishedAt: new Date().toISOString(),
+              fullAgreement: true
+            })
+          })
+            .then((response) => response.json())
+            .then((result) => {
+              if (result.errors) {
+                throw new Error(result.errors[0].message);
               }
-            )
-            .then((response) => {
-              console.log('hhhh');
               g = false;
               already = true;
               document.cookie =
@@ -495,10 +476,11 @@
               email.set(mail);
               contriesi.set(find_contry_id(selected));
 
+              const chezinId = result.data.createChezin.data.id;
               const returnParam = new URLSearchParams(
                 window.location.search
               ).get('return');
-              let linko = `ref=true&id=${response.data.data.id}&con=${find_contry_id(selected)}&un=${encodeURIComponent($form.name)}&em=${encodeURIComponent(mail)}&lang=${$lang}`;
+              let linko = `ref=true&id=${chezinId}&con=${find_contry_id(selected)}&un=${encodeURIComponent($form.name)}&em=${encodeURIComponent(mail)}&lang=${$lang}`;
               linkos.set(linko);
               localStorage.setItem('linkos', linko);
 
@@ -507,21 +489,15 @@
                 return;
               }
               regHelper.set(1);
-              meData = response.data;
+              meData = result.data.createChezin;
               fpval.set(meData.data.id);
               show.set(0);
-              console.log($fpval, $contriesi, 'from after');
-              datar = data;
             })
             .catch((error) => {
               g = false;
               erorim.st = true;
-              if (error.response === undefined) {
-                erorim.msg = 'we trying again';
-                //  handleSubmit();
-              } else {
-                erorim.msg = ` ${error.response.data.message}  ${error.response.data.statusCode} :טעות לעולם חוזרת, הנה הפרטים היבשים `;
-              }
+              erorim.msg = 'we trying again';
+              console.error('Error creating chezin:', error);
             });
         }
       }

@@ -2,7 +2,8 @@
   import { liUN } from '$lib/stores/liUN.js';
   import { Canvas } from '@threlte/core';
   import Scene from './globu.svelte';
-  import { doesLang, langUs, lang } from '$lib/stores/lang.js';
+  import { lang, setLanguage } from '$lib/stores/lang.js';
+  import { LANGUAGES } from '$lib/config/locales.js';
   import { goto } from '$app/navigation';
   import Maze from './maze.svelte';
   import MultiSelect from 'svelte-multiselect';
@@ -32,8 +33,6 @@
   let description =
     'הסכמה העולמית על חירות היא חלק מרכזי ב- 1💗1. על ידי הסכמה להצהרה זו, ניתן להירשם לפלטפורמה השיתופית 1💗1 ומשתתפים ביצירת עולם יותר בטוח. על ידי ההתחייבות ההדדית לאי-אלימות, לפתרון סכסוכים בהסכמה ולכבוד הדדי, אנו ניצור עולם בו כוח ואלימות מפסיקים להיות צורות של תקשורת אנושית. הצטרפו אלינו לקידום שלום, הסכמות וחופש. ביחד, אנחנו יכולים ליצור עולם שבו הטוב הבסיסי מנצח ובו חילוקי דעות נפתרים בהסכמה משותפת.';
   let url = 'https://1lev1.com/hascama';
-
-  const baseUrl = import.meta.env.VITE_URL;
 
   function find_contry_id(contry_name_arr) {
     var arr = [];
@@ -442,30 +441,16 @@
       erorim.st = false;
       const mail = formEmail.toLowerCase().trim();
 
-      const response = await fetch(baseUrl + '/graphql', {
+      const response = await fetch('https://www.1lev1.com/api/chezin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          query: `
-        mutation CreateChezin($name: String!, $email: String!, $countries: [ID]!, $publishedAt: DateTime) {
-        createChezin(data: { name: $name, email: $email, countries: $countries, publishedAt: $publishedAt, fullAgreement: true }) {
-          data { 
-            id 
-            attributes {
-              name
-              publishedAt
-              email
-            }
-          }
-        }
-      }
-    `,
-          variables: {
-            name: formName,
-            email: mail,
-            countries: find_contry_id(selected),
-            publishedAt: new Date().toISOString()
-          }
+          action: 'create',
+          name: formName,
+          email: mail,
+          countries: find_contry_id(selected),
+          publishedAt: new Date().toISOString(),
+          fullAgreement: true
         })
       });
 
@@ -558,9 +543,7 @@ const lines = document.getElementById("lines")
     a = 5;
   }
   function change(la) {
-    doesLang.set(true);
-    langUs.set(la);
-    lang.set(la);
+    setLanguage(la);
   }
   let w = $state(0);
   let wid = $state(0);
@@ -612,6 +595,9 @@ const lines = document.getElementById("lines")
     if ($lang === 'ar') {
       return list.length < 2 ? list[0] : list.join(' وكل سكان ');
     }
+    if ($lang === 'ja' || $lang === 'zh') {
+      return list.join('、');
+    }
     return list.join(', ');
   });
 
@@ -619,6 +605,9 @@ const lines = document.getElementById("lines")
     const list = selected.length > 0 ? selected : ['__'];
     if ($lang === 'he') {
       return list.length < 2 ? list[0] : list.join(' ושל צבא ');
+    }
+    if ($lang === 'ja' || $lang === 'zh') {
+      return list.join('、');
     }
     return list.join(', ');
   });
@@ -714,41 +703,14 @@ const lines = document.getElementById("lines")
           />
         </svg></button
       >
-      <button
-        onclick={() => change('he')}
-        class="text-barbi border-2 border-gold text-bold hover:text-lturk bg-lturk text-center hover:bg-barbi px-1 py-0.5"
-        >עברית</button
-      >
-      <button
-        onclick={() => change('en')}
-        class="text-barbi border-2 border-gold text-bold hover:text-lturk bg-lturk text-center hover:bg-barbi px-1 py-0.5"
-        >English</button
-      >
-      <button
-        onclick={() => change('ar')}
-        class="text-barbi border-2 border-gold text-bold hover:text-lturk text-center bg-lturk hover:bg-barbi px-1 py-0.5"
-        >العربية</button
-      >
-      <button
-        onclick={() => change('fr')}
-        class="text-barbi border-2 border-gold text-bold hover:text-lturk text-center bg-lturk hover:bg-barbi px-1 py-0.5"
-        >Français</button
-      >
-      <button
-        onclick={() => change('es')}
-        class="text-barbi border-2 border-gold text-bold hover:text-lturk text-center bg-lturk hover:bg-barbi px-1 py-0.5"
-        >Español</button
-      >
-      <button
-        onclick={() => change('ru')}
-        class="text-barbi border-2 border-gold text-bold hover:text-lturk text-center bg-lturk hover:bg-barbi px-1 py-0.5"
-        >Русский</button
-      >
-      <button
-        onclick={() => change('zh')}
-        class="text-barbi border-2 border-gold text-bold hover:text-lturk text-center bg-lturk hover:bg-barbi px-1 py-0.5"
-        >中文</button
-      >
+      {#each LANGUAGES as language (language.code)}
+        <button
+          onclick={() => change(language.code)}
+          title={language.label}
+          class="text-barbi border-2 border-gold text-bold hover:text-lturk bg-lturk text-center hover:bg-barbi px-1 py-0.5"
+          >{language.label}</button
+        >
+      {/each}
 
       <a
         class="text-barbi border-2 border-gold text-bold hover:text-lturk bg-lturk text-center hover:bg-barbi px-1 py-0.5"
@@ -773,7 +735,7 @@ const lines = document.getElementById("lines")
       <a
         class="text-barbi border-2 border-gold text-bold hover:text-lturk text-center bg-lturk hover:bg-barbi px-1 py-0.5"
         data-sveltekit-prefetch
-        href="/love">מפת ההסכמה</a
+        href="/love">{$t('love.menu.map')}</a
       >
     {/if}
   </div>
@@ -1243,7 +1205,7 @@ const lines = document.getElementById("lines")
   }
 
   .logo-1lev1 h1 {
-    font-size: 1.6em;
+    font-size: 1em;
     margin: 0;
   }
 

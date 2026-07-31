@@ -1,4 +1,4 @@
-﻿<script>
+<script>
   import { t } from '$lib/translations';
   import { lang } from '$lib/stores/lang.js';
 </script>
@@ -47,7 +47,7 @@
       ><a
         target="”_blank”"
         class="text-gold hover:text-mturk"
-        href="https://shalom.1lev1.world">1💗1</a
+        href="https://www.1lev1.com">1💗1</a
       ></span
     >
   </div>
@@ -66,21 +66,6 @@
   </div>
   <div class="fli" dir="rtl">
     <span class="sec">
-      <div style="white-space: nowrap; padding: 5px;">
-        <a
-          target="”_blank”"
-          href="https://www.facebook.com/onehHart1"
-          class="text-barbi"
-        >
-          1💗1 ב -<img
-            align="left"
-            height="32"
-            width="32"
-            alt="facebook"
-            src="https://res.cloudinary.com/love1/image/upload/v1639258134/NicePng_oro-png_2336309_rkhbf8.png"
-          /></a
-        >
-      </div>
       <div style="white-space: nowrap; padding: 5px;">
         <a
           target="”_blank”"
@@ -116,22 +101,14 @@
     <span class="sec">
       <div style="white-space: nowrap; padding: 5px;">
         <a
-          target="”_blank”"
-          href="https://payboxapp.page.link/mXnKCtYiWADBgAcB8"
+          target="_blank"
+          href="https://www.1lev1.com/project/15"
           class="text-barbi"
-          style="padding-top:16px;"
-          >לתמוך בנו עם -<img
-            align="left"
-            id="pb"
-            height="32"
-            width="64"
-            alt="payBox"
-            src="https://res.cloudinary.com/love1/image/upload/v1641485170/PBr_hdbfuv.png"
-          /></a
+          style="padding-top:16px;">להצטרפות לצוות או לתמיכה בעשיה באתר 1💗1</a
         >
       </div>
-      <div class="th">
-        <div style="white-space: nowrap; padding: 5px;">
+      <!-- <div class="th">
+       <div style="white-space: nowrap; padding: 5px;">
           <a
             target="”_blank”"
             href="https://discord.gg/DNaMwrXzyS"
@@ -145,7 +122,7 @@
             /></a
           >
         </div>
-      </div>
+      </div>-->
     </span>
   </div>
 </div>

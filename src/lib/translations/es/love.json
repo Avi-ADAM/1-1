@@ -43,7 +43,9 @@
     "menu": {
         "suggest_change": "sugerir cambio de texto",
         "translate": "traducir",
-        "about": "acerca de"
+        "about": "acerca de",
+        "map": "Mapa del acuerdo",
+        "register": "Registrarse en 1💗1"
     },
     "maze": {
         "title": "¿Algo no está claro? ¡Ordenemos un poco!",
