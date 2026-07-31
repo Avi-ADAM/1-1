@@ -16,7 +16,6 @@
   import Tikun from './tikunar.svelte';
   import TRan from './tranarb.svelte';
   import { doesLang, langUs, lang } from '$lib/stores/lang.js';
-  const baseUrl = import.meta.env.VITE_URL;
   import { Head } from 'svead';
   let title = ' 1💗1 | التوافق العالمي من أجل الحرية';
   let image = `https://res.cloudinary.com/love1/image/upload/v1640020897/cropped-PicsArt_01-28-07.49.25-1_wvt4qz.png`;
@@ -52,33 +51,18 @@
     };
 
     try {
-      const res = await fetch(baseUrl + '/graphql', {
+      const res = await fetch('https://www.1lev1.com/api/chezin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          query: `query {
-  chezins { 
-     data {
-      attributes {
-        name
-      }
-      }
-   meta {
-      pagination {
-        total
-      }
-    }
-  }
-}
-              `
-        })
+        body: JSON.stringify({ action: 'list' })
       })
         .then(checkStatus)
         .then(parseJSON);
       fppp = res.data.chezins;
       fpp = fppp.data.map((c) => c.attributes.name);
+      idx = fppp.meta.pagination.total + 2;
     } catch (e) {
       error1 = e;
     }
@@ -641,9 +625,7 @@
 
   let selected = $state([]);
   let already = $state(false);
-  let datar;
   let idx = $state(1);
-  let data;
   import { createForm } from 'svelte-forms-lib';
   import Text1lev1 from '$lib/celim/ui/text1lev1.svelte';
 
@@ -657,46 +639,54 @@
       name: yup.string().required(),
       email: yup.string().email().required()
     }),
-    onSubmit: (values) => {
-      fetch(baseUrl + '/api/chezins', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          data: {
+    onSubmit: async (values) => {
+      const mail = $form.email.toLowerCase().trim();
+      try {
+        const response = await fetch('https://www.1lev1.com/api/chezin', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            action: 'create',
             name: $form.name,
-            email: $form.email,
+            email: mail,
             countries: find_contry_id(selected),
+            publishedAt: new Date().toISOString(),
             fullAgreement: true
-          }
-        })
-      })
-        .then((response) => response.json())
-        .then((data) => datar);
-      userName.set($form.name);
-      email.set($form.email);
-      regHelper.set(1);
-      datar = data;
-      already = true;
-      liUN.set($form.name);
+          })
+        });
+        const result = await response.json();
+        if (result.errors) {
+          throw new Error(result.errors[0].message);
+        }
+        const chezinId = result.data.createChezin.data.id;
 
-      const returnParam = new URLSearchParams(window.location.search).get(
-        'return'
-      );
-      let linko = `ref=true&id=${data.data.id}&con=${find_contry_id(selected)}&un=${encodeURIComponent($form.name)}&em=${encodeURIComponent($form.email)}&lang=${$lang}`;
+        userName.set($form.name);
+        email.set(mail);
+        regHelper.set(1);
+        already = true;
+        liUN.set($form.name);
 
-      if (returnParam) {
-        window.location.href = `https://www.1lev1.com/hascama?${linko}`;
-        return;
+        const returnParam = new URLSearchParams(window.location.search).get(
+          'return'
+        );
+        let linko = `ref=true&id=${chezinId}&con=${find_contry_id(selected)}&un=${encodeURIComponent($form.name)}&em=${encodeURIComponent(mail)}&lang=${$lang}`;
+
+        if (returnParam) {
+          window.location.href = `https://www.1lev1.com/hascama?${linko}`;
+          return;
+        }
+
+        setTimeout(function () {
+          doesLang.set(true);
+          langUs.set('en');
+          lang.set('en');
+          goto('/convention');
+        }, 2500);
+      } catch (e) {
+        console.error('Error creating chezin:', e);
       }
-
-      setTimeout(function () {
-        doesLang.set(true);
-        langUs.set('en');
-        lang.set('en');
-        goto('/convention');
-      }, 2500);
     }
   });
 
@@ -728,7 +718,6 @@
   function tran() {
     trans = !trans;
   }
-  let error;
   function change(la) {
     if (la == 'he') {
       doesLang.set(true);
@@ -742,34 +731,6 @@
       console.log('change', $lang);
     }
   }
-  onMount(async () => {
-    const parseJSON = (resp) => (resp.json ? resp.json() : resp);
-    const checkStatus = (resp) => {
-      if (resp.status >= 200 && resp.status < 300) {
-        return resp;
-      }
-      return parseJSON(resp).then((resp) => {
-        throw resp;
-      });
-    };
-    const headers = {
-      'Content-Type': 'application/json'
-    };
-
-    try {
-      const res = await fetch(baseUrl + '/api/chezins/count', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-        .then(checkStatus)
-        .then(parseJSON);
-      idx = res + 2;
-    } catch (e) {
-      error = e;
-    }
-  });
   let dow = $state();
   function scrollTo() {
     dow.scrollIntoView({ behavior: 'smooth' });

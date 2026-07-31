@@ -33,8 +33,6 @@
     'הסכמה העולמית על חירות היא חלק מרכזי ב- 1💗1. על ידי הסכמה להצהרה זו, ניתן להירשם לפלטפורמה השיתופית 1💗1 ומשתתפים ביצירת עולם יותר בטוח. על ידי ההתחייבות ההדדית לאי-אלימות, לפתרון סכסוכים בהסכמה ולכבוד הדדי, אנו ניצור עולם בו כוח ואלימות מפסיקים להיות צורות של תקשורת אנושית. הצטרפו אלינו לקידום שלום, הסכמות וחופש. ביחד, אנחנו יכולים ליצור עולם שבו הטוב הבסיסי מנצח ובו חילוקי דעות נפתרים בהסכמה משותפת.';
   let url = 'https://1lev1.com/hascama';
 
-  const baseUrl = import.meta.env.VITE_URL;
-
   function find_contry_id(contry_name_arr) {
     var arr = [];
     let field = $lang === 'he' ? 'heb' : $lang === 'ar' ? 'ar' : 'label';
@@ -442,30 +440,16 @@
       erorim.st = false;
       const mail = formEmail.toLowerCase().trim();
 
-      const response = await fetch(baseUrl + '/graphql', {
+      const response = await fetch('https://www.1lev1.com/api/chezin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          query: `
-        mutation CreateChezin($name: String!, $email: String!, $countries: [ID]!, $publishedAt: DateTime) {
-        createChezin(data: { name: $name, email: $email, countries: $countries, publishedAt: $publishedAt, fullAgreement: true }) {
-          data { 
-            id 
-            attributes {
-              name
-              publishedAt
-              email
-            }
-          }
-        }
-      }
-    `,
-          variables: {
-            name: formName,
-            email: mail,
-            countries: find_contry_id(selected),
-            publishedAt: new Date().toISOString()
-          }
+          action: 'create',
+          name: formName,
+          email: mail,
+          countries: find_contry_id(selected),
+          publishedAt: new Date().toISOString(),
+          fullAgreement: true
         })
       });
 
