@@ -2,7 +2,8 @@
   import { liUN } from '$lib/stores/liUN.js';
   import { Canvas } from '@threlte/core';
   import Scene from './globu.svelte';
-  import { doesLang, langUs, lang } from '$lib/stores/lang.js';
+  import { lang, setLanguage } from '$lib/stores/lang.js';
+  import { LANGUAGES } from '$lib/config/locales.js';
   import { goto } from '$app/navigation';
   import Maze from './maze.svelte';
   import MultiSelect from 'svelte-multiselect';
@@ -542,9 +543,7 @@ const lines = document.getElementById("lines")
     a = 5;
   }
   function change(la) {
-    doesLang.set(true);
-    langUs.set(la);
-    lang.set(la);
+    setLanguage(la);
   }
   let w = $state(0);
   let wid = $state(0);
@@ -596,6 +595,9 @@ const lines = document.getElementById("lines")
     if ($lang === 'ar') {
       return list.length < 2 ? list[0] : list.join(' وكل سكان ');
     }
+    if ($lang === 'ja' || $lang === 'zh') {
+      return list.join('、');
+    }
     return list.join(', ');
   });
 
@@ -603,6 +605,9 @@ const lines = document.getElementById("lines")
     const list = selected.length > 0 ? selected : ['__'];
     if ($lang === 'he') {
       return list.length < 2 ? list[0] : list.join(' ושל צבא ');
+    }
+    if ($lang === 'ja' || $lang === 'zh') {
+      return list.join('、');
     }
     return list.join(', ');
   });
@@ -698,41 +703,14 @@ const lines = document.getElementById("lines")
           />
         </svg></button
       >
-      <button
-        onclick={() => change('he')}
-        class="text-barbi border-2 border-gold text-bold hover:text-lturk bg-lturk text-center hover:bg-barbi px-1 py-0.5"
-        >עברית</button
-      >
-      <button
-        onclick={() => change('en')}
-        class="text-barbi border-2 border-gold text-bold hover:text-lturk bg-lturk text-center hover:bg-barbi px-1 py-0.5"
-        >English</button
-      >
-      <button
-        onclick={() => change('ar')}
-        class="text-barbi border-2 border-gold text-bold hover:text-lturk text-center bg-lturk hover:bg-barbi px-1 py-0.5"
-        >العربية</button
-      >
-      <button
-        onclick={() => change('fr')}
-        class="text-barbi border-2 border-gold text-bold hover:text-lturk text-center bg-lturk hover:bg-barbi px-1 py-0.5"
-        >Français</button
-      >
-      <button
-        onclick={() => change('es')}
-        class="text-barbi border-2 border-gold text-bold hover:text-lturk text-center bg-lturk hover:bg-barbi px-1 py-0.5"
-        >Español</button
-      >
-      <button
-        onclick={() => change('ru')}
-        class="text-barbi border-2 border-gold text-bold hover:text-lturk text-center bg-lturk hover:bg-barbi px-1 py-0.5"
-        >Русский</button
-      >
-      <button
-        onclick={() => change('zh')}
-        class="text-barbi border-2 border-gold text-bold hover:text-lturk text-center bg-lturk hover:bg-barbi px-1 py-0.5"
-        >中文</button
-      >
+      {#each LANGUAGES as language (language.code)}
+        <button
+          onclick={() => change(language.code)}
+          title={language.label}
+          class="text-barbi border-2 border-gold text-bold hover:text-lturk bg-lturk text-center hover:bg-barbi px-1 py-0.5"
+          >{language.label}</button
+        >
+      {/each}
 
       <a
         class="text-barbi border-2 border-gold text-bold hover:text-lturk bg-lturk text-center hover:bg-barbi px-1 py-0.5"
@@ -757,7 +735,7 @@ const lines = document.getElementById("lines")
       <a
         class="text-barbi border-2 border-gold text-bold hover:text-lturk text-center bg-lturk hover:bg-barbi px-1 py-0.5"
         data-sveltekit-prefetch
-        href="/love">מפת ההסכמה</a
+        href="/love">{$t('love.menu.map')}</a
       >
     {/if}
   </div>

@@ -5,21 +5,39 @@
   import Share from '$lib/components/share/shareButtons/index.svelte';
   import Confetti from 'svelte-confetti';
   import { lang } from '$lib/stores/lang.js';
+  import { localeDir } from '$lib/config/locales.js';
+  import { t } from '$lib/translations';
 let { idx = 1 } = $props();
+  let dir = $derived(localeDir($lang));
   let confettiActive = true;
 
   const shareProps = {
     title: {
       he: 'הצטרפתי להסכמה!',
       en: 'I joined the agreement!',
-      ar: 'انضممت إلى الاتفاقية!'
+      ar: 'انضممت إلى الاتفاقية!',
+      es: '¡Me uní al acuerdo!',
+      fr: "J'ai rejoint l'accord !",
+      de: 'Ich habe mich der Vereinbarung angeschlossen!',
+      ru: 'Я присоединился к соглашению!',
+      zh: '我加入了这份协议！',
+      ja: '合意に加わりました！'
     },
     body: {
       he: 'הצטרפתי להסכמה לחירות ושלום בעולם. הצטרפו גם אתם!',
       en: 'I joined the agreement for Freedom and peace in the world. Join us too!',
-      ar: 'انضممت إلى اتفاقية الحب والسلام في العالم. انضموا إلينا أيضاً!'
+      ar: 'انضممت إلى اتفاقية الحب والسلام في العالم. انضموا إلينا أيضاً!',
+      es: 'Me uní al acuerdo por la libertad y la paz en el mundo. ¡Únete tú también!',
+      fr: "J'ai rejoint l'accord pour la liberté et la paix dans le monde. Rejoignez-nous aussi !",
+      de: 'Ich habe mich der Vereinbarung für Freiheit und Frieden in der Welt angeschlossen. Mach auch du mit!',
+      ru: 'Я присоединился к соглашению за свободу и мир во всём мире. Присоединяйтесь и вы!',
+      zh: '我加入了为世界自由与和平而立的协议。也来加入我们吧！',
+      ja: '世界の自由と平和のための合意に加わりました。あなたもぜひご一緒に！'
     }
   };
+
+  // Fall back to English for languages without their own copy here.
+  const pick = (map) => map[$lang] ?? map.en;
 
   function goToRegister() {
     window.location.href = `https://www.1lev1.com/hascama?${localStorage.getItem('linkos')}`;
@@ -27,7 +45,13 @@ let { idx = 1 } = $props();
   const levRecomend = {
     he: 'ברכותינו על הצטרפותך להסכמה! כעת אנו מזמינים אותך להירשם לאתר 1💗1 - פלטפורמה ייחודית לניהול ויצירת שותפויות בהסכמה. כאן תוכל ליצור קשרים משמעותיים ולהשתתף בפרויקטים משותפים למען עולם טוב יותר.',
     en: 'Congratulations on joining the agreement! Now we invite you to register to the  1💗1 website - a unique platform for managing and creating partnerships in agreement. Here you can create meaningful connections and participate in joint projects for a better world.',
-    ar: 'تهانينا على انضمامك إلى الاتفاقية! ندعوك الآن للتسجيل في موقع 1💗1 - منصة فريدة لإدارة وإنشاء الشراكات بالاتفاق. هنا يمكنك إنشاء اتصالات ذات معنى والمشاركة في مشاريع مشتركة من أجل عالم أفضل.'
+    ar: 'تهانينا على انضمامك إلى الاتفاقية! ندعوك الآن للتسجيل في موقع 1💗1 - منصة فريدة لإدارة وإنشاء الشراكات بالاتفاق. هنا يمكنك إنشاء اتصالات ذات معنى والمشاركة في مشاريع مشتركة من أجل عالم أفضل.',
+    es: '¡Felicidades por unirte al acuerdo! Ahora te invitamos a registrarte en el sitio 1💗1: una plataforma única para crear y gestionar asociaciones de mutuo acuerdo. Aquí podrás crear vínculos significativos y participar en proyectos conjuntos por un mundo mejor.',
+    fr: "Félicitations d'avoir rejoint l'accord ! Nous vous invitons maintenant à vous inscrire sur le site 1💗1 : une plateforme unique pour créer et gérer des partenariats par consentement mutuel. Vous pourrez y nouer des liens porteurs de sens et participer à des projets communs pour un monde meilleur.",
+    de: 'Herzlichen Glückwunsch zum Beitritt zur Vereinbarung! Wir laden dich nun ein, dich auf 1💗1 zu registrieren – einer einzigartigen Plattform, um Partnerschaften im gegenseitigen Einvernehmen zu schaffen und zu führen. Hier kannst du bedeutsame Verbindungen knüpfen und dich an gemeinsamen Projekten für eine bessere Welt beteiligen.',
+    ru: 'Поздравляем с присоединением к соглашению! Теперь приглашаем вас зарегистрироваться на сайте 1💗1 — уникальной платформе для создания и ведения партнёрств по взаимному согласию. Здесь вы сможете создавать значимые связи и участвовать в совместных проектах ради лучшего мира.',
+    zh: '恭喜你加入这份协议！现在我们邀请你注册 1💗1 网站——一个以相互同意来创建和管理合作关系的独特平台。在这里，你可以建立有意义的联系，并参与共创更美好世界的合作项目。',
+    ja: '合意へのご参加おめでとうございます！次はぜひ 1💗1 に登録してください。相互の合意にもとづいてパートナーシップをつくり、運営するための独自のプラットフォームです。ここで意味のあるつながりを築き、より良い世界のための共同プロジェクトに参加できます。'
   }
   function onProgres() {
     confettiActive = true;
@@ -39,11 +63,11 @@ let { idx = 1 } = $props();
   {#if confettiActive}
     <Confetti />
   {/if}
-<main class="page" dir={$lang === 'en' ? 'ltr' : 'rtl'}>
-  
-  <div class="card" dir={$lang === 'en' ? 'ltr' : 'rtl'}>
+<main class="page" {dir}>
+
+  <div class="card" {dir}>
     <div class="card-inner bg-gold ">
-    <section class="hero" dir={$lang === 'en' ? 'ltr' : 'rtl'}>
+    <section class="hero" {dir}>
       <div class="greeting">
         <Hello {idx} {onProgres} />
    
@@ -55,10 +79,10 @@ let { idx = 1 } = $props();
     <aside class="actions">
       <div class="navigation-links">
         <a href="/" class="nav-link about-link">
-          {$lang === 'he' ? 'אודות האמנה' : $lang === 'en' ? 'About the Charter' : 'حول الميثاق'}
+          {$t('love.menu.about')}
         </a>
         <a href="/love" class="nav-link love-link">
-          {$lang === 'he' ? 'מפת ההסכמה' : $lang === 'en' ? 'Agreement Map' : 'خريطة الاتفاقية'}
+          {$t('love.menu.map')}
         </a>
         <a href="https://www.1lev1.com/project/15" class="nav-link volunteer-link" target="_blank" rel="noopener noreferrer">
           {$lang === 'he' ? 'להתנדבות ותמיכה בעשיה' : $lang === 'en' ? 'Volunteer and support the initiative' : 'للتطوع ودعم المبادرة'}
@@ -66,21 +90,21 @@ let { idx = 1 } = $props();
       </div>
       <div class="p-4 shadow-xl shadow-barbi">
             <div class="texts">
-        <p class={$lang === 'en' ? 'ltr' : 'rtl'}>{levRecomend[$lang]}</p>
+        <p class={dir}>{pick(levRecomend)}</p>
       </div>
       <button class="register-button" onclick={goToRegister} aria-label="Register">
-        {$lang === 'he' ? 'להרשמה ל- 1💗1' : $lang === 'en' ? 'Register to  1💗1' : 'التسجيل في  1💗1'}
+        {$t('love.menu.register')}
       </button>
     </div>
  </aside>
 </div>
   <div class="share-wrap" aria-hidden="false">
         <Share 
-          title={shareProps.title[$lang]}
-          desc={shareProps.body[$lang]}
+          title={pick(shareProps.title)}
+          desc={pick(shareProps.body)}
           hashtags={['love', 'peace', 'agreement', '1lev1']}
-          quote={shareProps.body[$lang]}
-          body={shareProps.body[$lang]}/>
+          quote={pick(shareProps.body)}
+          body={pick(shareProps.body)}/>
       </div>
    </div>
 

@@ -1,14 +1,12 @@
 <script>
   import { t, locale } from '$lib/translations';
-  import { lang, doesLang, langUs } from '$lib/stores/lang.js';
+  import { setLanguage } from '$lib/stores/lang.js';
   import { derived } from 'svelte/store';
+  import { LANGUAGES, RTL_LOCALES } from '$lib/config/locales.js';
 
   // ── Infographic images (place in /static/infographics/) ──────────────────
   //const INFOGRAPHIC_1 = '/he/infographic-consensus.png'; // unnamed.png  → rename
   //const INFOGRAPHIC_2 = '/he/infographic-agreement.png'; // unnamed__1___2_.png → rename
-
-  // ── Language metadata ─────────────────────────────────────────────────────
-  const RTL_LANGS = ['he', 'ar'];
 
   // ── All content keyed by locale ───────────────────────────────────────────
   const CONTENT = {
@@ -361,6 +359,101 @@ Es un viaje de 9 mil millones de pasos. Solo puedes dar tu propio paso, y es cru
       ctaText: 'Declare su compromiso con un mundo pacífico',
       ctaButton: 'Firmar el acuerdo',
       contactText: 'Preguntas y contacto:'
+    },
+
+    // ── GERMAN ────────────────────────────────────────────────────────────────
+    de: {
+      pageTitle: 'Über uns | Vereinbarung für Frieden und Sicherheit',
+      metaDescription:
+        'Eine weltweite Plattform für die persönliche Erklärung von Gewaltfreiheit und Zwangsfreiheit',
+      dir: 'ltr',
+      heroTitle: 'Die einfache Wahrheit:',
+      heroSubtitle: 'Über eine friedliche Welt sind wir uns längst einig',
+      heroLead: `In jeder Sprache, Kultur und Nation teilen Menschen dieselbe grundlegende Sehnsucht — frei von Gewalt und Zwang zu leben. Und dennoch gehen Kriege, Unterdrückung und Konflikte weiter. Eine gemeinsame Erklärung verändert alles.`,
+      visionTitle: 'Vision',
+      visionText: `Eine weltweite digitale Plattform, auf der Menschen aus allen Ländern persönlich ihre Verpflichtung zu Gewaltfreiheit und Zwangsfreiheit erklären — und gemeinsam beweisen, dass die schweigende Mehrheit sich dieselbe friedliche Welt wünscht.`,
+      missionTitle: 'Auftrag',
+      missionText: `Ein praktisches Werkzeug zu sein, um Vertrauen zwischen verfeindeten Gemeinschaften und Nationen wieder aufzubauen. Wir umgehen die institutionelle Diplomatie und schaffen einen echten Konsens von unten — Frieden von der Basis aus.`,
+      principleTitle: 'Leitprinzip',
+      principleText: `Eine Datenbank von Zustimmungen wird belegen, dass die schweigende Mehrheit der Welt trotz tiefer politischer und kultureller Unterschiede dieselbe grundlegende Sehnsucht nach einem Leben ohne Gewalt und Zwang teilt.`,
+
+      audienceTabs: [
+        {
+          id: 'main',
+          label: 'Freiheit ohne Zwang',
+          title: 'Freiheit ohne Zwang',
+          text: `Wahrer Frieden gründet auf gegenseitigem Respekt und auf Freiheit von Zwang. Das Nichtangriffsprinzip — dass weder ein Mensch noch eine Institution das Recht hat, Gewalt gegen andere zu beginnen — ist das Fundament einer zivilisierten Gesellschaft. Diese Vereinbarung schützt dein Leben, dein Eigentum und deine Gemeinschaft vor Gewalt und Zwang jeder Art.`
+        }
+      ],
+
+      infographic1Alt: 'Die einfache Wahrheit – wir sind uns längst einig',
+      infographic2Alt:
+        'Eine Menschheit, eine Vereinbarung – der Weg zum Weltfrieden',
+      infographic1Caption: 'Die Prinzipien der 1💗1-Vereinbarung',
+      infographic2Caption: 'Der Weg zu weltweitem Frieden und Freiheit',
+
+      rabiTitle: 'Gebet für den Frieden — Rabbi Nachman von Brazlaw',
+      rabiText: `Herr des Friedens, König, dem der Friede gehört,
+möge es Dein Wille sein, Krieg und Blutvergießen von der Erde zu tilgen
+und großen, wunderbaren Frieden in die Welt zu bringen —
+kein Volk wird mehr das Schwert gegen ein anderes erheben, und sie werden den Krieg nicht mehr lernen.`,
+
+      journeyTitle: 'Eine Reise von 9 Milliarden Schritten',
+      journeyText: `Wahrer Frieden kommt erst, wenn 9 Milliarden Menschen einander genug vertrauen, um die Waffen niederzulegen, die dazu da sind, andere zu zwingen und gleichzumachen.
+Diese Plattform ist keine moralische Flucht — hier entdecken wir, dass die Menschen jenseits des Zauns genau dieselben heiligen Werte von Freiheit und Frieden teilen.
+Es ist eine Reise von 9 Milliarden Schritten. Du kannst nur deinen einen eigenen Schritt gehen, und es ist entscheidend, dass du ihn gehst — denn niemand sonst kann ihn für dich tun.`,
+
+      ctaTitle: 'Schließe dich der Vereinbarung an',
+      ctaText: 'Erkläre deine Verpflichtung zu einer friedlichen Welt',
+      ctaButton: 'Die Vereinbarung unterzeichnen',
+      contactText: 'Fragen und Kontakt:'
+    },
+
+    // ── JAPANESE ──────────────────────────────────────────────────────────────
+    ja: {
+      pageTitle: '私たちについて | 平和と安全のための合意',
+      metaDescription:
+        '非暴力と非強制を個人として宣言するための世界的なプラットフォーム',
+      dir: 'ltr',
+      heroTitle: '単純な真実：',
+      heroSubtitle: '私たちはすでに、平和な世界に合意しています',
+      heroLead: `どの言語、どの文化、どの国でも、人々は同じ根本的な願いを分かち合っています — 暴力と強制のない自由な暮らしです。それでも戦争や抑圧、対立は続いています。ひとつに束ねられた宣言が、すべてを変えます。`,
+      visionTitle: 'ビジョン',
+      visionText: `世界中の市民が、非暴力と非強制の原則への自らの約束を個人として宣言する、グローバルなデジタル・プラットフォーム。そして沈黙する多数派が同じ平和な世界を望んでいることを、ともに証明します。`,
+      missionTitle: 'ミッション',
+      missionText: `対立するコミュニティや国家のあいだで信頼を回復するための、実践的な道具となること。制度化された外交を迂回し、市民の側から本物の合意をつくります — 下からの平和です。`,
+      principleTitle: '指針となる原則',
+      principleText: `合意のデータベースは、深い政治的・文化的な違いを越えて、世界の沈黙する多数派が「暴力と強制のない暮らし」という根本的な願いを共有していることを示します。`,
+
+      audienceTabs: [
+        {
+          id: 'main',
+          label: '強制のない自由',
+          title: '強制のない自由',
+          text: `本当の平和は、相互の敬意と、強制からの自由の上に築かれます。不可侵の原則 — いかなる個人も組織も、他者に対して力を行使しはじめる権利を持たない — は、文明社会の土台です。この合意は、あなたの生活、財産、そして共同体を、あらゆる形の暴力と強制から守ります。`
+        }
+      ],
+
+      infographic1Alt: '単純な真実 - 私たちはすでに合意している',
+      infographic2Alt: 'ひとつの人類、ひとつの合意 - 世界平和への道',
+      infographic1Caption: '1💗1合意の原則',
+      infographic2Caption: '世界の平和と自由への道',
+
+      rabiTitle: '平和のための祈り — ブレスロフのラビ・ナフマン',
+      rabiText: `平和の主、平和がその御手にある王よ、
+どうか世界から戦争と流血を取り去り、
+大いなる不思議な平和をこの世にもたらしてください —
+国は国に向かって剣を上げず、もはや戦いを学ぶことはない。`,
+
+      journeyTitle: '90億歩の旅',
+      journeyText: `本当の平和は、90億の人々が互いを十分に信頼し、他者を強制し従わせるための武器を置いたときにはじめて訪れます。
+このプラットフォームは道徳的な現実逃避ではありません。塀の向こう側の人々も、自由と平和というまったく同じ神聖な価値に心から同意していると気づく場所です。
+これは90億歩の旅です。あなたが歩めるのは、あなた自身の一歩だけ。そしてその一歩はとても大切です — ほかの誰も、あなたの代わりに歩むことはできないのですから。`,
+
+      ctaTitle: '合意に加わる',
+      ctaText: '平和な世界への約束を宣言してください',
+      ctaButton: '合意に署名する',
+      contactText: 'お問い合わせ：'
     }
   };
 
@@ -391,20 +484,13 @@ Es un viaje de 9 mil millones de pasos. Solo puedes dar tu propio paso, y es cru
   });
 
   let content = $derived(CONTENT[currentLang] || CONTENT['he']);
-  let isRTL = $derived(RTL_LANGS.includes(currentLang));
+  let isRTL = $derived(RTL_LOCALES.includes(currentLang));
 
-  // All supported languages for the switcher
-  const LANGUAGES = [
-    { code: 'he', label: 'עברית', flag: '🇮🇱' },
-    { code: 'en', label: 'English', flag: '🇺🇸' },
-    { code: 'ar', label: 'العربية', flag: '🌍' },
-    { code: 'ru', label: 'Русский', flag: '🇷🇺' },
-    { code: 'fr', label: 'Français', flag: '🇫🇷' },
-    { code: 'zh', label: '中文', flag: '🇨🇳' },
-    { code: 'es', label: 'Español', flag: '🇪🇸' }
-  ];
+  // All supported languages for the switcher — see $lib/config/locales.js
 
   function switchLang(code) {
+    // Remember the choice so it survives navigation and a page reload.
+    setLanguage(code);
     locale.set(code);
     currentLang = code;
     activeTab = 0;
@@ -431,8 +517,11 @@ Es un viaje de 9 mil millones de pasos. Solo puedes dar tu propio paso, y es cru
 
   <div class="relative w-full overflow-hidden" style="aspect-ratio: 9/2;">
     {#each BG_IMAGES as bg, i}
-      <div 
-        class="absolute inset-0 w-full h-full transition-all duration-[3000ms] ease-in-out {bgIndex === i ? 'opacity-100 scale-105' : 'opacity-0 scale-100'}"
+      <div
+        class="absolute inset-0 w-full h-full transition-all duration-[3000ms] ease-in-out {bgIndex ===
+        i
+          ? 'opacity-100 scale-105'
+          : 'opacity-0 scale-100'}"
       >
         <picture>
           <source srcset="/bg/{bg}.png" type="image/webp" />
@@ -683,19 +772,6 @@ Es un viaje de 9 mil millones de pasos. Solo puedes dar tu propio paso, y es cru
   <div class="pb-10 flex flex-wrap justify-center gap-4 px-4">
     <a
       target="_blank"
-      href="https://www.facebook.com/onehHart1"
-      class="flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full px-4 py-2 text-pink-300 text-sm transition-all"
-    >
-      <img
-        height="20"
-        width="20"
-        alt="facebook"
-        src="https://res.cloudinary.com/love1/image/upload/v1639258134/NicePng_oro-png_2336309_rkhbf8.png"
-      />
-      1💗1
-    </a>
-    <a
-      target="_blank"
       href="https://www.facebook.com/worldnonviolent"
       class="flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full px-4 py-2 text-pink-300 text-sm transition-all"
     >
@@ -707,7 +783,7 @@ Es un viaje de 9 mil millones de pasos. Solo puedes dar tu propio paso, y es cru
       />
       האמנה העולמית
     </a>
-    <a
+    <!-- <a
       target="_blank"
       href="https://discord.gg/DNaMwrXzyS"
       class="flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full px-4 py-2 text-pink-300 text-sm transition-all"
@@ -718,18 +794,13 @@ Es un viaje de 9 mil millones de pasos. Solo puedes dar tu propio paso, y es cru
         alt="Discord"
         src="https://res.cloudinary.com/love1/image/upload/v1641482980/discord-seeklogo.com_tkftet.svg"
       />
-    </a>
+    </a>-->
     <a
       target="_blank"
-      href="https://payboxapp.page.link/mXnKCtYiWADBgAcB8"
+      href="https://www.1lev1.com/project/15"
       class="flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full px-4 py-2 text-pink-300 text-sm transition-all"
     >
-      <img
-        height="20"
-        width="40"
-        alt="payBox"
-        src="https://res.cloudinary.com/love1/image/upload/v1641485170/PBr_hdbfuv.png"
-      />
+      להצטרפות לצוות או לתמיכה בעשיה באתר 1💗1
     </a>
   </div>
 
@@ -748,7 +819,7 @@ Es un viaje de 9 mil millones de pasos. Solo puedes dar tu propio paso, y es cru
       <a
         target="_blank"
         class="hover:text-pink-300 transition-colors"
-        href="https://shalom.1lev1.world"
+        href="https://www.1lev1.com"
       >
         1💗1
       </a>
