@@ -2,7 +2,9 @@
   import { t, locale } from '$lib/translations';
   import { setLanguage } from '$lib/stores/lang.js';
   import { derived } from 'svelte/store';
-  import { LANGUAGES, RTL_LOCALES } from '$lib/config/locales.js';
+  import { page } from '$app/stores';
+  import { LANGUAGES, RTL_LOCALES, resolveLocale } from '$lib/config/locales.js';
+  import Seo from '$lib/components/Seo.svelte';
 
   // ── Infographic images (place in /static/infographics/) ──────────────────
   //const INFOGRAPHIC_1 = '/he/infographic-consensus.png'; // unnamed.png  → rename
@@ -458,8 +460,12 @@ Es ist eine Reise von 9 Milliarden Schritten. Du kannst nur deinen einen eigenen
   };
 
   // ── Reactive state ────────────────────────────────────────────────────────
-  let currentLang = $state('he');
+  // Start from the language the server resolved for this request (?lang=,
+  // cookie or Accept-Language) so the server rendered HTML — the version
+  // crawlers read — is already in the right language.
+  let currentLang = $state(resolveLocale($page.data?.lang, 'he'));
   let activeTab = $state(0);
+  let langMenuOpen = $state(false);
 
   // ── Background image rotation ─────────────────────────────────────────────
   const BG_IMAGES = [3, 6];
@@ -485,6 +491,9 @@ Es ist eine Reise von 9 Milliarden Schritten. Du kannst nur deinen einen eigenen
 
   let content = $derived(CONTENT[currentLang] || CONTENT['he']);
   let isRTL = $derived(RTL_LOCALES.includes(currentLang));
+  let currentLanguage = $derived(
+    LANGUAGES.find((l) => l.code === currentLang) || LANGUAGES[0]
+  );
 
   // All supported languages for the switcher — see $lib/config/locales.js
 
@@ -494,13 +503,29 @@ Es ist eine Reise von 9 Milliarden Schritten. Du kannst nur deinen einen eigenen
     locale.set(code);
     currentLang = code;
     activeTab = 0;
+    langMenuOpen = false;
+  }
+
+  /** Close the menu when clicking anywhere outside of it. */
+  function handleWindowClick(event) {
+    if (langMenuOpen && !event.target.closest('.lang-switcher')) {
+      langMenuOpen = false;
+    }
+  }
+
+  function handleWindowKeydown(event) {
+    if (event.key === 'Escape') langMenuOpen = false;
   }
 </script>
 
-<svelte:head>
-  <title>{content.pageTitle}</title>
-  <meta name="description" content={content.metaDescription} />
-</svelte:head>
+<svelte:window onclick={handleWindowClick} onkeydown={handleWindowKeydown} />
+
+<Seo
+  title={content.pageTitle}
+  description={content.metaDescription}
+  lang={currentLang}
+  path="/"
+/>
 
 <!-- ═══════════════════════════════════════════════════════════════════════════
      ABOUT PAGE
@@ -513,9 +538,73 @@ Es ist eine Reise von 9 Milliarden Schritten. Du kannst nur deinen einen eigenen
   <!-- Light dimming overlay -->
   <div class="fixed inset-0 pointer-events-none bg-black/20 z-[60]"></div>
 
+  <!-- ── Language switcher ────────────────────────────────────────────────
+       A single compact button, so it never grows into the rows of flags that
+       used to cover the hero headline on narrow screens. It lives outside the
+       hero banner because that element clips its overflow, which would cut
+       the open menu in half. -->
+  <div class="lang-switcher absolute top-3 end-3 z-[70]">
+    <button
+      type="button"
+      onclick={() => (langMenuOpen = !langMenuOpen)}
+      aria-haspopup="listbox"
+      aria-expanded={langMenuOpen}
+      aria-label="Language: {currentLanguage.label}"
+      class="flex items-center gap-1.5 rounded-full bg-black/50 hover:bg-black/70 border border-white/20
+             px-3 py-1.5 text-xs sm:text-sm font-semibold text-white backdrop-blur-md
+             shadow-lg transition-colors duration-200"
+    >
+      <span aria-hidden="true">🌐</span>
+      <span aria-hidden="true">{currentLanguage.flag}</span>
+      <span>{currentLanguage.label}</span>
+      <svg
+        class="w-3 h-3 transition-transform duration-200 {langMenuOpen
+          ? 'rotate-180'
+          : ''}"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M6 9l6 6 6-6" />
+      </svg>
+    </button>
+
+    {#if langMenuOpen}
+      <div
+        role="listbox"
+        aria-label="Language"
+        class="absolute top-full end-0 mt-2 w-44 max-h-[60vh] overflow-y-auto rounded-xl
+               border border-white/15 bg-black/90 backdrop-blur-md shadow-2xl p-1"
+      >
+        {#each LANGUAGES as lng (lng.code)}
+          <button
+            type="button"
+            role="option"
+            aria-selected={currentLang === lng.code}
+            onclick={() => switchLang(lng.code)}
+            class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-start transition-colors duration-150
+              {currentLang === lng.code
+              ? 'bg-pink-500 text-white'
+              : 'text-white/80 hover:bg-white/10'}"
+          >
+            <span aria-hidden="true">{lng.flag}</span>
+            <span class="flex-1">{lng.label}</span>
+            {#if currentLang === lng.code}
+              <span aria-hidden="true">✓</span>
+            {/if}
+          </button>
+        {/each}
+      </div>
+    {/if}
+  </div>
+
   <!-- ── Hero banner ──────────────────────────────────────────────────────── -->
 
-  <div class="relative w-full overflow-hidden" style="aspect-ratio: 9/2;">
+  <div class="hero-banner relative w-full overflow-hidden">
     {#each BG_IMAGES as bg, i}
       <div
         class="absolute inset-0 w-full h-full transition-all duration-[3000ms] ease-in-out {bgIndex ===
@@ -537,25 +626,6 @@ Es ist eine Reise von 9 Milliarden Schritten. Du kannst nur deinen einen eigenen
     <div
       class="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/80 z-10"
     ></div>
-
-    <!-- Language switcher — always top-right visually -->
-    <div class="absolute top-3 end-3 z-20">
-      <div class="flex flex-wrap gap-1 justify-end">
-        {#each LANGUAGES as lng}
-          <button
-            onclick={() => switchLang(lng.code)}
-            class="px-2 py-1 rounded text-xs font-semibold transition-all duration-200
-              {currentLang === lng.code
-              ? 'bg-pink-500 text-white shadow-lg shadow-pink-500/40'
-              : 'bg-white/10 hover:bg-white/20 text-white/80 backdrop-blur-sm'}"
-            title={lng.label}
-          >
-            {lng.flag}
-            {lng.label}
-          </button>
-        {/each}
-      </div>
-    </div>
 
     <!-- Hero text overlay -->
     <div class="absolute bottom-4 start-0 end-0 px-6 text-center">
@@ -846,6 +916,18 @@ Es ist eine Reise von 9 Milliarden Schritten. Du kannst nur deinen einen eigenen
   .about-root {
     font-family:
       'Segoe UI', 'Noto Sans Hebrew', 'Noto Sans Arabic', system-ui, sans-serif;
+  }
+
+  /* The 9:2 banner is only ~85px tall on a phone, which leaves no room for
+     both the language button and the headline — give it a floor there. */
+  .hero-banner {
+    aspect-ratio: 9 / 2;
+  }
+  @media (max-width: 640px) {
+    .hero-banner {
+      aspect-ratio: auto;
+      min-height: 13rem;
+    }
   }
 
   /* Logical properties for RTL/LTR layout */

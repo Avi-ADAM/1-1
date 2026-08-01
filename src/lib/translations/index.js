@@ -17,7 +17,7 @@ export const config = {
         {
             locale: 'en',
             key: 'love',
-            routes: ['/love', '/home', '/hascama', '/convention', "/"], 
+            routes: ['/love', '/home', '/hascama', '/convention', '/about', '/about-afps', '/'], 
             loader: async () => (await import('./en/love.json')).default,
         },
         {
@@ -28,7 +28,7 @@ export const config = {
         {
             locale: 'he',
             key: 'love',
-            routes: ['/love', '/home', '/hascama', '/convention', "/"], 
+            routes: ['/love', '/home', '/hascama', '/convention', '/about', '/about-afps', '/'], 
             loader: async () => (await import('./he/love.json')).default,
         },
         {
@@ -40,7 +40,7 @@ export const config = {
         {
             locale: 'ar',
             key: 'love',
-            routes: ['/love', '/home', '/hascama', '/convention', "/"], 
+            routes: ['/love', '/home', '/hascama', '/convention', '/about', '/about-afps', '/'], 
             loader: async () => (await import('./ar/love.json')).default,
         },
         {
@@ -51,7 +51,7 @@ export const config = {
         {
             locale: 'fr',
             key: 'love',
-            routes: ['/love', '/home', '/hascama', '/convention', "/"], 
+            routes: ['/love', '/home', '/hascama', '/convention', '/about', '/about-afps', '/'], 
             loader: async () => (await import('./fr/love.json')).default,
         },
         {
@@ -62,7 +62,7 @@ export const config = {
         {
             locale: 'ru',
             key: 'love',
-            routes: ['/love', '/home', '/hascama', '/convention', "/"], 
+            routes: ['/love', '/home', '/hascama', '/convention', '/about', '/about-afps', '/'], 
             loader: async () => (await import('./ru/love.json')).default,
         },
         {
@@ -73,7 +73,7 @@ export const config = {
         {
             locale: 'es',
             key: 'love',
-            routes: ['/love', '/home', '/hascama', '/convention', "/"], 
+            routes: ['/love', '/home', '/hascama', '/convention', '/about', '/about-afps', '/'], 
             loader: async () => (await import('./es/love.json')).default,
         },
         {
@@ -84,7 +84,7 @@ export const config = {
         {
             locale: 'zh',
             key: 'love',
-            routes: ['/love', '/home', '/hascama', '/convention', "/"], 
+            routes: ['/love', '/home', '/hascama', '/convention', '/about', '/about-afps', '/'], 
             loader: async () => (await import('./zh/love.json')).default,
         },
         {
@@ -95,7 +95,7 @@ export const config = {
         {
             locale: 'ja',
             key: 'love',
-            routes: ['/love', '/home', '/hascama', '/convention', "/"],
+            routes: ['/love', '/home', '/hascama', '/convention', '/about', '/about-afps', '/'],
             loader: async () => (await import('./ja/love.json')).default,
         },
         {
@@ -106,7 +106,7 @@ export const config = {
         {
             locale: 'de',
             key: 'love',
-            routes: ['/love', '/home', '/hascama', '/convention', "/"],
+            routes: ['/love', '/home', '/hascama', '/convention', '/about', '/about-afps', '/'],
             loader: async () => (await import('./de/love.json')).default,
         },
         {

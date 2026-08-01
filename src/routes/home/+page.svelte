@@ -1,5 +1,6 @@
 <script>
   import { t, locale, loadTranslations } from '$lib/translations';
+  import Seo from '$lib/components/Seo.svelte';
   import { lang, setLanguage } from '$lib/stores/lang.js';
   import { LANGUAGES } from '$lib/config/locales.js';
   import { onMount } from 'svelte';
@@ -63,6 +64,13 @@
     });
   });
 </script>
+
+<Seo
+  title="{$t('love.site_title')} | {$t('love.site_subtitle')}"
+  description={$t('love.hero_subtitle')}
+  path="/home"
+/>
+
 
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
