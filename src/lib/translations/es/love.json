@@ -1,8 +1,45 @@
 {
     "site_title": "Mapa de la Paz",
     "site_subtitle": "Consenso Global por la Libertad y Seguridad",
-    "title": " 1💗1 | Consenso Global por la Libertad",
-    "description": "El Consenso Global por la Libertad representa un acuerdo colectivo para defender la no violencia, el respeto mutuo y la bondad inherente de la humanidad. Al participar en este consenso, los individuos se comprometen a crear un mundo donde la coerción, el conflicto y la agresión ya no definan la comunicación humana. | Quienes acepten estos principios pueden unirse y registrarse en la plataforma 1💗1, donde pueden crear y gestionar asociaciones de manera consensuada. | Construyamos un mundo donde prevalezca la libertad y los desacuerdos encuentren resolución a través del consentimiento compartido.",
+    "title": "Total de acuerdos",
+    "tooltip": {
+        "Name": "Nombre",
+        "iso3": "ISO3",
+        "Agrees": "Acuerdos"
+    },
+    "legend": {
+        "title": "Leyenda",
+        "high": "Alto (100+)",
+        "medium": "Medio (10-99)",
+        "low": "Bajo (1-9)",
+        "none": "Todavía ninguno"
+    },
+    "scroll": "Desplázate hacia abajo",
+    "cta": {
+        "header": "💗 ¿Quieres unirte al mapa?",
+        "sub": "Únete a miles de personas que eligen vivir por consentimiento mutuo",
+        "btn1": "Firmar el acuerdo",
+        "btn2": "Empezar a crear redes",
+        "footer": "¿Ya lo firmaste? ¡Genial! Ahora hagamos realidad la visión"
+    },
+    "stats": {
+        "title": "Estadísticas en vivo",
+        "total": "Total de acuerdos",
+        "top": "País destacado",
+        "countries": "Países activos"
+    },
+    "loading": "Un momento, por favor",
+    "hero_title": "Consenso Global por la Libertad y Seguridad",
+    "hero_subtitle": "La puerta de entrada a la visión de un mundo basado en el amor, la libertad y la seguridad para todos los seres humanos. Elige tu próximo paso.",
+    "card_agreement_title": "El Acuerdo 📜",
+    "card_agreement_desc": "Lee el documento completo del acuerdo y únete al cambio histórico.",
+    "card_love_title": "Mapa de acuerdos 🗺️",
+    "card_love_desc": "Mira cuántas personas ya se han unido y han aceptado una visión de amor y libertad.",
+    "card_about_title": "Acerca de nosotros 🌍",
+    "card_about_desc": "Conócenos, conoce nuestra visión y por qué comenzamos este camino.",
+    "btn_agreement": "¡Al acuerdo!",
+    "btn_love": "Ver cuántos aceptaron",
+    "btn_about": "Entrar para leer",
     "form": {
         "name_label": "La Declaración de:",
         "name_placeholder": "mi nombre",
@@ -78,5 +115,6 @@
         "explain_2": "La mayoría silenciosa está de acuerdo. Simplemente nadie la ha contado nunca.",
         "explain_3_title": "La solución",
         "explain_3": "Una página, una declaración personal: un viaje de 9 mil millones de pasos. Este paso es tuyo."
-    }
+    },
+    "description": "El Consenso Global por la Libertad representa un acuerdo colectivo para defender la no violencia, el respeto mutuo y la bondad inherente de la humanidad. Al participar en este consenso, los individuos se comprometen a crear un mundo donde la coerción, el conflicto y la agresión ya no definan la comunicación humana. | Quienes acepten estos principios pueden unirse y registrarse en la plataforma 1💗1, donde pueden crear y gestionar asociaciones de manera consensuada. | Construyamos un mundo donde prevalezca la libertad y los desacuerdos encuentren resolución a través del consentimiento compartido."
 }

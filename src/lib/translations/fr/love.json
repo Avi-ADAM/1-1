@@ -1,8 +1,45 @@
 {
     "site_title": "Carte de la Paix",
     "site_subtitle": "Consensus Mondial pour la Liberté et la Sécurité",
-    "title": " 1💗1 | Consensus Mondial pour la Liberté",
-    "description": "Le Consensus Mondial pour la Liberté représente un accord collectif pour défendre la non-violence, le respect mutuel et la bonté inhérente à l'humanité. En participant à ce consensus, les individus s'engagent à créer un monde où la coercition, le conflit et l'agression ne définissent plus la communication humaine. | Ceux qui acceptent ces principes peuvent rejoindre et s'enregistrer sur la plateforme 1💗1, où ils peuvent créer et gérer des partenariats de manière consensuelle. | Construisons un monde où la liberté prévaut et où les désaccords trouvent une résolution par le consentement partagé.",
+    "title": "Total des accords",
+    "tooltip": {
+        "Name": "Nom",
+        "iso3": "ISO3",
+        "Agrees": "Accords"
+    },
+    "legend": {
+        "title": "Légende",
+        "high": "Élevé (100+)",
+        "medium": "Moyen (10-99)",
+        "low": "Faible (1-9)",
+        "none": "Aucun pour l'instant"
+    },
+    "scroll": "Faites défiler vers le bas",
+    "cta": {
+        "header": "💗 Envie de rejoindre la carte ?",
+        "sub": "Rejoignez des milliers de personnes qui choisissent de vivre par consentement mutuel",
+        "btn1": "Signer l'accord",
+        "btn2": "Commencer à créer des réseaux",
+        "footer": "Déjà signé ? Parfait ! Faisons maintenant de cette vision une réalité"
+    },
+    "stats": {
+        "title": "Statistiques en direct",
+        "total": "Total des accords",
+        "top": "Pays en tête",
+        "countries": "Pays actifs"
+    },
+    "loading": "Un instant, s'il vous plaît",
+    "hero_title": "Consensus Mondial pour la Liberté et la Sécurité",
+    "hero_subtitle": "La porte d'entrée vers la vision d'un monde fondé sur l'amour, la liberté et la sécurité pour tous les êtres humains. Choisissez votre prochaine étape.",
+    "card_agreement_title": "L'Accord 📜",
+    "card_agreement_desc": "Lisez le document complet de l'accord et rejoignez ce changement historique.",
+    "card_love_title": "Carte des accords 🗺️",
+    "card_love_desc": "Découvrez combien de personnes ont déjà rejoint et approuvé une vision d'amour et de liberté.",
+    "card_about_title": "À propos de nous 🌍",
+    "card_about_desc": "Découvrez qui nous sommes, notre vision et pourquoi nous avons commencé ce parcours.",
+    "btn_agreement": "Vers l'accord !",
+    "btn_love": "Voir combien ont accepté",
+    "btn_about": "Entrer pour lire",
     "form": {
         "name_label": "La Déclaration de :",
         "name_placeholder": "mon nom",
@@ -78,5 +115,6 @@
         "explain_2": "La majorité silencieuse est d'accord. Personne ne l'a simplement jamais comptée.",
         "explain_3_title": "La solution",
         "explain_3": "Une page, une déclaration personnelle — un voyage de 9 milliards de pas. Celui-ci est le vôtre."
-    }
+    },
+    "description": "Le Consensus Mondial pour la Liberté représente un accord collectif pour défendre la non-violence, le respect mutuel et la bonté inhérente à l'humanité. En participant à ce consensus, les individus s'engagent à créer un monde où la coercition, le conflit et l'agression ne définissent plus la communication humaine. | Ceux qui acceptent ces principes peuvent rejoindre et s'enregistrer sur la plateforme 1💗1, où ils peuvent créer et gérer des partenariats de manière consensuelle. | Construisons un monde où la liberté prévaut et où les désaccords trouvent une résolution par le consentement partagé."
 }

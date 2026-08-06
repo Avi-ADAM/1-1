@@ -3,6 +3,7 @@
   import { lang } from '$lib/stores/lang.js';
   import { localeDir } from '$lib/config/locales.js';
   import { t } from '$lib/translations';
+  import Seo from '$lib/components/Seo.svelte';
 
   import { LayerCake, Svg, Html } from 'layercake';
   import { feature } from 'topojson-client';
@@ -91,6 +92,12 @@
     hideTooltip = false;
   }
 </script>
+
+<Seo
+  title="{$t('love.card_love_title')} | {$t('love.site_title')}"
+  description={$t('love.card_love_desc')}
+  path="/love"
+/>
 
 {#await data.streamed.data}
   <div class="loading-container">

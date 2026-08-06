@@ -16,6 +16,8 @@
   import { onMount } from 'svelte';
   import { email } from '$lib/components/registration/email.js';
   import { linkos } from '$lib/stores/linkos.js';
+  import { t } from '$lib/translations';
+  import Seo from '$lib/components/Seo.svelte';
 
 
   let idx = $state(1);
@@ -200,6 +202,12 @@ regHelperL = 0;
     return null;
   }
 </script>
+
+<Seo
+  title="{$t('love.site_title')} | {$t('love.card_agreement_title')}"
+  description={$t('love.card_agreement_desc')}
+  path="/hascama"
+/>
 
 <svelte:head>
   <script>

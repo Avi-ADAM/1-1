@@ -55,10 +55,10 @@
 
 
   <meta charset="UTF-8" />
+  <!-- Page level tags (title, description, canonical, hreflang, og:*) are
+       rendered per route by src/lib/components/Seo.svelte. Keep them out of
+       this file so no page ends up with a duplicated title or canonical. -->
   <meta property="og:site_name" content="מפת השלום | Map of Peace" />
-  <meta id="ogimage" property="og:image"
-    content="https://res.cloudinary.com/love1/image/upload/v1645647192/apple-touch-icon_irclue.png" />
-  <meta property="og:type" content="website" />
 
   <link rel="apple-touch-icon"
     href="https://res.cloudinary.com/love1/image/upload/v1645647192/apple-touch-icon_irclue.png">
@@ -70,31 +70,12 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@IOHTFzdIGHgPhoZ">
   <meta name="twitter:creator" content="@IOHTFzdIGHgPhoZ">
-  <meta name="twitter:title" content="%xtitle%">
-  <meta name="twitter:description" content="%xdes%">
-  <meta name="twitter:image"
-    content="https://res.cloudinary.com/love1/image/upload/v1645647192/apple-touch-icon_irclue.png">
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="follow, index" />
   <meta name="theme-color" content="#EEE8AA">
-  <meta name="description" content="%desc%">
-
-  <!--<meta
-      content="1💗1 הסכמה עולמית על חירות"
-      name="description"
-    />-->
-  <title>%title%</title>
   <meta http-equiv='content-language' content='%cl%'>
   <meta name="msvalidate.01" content="401F6E4E20E82CED795C21C85ED50935" />
-  <meta property="og:url" content="https://www.1lev1.com" />
-  <link rel="alternate" hreflang="ar" href="https://1lev1.com?lang=ar" />
-  <link rel="alternate" hreflang="en" href="https://1lev1.com?lang=en" />
-  <link rel="alternate" hreflang="he" href="https://1lev1.com?lang=he" />
-  <meta property="og:type" content="platform" />
-  <meta property="og:description" content="%desci%" />
-  <meta property="og:image"
-    content="https://res.cloudinary.com/love1/image/upload/v1640020897/cropped-PicsArt_01-28-07.49.25-1_wvt4qz.png" />
   <script type="application/ld+json">
       {
       "@context": "https://schema.org",
@@ -103,7 +84,8 @@
       "alternateName": "1💗1",
       "email": "baruch@1lev1.com",
       "slogan": "הסכמה עולמית על חירות וביטחון | Global Agreement on Freedom and Security",
-      "url": "https://1llev1.com/",
+      "url": "https://agreement.1lev1.com/",
+      "sameAs": ["https://www.1lev1.com", "https://www.facebook.com/worldnonviolent"],
       "logo": "https://res.cloudinary.com/love1/image/upload/v1640020897/cropped-PicsArt_01-28-07.49.25-1_wvt4qz.png",
       "description": "Map of Peace - A worldwide consensus platform for freedom and security. Create harmonious partnerships, find partners and make the world a better place together."
       }

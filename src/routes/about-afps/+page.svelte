@@ -1,11 +1,14 @@
 <script>
   import { t } from '$lib/translations';
   import { lang } from '$lib/stores/lang.js';
+  import Seo from '$lib/components/Seo.svelte';
 </script>
 
-<svelte:head>
-  <title>{$t('love.site_title')} | {$t('love.card_about_title')}</title>
-</svelte:head>
+<Seo
+  title="{$t('love.site_title')} | {$t('love.card_about_title')}"
+  description={$t('love.card_about_desc')}
+  path="/about-afps"
+/>
 
 <div class="body">
   <!-- Page Header -->
