@@ -595,6 +595,12 @@ const lines = document.getElementById("lines")
     if ($lang === 'ar') {
       return list.length < 2 ? list[0] : list.join(' وكل سكان ');
     }
+    if ($lang === 'fa') {
+      return list.length < 2 ? list[0] : list.join(' و همهٔ مردم ');
+    }
+    if ($lang === 'hu') {
+      return list.length < 2 ? list[0] : list.join(' és ');
+    }
     if ($lang === 'ja' || $lang === 'zh') {
       return list.join('、');
     }
@@ -605,6 +611,12 @@ const lines = document.getElementById("lines")
     const list = selected.length > 0 ? selected : ['__'];
     if ($lang === 'he') {
       return list.length < 2 ? list[0] : list.join(' ושל צבא ');
+    }
+    if ($lang === 'fa') {
+      return list.length < 2 ? list[0] : list.join(' و ارتش ');
+    }
+    if ($lang === 'hu') {
+      return list.length < 2 ? list[0] : list.join(' és ');
     }
     if ($lang === 'ja' || $lang === 'zh') {
       return list.join('、');

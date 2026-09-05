@@ -2,463 +2,24 @@
   import { t, locale } from '$lib/translations';
   import { setLanguage } from '$lib/stores/lang.js';
   import { derived } from 'svelte/store';
-  import { LANGUAGES, RTL_LOCALES } from '$lib/config/locales.js';
+  import {
+    LANGUAGES,
+    RTL_LOCALES,
+    DEFAULT_LOCALE
+  } from '$lib/config/locales.js';
+  // All content keyed by locale — shared with the other route that renders it.
+  import { ABOUT_CONTENT as CONTENT } from '$lib/content/about.js';
 
   // ── Infographic images (place in /static/infographics/) ──────────────────
   //const INFOGRAPHIC_1 = '/he/infographic-consensus.png'; // unnamed.png  → rename
   //const INFOGRAPHIC_2 = '/he/infographic-agreement.png'; // unnamed__1___2_.png → rename
 
-  // ── All content keyed by locale ───────────────────────────────────────────
-  const CONTENT = {
-    // ── HEBREW ───────────────────────────────────────────────────────────────
-    he: {
-      pageTitle: 'אודות | הסכמה על שלום וביטחון',
-      metaDescription:
-        'הפלטפורמה העולמית להצהרת הסכמה אישית על אי-אלימות ואי-כפייה',
-      dir: 'rtl',
-      heroTitle: 'האמת הפשוטה:',
-      heroSubtitle: 'כולנו כבר מסכימים על עולם שליו',
-      heroLead: `בני אדם הם חופשיים כאשר הם מתנהלים בהדדיות ומתוך הסכמה.
-בכל שפה, תרבות ומדינה הערכים הללו מקובלים,
-ובכל זאת עדיין ישנן מלחמות, כפיה ואלימות.`,
-      visionTitle: 'החזון',
-      visionText: `יצירת פלטפורמה דיגיטלית גלובלית שבה אזרחים מכל העולם מצהירים באופן אישי על מחויבותם לעקרונות אי-אלימות ואי-כפייה — ומוכיחים יחד שהרוב הדומם שואף לאותו עולם.`,
-      missionTitle: 'המטרה',
-      missionText: `להוות כלי פרקטי לשיקום אמון בין דמוגרפיות וצדדים עוינים. האתר עוקף את הדיפלומטיה הממסדית כדי ליצור קונצנזוס עממי אמיתי — שלום מלמטה למעלה.`,
-      principleTitle: 'העיקרון המנחה',
-      principleText: `מסד נתונים של הסכמות יוכיח כי הרוב הדומם ברחבי העולם שותף לשאיפה בסיסית לחיים ללא אלימות וכפייה, חרף הבדלים פוליטיים ותרבותיים עמוקים.`,
-
-      audienceTabs: [
-        {
-          id: 'secular',
-          label: 'חופש ואוטונומיה',
-          title: 'חופש בחירה ואוטונומיה אישית',
-          text: `השלום האמיתי נבנה על כבוד הדדי וחופש מכפייה ממסדית. במרחב שבו אף אדם אינו מכתיב לאחר כיצד לחיות — דתי לחילוני, ימין לשמאל — מתפתח אמון ממשי. ההסכמה על אי-כפייה היא הבסיס לכל שיח אזרחי.`
-        },
-        {
-          id: 'national',
-          label: 'יחד נהיה שלמים',
-          title: 'אחדות האומה כבסיס לשלום',
-          text: `ברוח תורת הראי"ה קוק, חוסן פנימי ואחדות האומה הם התנאי לשלום אמיתי. אי-אלימות ואי-כפייה פנימיים מונעים מלחמת אחים ופילוג — וממקום של עוצמה ושלמות פנימית צומח שלום אמיתי עם העולם.`
-        }
-      ],
-
-      infographic1Alt: 'האמת הפשוטה - כולנו כבר מסכימים',
-      infographic2Alt: 'אנשות אחת, הסכמה אחת - הדרך לשלום עולמי',
-      infographic1Caption: 'עקרונות ההסכמה (1💗1)',
-      infographic2Caption: 'הדרך לשלום עולמי וחירות',
-
-      rabiTitle: 'תפילה לשלום / רבי נחמן מברסלב',
-      rabiText: `אדון השלום, מלך שהשלום שלו, עושה שלום ובורא הכל.
-יהי רצון מלפניך שתבטל מלחמות ושפיכות דמים מן העולם
-ותמשיך שלום גדול ונפלא בעולם —
-וְלֹא יִשָּׂא גוֹי אֶל גוֹי חֶרֶב וְלֹא יִלְמְדוּ עוֹד מִלְחָמָה.`,
-
-      journeyTitle: 'מסע של 9 מיליארד צעדים',
-      journeyText: `שלום אמיתי יגיע רק כש-9 מיליארד בני אדם יסמכו מספיק אחד על השני כדי להניח את כלי הנשק שנועדו לכפות וליישר את האחר.
-הפלטפורמה הזו אינה "אסקפיזם מוסרי" – היא המקום שבו אנחנו מגלים שגם האנשים מעבר לגדר מסכימים בדיוק על אותם ערכים מקודשים של חירות ושלווה.
-זהו מסע של 9 מיליארד צעדים. כל אחד יכול לעשות רק את הצעד האחד שלו, וחשוב שתעשו אותו – כי אף אחד אחר לא יוכל לעשות זאת במקומכם.`,
-
-      ctaTitle: 'הצטרפ/י להסכמה',
-      ctaText: 'הצהירו על מחויבותכם לעולם שליו',
-      ctaButton: 'חתמו על ההסכמה',
-      contactText: 'הערות ויצירת קשר:'
-    },
-
-    // ── ENGLISH ───────────────────────────────────────────────────────────────
-    en: {
-      pageTitle: 'About | Agreement for Peace & Security',
-      metaDescription:
-        'A global platform for personal declaration of non-violence and non-coercion',
-      dir: 'ltr',
-      heroTitle: 'The Simple Truth:',
-      heroSubtitle: 'We Already Agree on a Peaceful World',
-      heroLead: `Across every language, culture and nation, people share the same fundamental aspiration — to live free from violence and coercion. Yet wars, oppression and conflict persist. One unified declaration changes everything.`,
-      visionTitle: 'Vision',
-      visionText: `A global digital platform where citizens from every nation personally declare their commitment to non-violence and non-coercion — and collectively prove that the silent majority yearns for the same peaceful world.`,
-      missionTitle: 'Mission',
-      missionText: `To serve as a practical tool for rebuilding trust between adversarial communities and nations. We bypass institutional diplomacy to create genuine grassroots consensus — peace from the bottom up.`,
-      principleTitle: 'Guiding Principle',
-      principleText: `A database of agreements will prove that the world's silent majority shares a fundamental aspiration for a life free from violence and coercion, despite deep political and cultural differences.`,
-
-      audienceTabs: [
-        {
-          id: 'conservative',
-          label: 'Freedom and Liberty',
-          title: 'Freedom, Order & Personal Liberty',
-          text: `True peace is built on rule of law, personal sovereignty, and protection of individual rights from mob coercion or tyrannical interference. The principle of non-aggression — that no person or institution has the right to initiate force against another — forms the bedrock of civilized society. This agreement protects your way of life, your property, and your community from violence and coercion of any kind.`
-        },
-        {
-          id: 'progressive',
-          label: 'Human Rights, Autonomy & Solidarity',
-          title: 'Human Rights, Autonomy & Solidarity',
-          text: `Non-coercion is the foundation of human dignity — protection from systemic oppression, institutional violence, and the denial of personal autonomy. Non-violence is not passivity; it is radical moral resistance and an act of solidarity rooted in deep empathy. This agreement is a declaration that every human being has the right to self-determination, free from domination.`
-        }
-      ],
-
-      infographic1Alt: 'The Simple Truth - We Already Agree',
-      infographic2Alt: 'One Humanity, One Agreement - The Path to World Peace',
-      infographic1Caption: 'The 1💗1 Agreement Principles',
-      infographic2Caption: 'The Path to Global Peace and Freedom',
-
-      rabiTitle: 'Prayer for Peace — Rabbi Nachman of Breslov',
-      rabiText: `Master of peace, King whose peace is His, Maker of peace and Creator of all.
-May it be Your will to abolish war and bloodshed from the world,
-and bring great and wondrous peace to the world —
-nation shall not lift sword against nation, neither shall they learn war anymore.`,
-
-      journeyTitle: 'A Journey of 9 Billion Steps',
-      journeyText: `True peace will only come when 9 billion people trust each other enough to lay down the weapons meant to coerce and align others.
-This platform is not moral escapism — it is where we discover that people across the fence enthusiastically agree on the exact same sacred values of freedom and peace.
-It is a journey of 9 billion steps. You can only take your own single step, and it is crucial that you do — because no one else can take it for you.`,
-
-      ctaTitle: 'Join the Agreement',
-      ctaText: 'Declare your commitment to a peaceful world',
-      ctaButton: 'Sign the Agreement',
-      contactText: 'Questions & contact:'
-    },
-
-    // ── ARABIC ───────────────────────────────────────────────────────────────
-    ar: {
-      pageTitle: 'حول | الاتفاقية للسلام والأمن',
-      metaDescription:
-        'منصة عالمية للإعلان الشخصي عن الالتزام باللاعنف واللاإكراه',
-      dir: 'rtl',
-      heroTitle: 'الحقيقة البسيطة:',
-      heroSubtitle: 'نحن نتفق بالفعل على عالم سلمي',
-      heroLead: `في كل لغة وثقافة وأمة، يشترك الناس في التطلع نفسه — العيش بحرية بعيداً عن العنف والإكراه. ومع ذلك تستمر الحروب والصراعات. إعلان موحد واحد يغير كل شيء.`,
-      visionTitle: 'الرؤية',
-      visionText: `منصة رقمية عالمية يعلن فيها مواطنون من كل أنحاء العالم التزامهم الشخصي بمبادئ اللاعنف واللاإكراه — ويُثبتون معاً أن الأغلبية الصامتة تتطلع إلى العالم السلمي نفسه.`,
-      missionTitle: 'الرسالة',
-      missionText: `أن تكون أداة عملية لإعادة بناء الثقة بين المجتمعات المتنافسة. نتجاوز الدبلوماسية المؤسسية لخلق توافق شعبي حقيقي — سلام من القاعدة إلى القمة.`,
-      principleTitle: 'المبدأ التوجيهي',
-      principleText: `قاعدة بيانات من الاتفاقيات ستُثبت أن الأغلبية الصامتة في العالم تشترك في تطلع أساسي لحياة خالية من العنف والإكراه، رغم الاختلافات السياسية والثقافية العميقة.`,
-
-      audienceTabs: [
-        {
-          id: 'traditional',
-          label: 'الصُّلح، المصالحة والأمان',
-          title: 'الصُّلح، المصالحة والأمان',
-          text: `يرسّخ الإسلام مبادئ فض النزاعات سلمياً: الصُّلح، المُصالحة، والأمان. قال الله تعالى: «لَا إِكْرَاهَ فِي الدِّينِ» — فالإيمان الحقيقي يُبنى على الاختيار الحر لا على الإجبار. هذه الاتفاقية تجسيد لهذا المبدأ القرآني الأصيل: لا يُكره إنسان على أي معتقد أو سلوك.`
-        },
-        {
-          id: 'modern',
-          label: 'الحرية والكرامة الإنسانية',
-          title: 'الحرية والكرامة الإنسانية',
-          text: `اللاإكراه هو أساس الحرية والكرامة الإنسانية. حق كل إنسان في تقرير مصيره دون تدخل أو عنف — سواء من المؤسسات أو الأفراد. هذه الاتفاقية دعوة لعالم يحترم فيه كل إنسان حق الآخر في الاختلاف والعيش بحرية.`
-        }
-      ],
-
-      infographic1Alt: 'الحقيقة البسيطة - نحن نتفق بالفعل',
-      infographic2Alt:
-        'إنسانية واحدة، اتفاقية واحدة - الطريق إلى السلام العالمي',
-      infographic1Caption: 'مبادئ اتفاقية 1💗1',
-      infographic2Caption: 'الطريق إلى السلام العالمي والحرية',
-
-      rabiTitle: 'صلاة من أجل السلام',
-      rabiText: `يا رب السلام، ملك السلام،
-أسألك أن تُزيل الحروب وسفك الدماء من العالم
-وأن تُحل سلاماً عظيماً ورائعاً —
-لا يرفع شعب على شعب سيفاً ولا يتعلمون الحرب بعد الآن.`,
-
-      journeyTitle: 'رحلة الـ 9 مليارات خطوة',
-      journeyText: `السلام الحقيقي لن يتحقق إلا عندما يثق 9 مليارات إنسان ببعضهم البعض بما يكفي لوضع الأسلحة التي تهدف إلى إكراه الآخرين.
-هذه المنصة ليست هروباً من الواقع — إنها المكان الذي نكتشف فيه أن الأشخاص خلف الأسوار يوافقون بحماس على نفس القيم المقدسة للحرية والسلام.
-إنها رحلة تتكون من 9 مليارات خطوة. لا يمكنك سوى اتخاذ خطوتك الخاصة، ومن الضروري أن تفعل ذلك — لأنه لا أحد يستطيع اتخاذها نيابة عنك.`,
-
-      ctaTitle: 'انضم إلى الاتفاقية',
-      ctaText: 'أعلن التزامك بعالم سلمي',
-      ctaButton: 'وقّع الاتفاقية',
-      contactText: 'للاستفسارات والتواصل:'
-    },
-
-    // ── RUSSIAN ───────────────────────────────────────────────────────────────
-    ru: {
-      pageTitle: 'О нас | Соглашение о мире и безопасности',
-      metaDescription:
-        'Глобальная платформа для личного заявления о ненасилии и ненасилии',
-      dir: 'ltr',
-      heroTitle: 'Простая истина:',
-      heroSubtitle: 'Мы уже согласны на мирный мир',
-      heroLead: `На любом языке, в любой культуре и стране люди разделяют одно стремление — жить свободно, без насилия и принуждения. Тем не менее войны и конфликты продолжаются. Единая декларация способна изменить всё.`,
-      visionTitle: 'Видение',
-      visionText: `Глобальная цифровая платформа, где граждане со всего мира лично декларируют свою приверженность принципам ненасилия и ненасилия — и вместе доказывают, что молчаливое большинство стремится к одному и тому же мирному миру.`,
-      missionTitle: 'Миссия',
-      missionText: `Служить практическим инструментом восстановления доверия между враждующими сообществами и нациями. Мы обходим институциональную дипломатию для создания подлинного народного консенсуса — мира снизу вверх.`,
-      principleTitle: 'Руководящий принцип',
-      principleText: `База данных соглашений докажет, что молчаливое большинство мира разделяет фундаментальное стремление к жизни без насилия и принуждения, несмотря на глубокие политические и культурные различия.`,
-
-      audienceTabs: [
-        {
-          id: 'main',
-          label: 'Свобода без принуждения',
-          title: 'Свобода без принуждения',
-          text: `Настоящий мир строится на взаимном уважении и свободе от принуждения. Принцип ненападения — что ни одно лицо или институт не вправе инициировать насилие против другого — является основой цивилизованного общества. Это соглашение защищает вашу жизнь, собственность и сообщество от насилия и принуждения любого рода.`
-        }
-      ],
-
-      infographic1Alt: 'Простая истина - мы уже согласны',
-      infographic2Alt: 'Одно человечество, одно соглашение',
-      infographic1Caption: 'Принципы соглашения 1💗1',
-      infographic2Caption: 'Путь к всеобщему миру и свободе',
-
-      rabiTitle: 'Молитва о мире — рабби Нахман из Брeslav',
-      rabiText: `Владыка мира, Царь, чей мир — Его,
-да будет воля Твоя упразднить войны и кровопролитие с земли
-и даровать великий и чудесный мир миру —
-и не поднимет народ на народ меча, и не будут более учиться воевать.`,
-
-      journeyTitle: 'Путешествие в 9 миллиардов шагов',
-      journeyText: `Истинный мир наступит только тогда, когда 9 миллиардов человек будут доверять друг другу настолько, чтобы сложить оружие, предназначенное для принуждения других.
-Эта платформа — не бегство от реальности. Это место, где мы обнаруживаем, что люди по ту сторону забора с энтузиазмом разделяют те же священные ценности свободы и мира.
-Это путешествие в 9 миллиардов шагов. Каждый может сделать только свой собственный шаг, и очень важно, чтобы вы его сделали — потому что никто другой не сможет сделать его за вас.`,
-
-      ctaTitle: 'Присоединяйтесь к соглашению',
-      ctaText: 'Заявите о своей приверженности мирному миру',
-      ctaButton: 'Подписать соглашение',
-      contactText: 'Вопросы и контакт:'
-    },
-
-    // ── FRENCH ───────────────────────────────────────────────────────────────
-    fr: {
-      pageTitle: 'À propos | Accord pour la Paix et la Sécurité',
-      metaDescription:
-        'Une plateforme mondiale pour la déclaration personnelle de non-violence et non-coercition',
-      dir: 'ltr',
-      heroTitle: 'La vérité simple :',
-      heroSubtitle: "Nous sommes déjà d'accord sur un monde pacifique",
-      heroLead: `Dans chaque langue, culture et nation, les gens partagent la même aspiration fondamentale — vivre librement, sans violence ni coercition. Pourtant, les guerres et les conflits persistent. Une déclaration unifiée peut tout changer.`,
-      visionTitle: 'Vision',
-      visionText: `Une plateforme numérique mondiale où des citoyens de tous les pays déclarent personnellement leur engagement envers les principes de non-violence et de non-coercition — et prouvent ensemble que la majorité silencieuse aspire au même monde pacifique.`,
-      missionTitle: 'Mission',
-      missionText: `Servir d'outil pratique pour reconstruire la confiance entre des communautés et des nations adversaires. Nous contournons la diplomatie institutionnelle pour créer un véritable consensus populaire — la paix de bas en haut.`,
-      principleTitle: 'Principe directeur',
-      principleText: `Une base de données d'accords prouvera que la majorité silencieuse du monde partage une aspiration fondamentale à une vie sans violence ni coercition, malgré de profondes différences politiques et culturelles.`,
-
-      audienceTabs: [
-        {
-          id: 'main',
-          label: 'Liberté sans coercition',
-          title: 'Liberté sans coercition',
-          text: `La véritable paix repose sur le respect mutuel et la liberté de coercition. Le principe de non-agression — qu'aucune personne ou institution n'a le droit d'initier la force contre une autre — est le fondement de la société civilisée. Cet accord protège votre vie, vos biens et votre communauté contre toute forme de violence et de coercition.`
-        }
-      ],
-
-      infographic1Alt: "La vérité simple - nous sommes déjà d'accord",
-      infographic2Alt:
-        'Une humanité, un accord - La voie vers la paix mondiale',
-      infographic1Caption: "Principes de l'accord 1💗1",
-      infographic2Caption: 'La voie vers la paix et la liberté mondiales',
-
-      rabiTitle: 'Prière pour la paix — Rabbi Nachman de Breslov',
-      rabiText: `Maître de la paix, Roi dont la paix est Sienne,
-que Ta volonté soit d'abolir les guerres et les effusions de sang du monde
-et d'apporter une grande et merveilleuse paix au monde —
-les nations ne lèveront plus l'épée les unes contre les autres, et elles n'apprendront plus la guerre.`,
-
-      journeyTitle: 'Un voyage de 9 milliards de pas',
-      journeyText: `La véritable paix ne viendra que lorsque 9 milliards de personnes se feront suffisamment confiance pour déposer les armes destinées à contraindre les autres.
-Cette plateforme n'est pas une fuite en avant — c'est le lieu où nous découvrons que les gens de l'autre côté de la barrière partagent avec enthousiasme les mêmes valeurs sacrées de liberté et de paix.
-C'est un voyage de 9 milliards de pas. Vous ne pouvez faire que votre propre pas, et il est crucial que vous le fassiez — car personne d'autre ne peut le faire à votre place.`,
-
-      ctaTitle: "Rejoignez l'accord",
-      ctaText: 'Déclarez votre engagement pour un monde pacifique',
-      ctaButton: "Signer l'accord",
-      contactText: 'Questions et contact :'
-    },
-
-    // ── CHINESE ───────────────────────────────────────────────────────────────
-    zh: {
-      pageTitle: '关于我们 | 和平与安全协议',
-      metaDescription: '全球个人宣告非暴力与非强制承诺的平台',
-      dir: 'ltr',
-      heroTitle: '简单的真相：',
-      heroSubtitle: '我们已经在一个和平世界上达成共识',
-      heroLead: `在每一种语言、文化和国家中，人们都怀有同样的基本愿望——自由地生活，远离暴力和强制。然而战争和冲突依然持续。一个统一的宣言可以改变一切。`,
-      visionTitle: '愿景',
-      visionText: `一个全球数字平台，世界各地的公民在此个人宣告他们对非暴力和非强制原则的承诺——并共同证明沉默的大多数渴望同样的和平世界。`,
-      missionTitle: '使命',
-      missionText: `作为在敌对社区和国家之间重建信任的实用工具。我们绕过机构外交，创造真正的草根共识——自下而上的和平。`,
-      principleTitle: '指导原则',
-      principleText: `协议数据库将证明，世界上沉默的大多数人共同渴望过上没有暴力和强制的生活，尽管存在深刻的政治和文化差异。`,
-
-      audienceTabs: [
-        {
-          id: 'main',
-          label: '没有强制的自由',
-          title: '没有强制的自由',
-          text: `真正的和平建立在相互尊重和免于强制的自由之上。不侵犯原则——任何人或机构都无权对另一方发动武力——是文明社会的基石。这份协议保护您的生活、财产和社区免受任何形式的暴力和强制。`
-        }
-      ],
-
-      infographic1Alt: '简单的真相 - 我们已经达成共识',
-      infographic2Alt: '一个人类，一个协议 - 通向世界和平之路',
-      infographic1Caption: '1💗1协议原则',
-      infographic2Caption: '通向全球和平与自由之路',
-
-      rabiTitle: '和平祈祷——布雷斯洛夫的拉比·纳赫曼',
-      rabiText: `和平之主，和平属于祂的王，
-愿祢从世界上消除战争和流血，
-为世界带来伟大而奇妙的和平——
-各国不再以刀剑相向，不再学习战争。`,
-
-      journeyTitle: '90亿步的旅程',
-      journeyText: `只有当90亿人彼此建立足够的信任，放下那些用来压迫和胁迫他人的武器时，真正的和平才会降临。
-这个平台不是逃避现实——在这里我们会发现，围墙另一边的人们同样热切地认同自由与和平的神圣价值观。
-这是一场90亿步的旅程。每个人只能迈出属于自己的一步，而你迈出这一步至关重要——因为没有人能代替你走。`,
-
-      ctaTitle: '加入协议',
-      ctaText: '宣告您对和平世界的承诺',
-      ctaButton: '签署协议',
-      contactText: '问题与联系：'
-    },
-
-    // ── SPANISH ───────────────────────────────────────────────────────────────
-    es: {
-      pageTitle: 'Acerca de | Acuerdo para la Paz y la Seguridad',
-      metaDescription:
-        'Una plataforma global para la declaración personal de no violencia y no coerción',
-      dir: 'ltr',
-      heroTitle: 'La verdad simple:',
-      heroSubtitle: 'Ya estamos de acuerdo en un mundo pacífico',
-      heroLead: `En cada idioma, cultura y nación, las personas comparten la misma aspiración fundamental — vivir libremente, sin violencia ni coerción. Sin embargo, las guerras y los conflictos persisten. Una declaración unificada puede cambiarlo todo.`,
-      visionTitle: 'Visión',
-      visionText: `Una plataforma digital global donde ciudadanos de todos los países declaran personalmente su compromiso con los principios de no violencia y no coerción — y prueban juntos que la mayoría silenciosa aspira al mismo mundo pacífico.`,
-      missionTitle: 'Misión',
-      missionText: `Servir como una herramienta práctica para reconstruir la confianza entre comunidades y naciones adversarias. Evitamos la diplomacia institucional para crear un consenso popular genuino — paz de abajo hacia arriba.`,
-      principleTitle: 'Principio rector',
-      principleText: `Una base de datos de acuerdos demostrará que la mayoría silenciosa del mundo comparte una aspiración fundamental a una vida sin violencia ni coerción, a pesar de las profundas diferencias políticas y culturales.`,
-
-      audienceTabs: [
-        {
-          id: 'main',
-          label: 'Libertad sin coerción',
-          title: 'Libertad sin coerción',
-          text: `La verdadera paz se construye sobre el respeto mutuo y la libertad de coerción. El principio de no agresión — que ninguna persona o institución tiene el derecho de iniciar la fuerza contra otra — es la base de la sociedad civilizada. Este acuerdo protege su vida, propiedad y comunidad de cualquier forma de violencia y coerción.`
-        }
-      ],
-
-      infographic1Alt: 'La verdad simple - ya estamos de acuerdo',
-      infographic2Alt:
-        'Una humanidad, un acuerdo - El camino hacia la paz mundial',
-      infographic1Caption: 'Principios del acuerdo 1💗1',
-      infographic2Caption: 'El camino hacia la paz y la libertad mundiales',
-
-      rabiTitle: 'Oración por la paz — Rabí Najmán de Breslov',
-      rabiText: `Señor de la paz, Rey cuya paz es Suya,
-que sea Tu voluntad abolir las guerras y el derramamiento de sangre del mundo
-y traer una gran y maravillosa paz al mundo —
-las naciones no levantarán más espada contra nación, ni aprenderán más la guerra.`,
-
-      journeyTitle: 'Un viaje de 9 mil millones de pasos',
-      journeyText: `La verdadera paz solo llegará cuando 9 mil millones de personas confíen lo suficiente unas en otras como para deponer las armas destinadas a coaccionar a los demás.
-Esta plataforma no es escapismo moral: es el lugar donde descubrimos que las personas al otro lado de la valla están de acuerdo con los mismos valores sagrados de libertad y paz.
-Es un viaje de 9 mil millones de pasos. Solo puedes dar tu propio paso, y es crucial que lo hagas, porque nadie más puede darlo por ti.`,
-
-      ctaTitle: 'Únase al acuerdo',
-      ctaText: 'Declare su compromiso con un mundo pacífico',
-      ctaButton: 'Firmar el acuerdo',
-      contactText: 'Preguntas y contacto:'
-    },
-
-    // ── GERMAN ────────────────────────────────────────────────────────────────
-    de: {
-      pageTitle: 'Über uns | Vereinbarung für Frieden und Sicherheit',
-      metaDescription:
-        'Eine weltweite Plattform für die persönliche Erklärung von Gewaltfreiheit und Zwangsfreiheit',
-      dir: 'ltr',
-      heroTitle: 'Die einfache Wahrheit:',
-      heroSubtitle: 'Über eine friedliche Welt sind wir uns längst einig',
-      heroLead: `In jeder Sprache, Kultur und Nation teilen Menschen dieselbe grundlegende Sehnsucht — frei von Gewalt und Zwang zu leben. Und dennoch gehen Kriege, Unterdrückung und Konflikte weiter. Eine gemeinsame Erklärung verändert alles.`,
-      visionTitle: 'Vision',
-      visionText: `Eine weltweite digitale Plattform, auf der Menschen aus allen Ländern persönlich ihre Verpflichtung zu Gewaltfreiheit und Zwangsfreiheit erklären — und gemeinsam beweisen, dass die schweigende Mehrheit sich dieselbe friedliche Welt wünscht.`,
-      missionTitle: 'Auftrag',
-      missionText: `Ein praktisches Werkzeug zu sein, um Vertrauen zwischen verfeindeten Gemeinschaften und Nationen wieder aufzubauen. Wir umgehen die institutionelle Diplomatie und schaffen einen echten Konsens von unten — Frieden von der Basis aus.`,
-      principleTitle: 'Leitprinzip',
-      principleText: `Eine Datenbank von Zustimmungen wird belegen, dass die schweigende Mehrheit der Welt trotz tiefer politischer und kultureller Unterschiede dieselbe grundlegende Sehnsucht nach einem Leben ohne Gewalt und Zwang teilt.`,
-
-      audienceTabs: [
-        {
-          id: 'main',
-          label: 'Freiheit ohne Zwang',
-          title: 'Freiheit ohne Zwang',
-          text: `Wahrer Frieden gründet auf gegenseitigem Respekt und auf Freiheit von Zwang. Das Nichtangriffsprinzip — dass weder ein Mensch noch eine Institution das Recht hat, Gewalt gegen andere zu beginnen — ist das Fundament einer zivilisierten Gesellschaft. Diese Vereinbarung schützt dein Leben, dein Eigentum und deine Gemeinschaft vor Gewalt und Zwang jeder Art.`
-        }
-      ],
-
-      infographic1Alt: 'Die einfache Wahrheit – wir sind uns längst einig',
-      infographic2Alt:
-        'Eine Menschheit, eine Vereinbarung – der Weg zum Weltfrieden',
-      infographic1Caption: 'Die Prinzipien der 1💗1-Vereinbarung',
-      infographic2Caption: 'Der Weg zu weltweitem Frieden und Freiheit',
-
-      rabiTitle: 'Gebet für den Frieden — Rabbi Nachman von Brazlaw',
-      rabiText: `Herr des Friedens, König, dem der Friede gehört,
-möge es Dein Wille sein, Krieg und Blutvergießen von der Erde zu tilgen
-und großen, wunderbaren Frieden in die Welt zu bringen —
-kein Volk wird mehr das Schwert gegen ein anderes erheben, und sie werden den Krieg nicht mehr lernen.`,
-
-      journeyTitle: 'Eine Reise von 9 Milliarden Schritten',
-      journeyText: `Wahrer Frieden kommt erst, wenn 9 Milliarden Menschen einander genug vertrauen, um die Waffen niederzulegen, die dazu da sind, andere zu zwingen und gleichzumachen.
-Diese Plattform ist keine moralische Flucht — hier entdecken wir, dass die Menschen jenseits des Zauns genau dieselben heiligen Werte von Freiheit und Frieden teilen.
-Es ist eine Reise von 9 Milliarden Schritten. Du kannst nur deinen einen eigenen Schritt gehen, und es ist entscheidend, dass du ihn gehst — denn niemand sonst kann ihn für dich tun.`,
-
-      ctaTitle: 'Schließe dich der Vereinbarung an',
-      ctaText: 'Erkläre deine Verpflichtung zu einer friedlichen Welt',
-      ctaButton: 'Die Vereinbarung unterzeichnen',
-      contactText: 'Fragen und Kontakt:'
-    },
-
-    // ── JAPANESE ──────────────────────────────────────────────────────────────
-    ja: {
-      pageTitle: '私たちについて | 平和と安全のための合意',
-      metaDescription:
-        '非暴力と非強制を個人として宣言するための世界的なプラットフォーム',
-      dir: 'ltr',
-      heroTitle: '単純な真実：',
-      heroSubtitle: '私たちはすでに、平和な世界に合意しています',
-      heroLead: `どの言語、どの文化、どの国でも、人々は同じ根本的な願いを分かち合っています — 暴力と強制のない自由な暮らしです。それでも戦争や抑圧、対立は続いています。ひとつに束ねられた宣言が、すべてを変えます。`,
-      visionTitle: 'ビジョン',
-      visionText: `世界中の市民が、非暴力と非強制の原則への自らの約束を個人として宣言する、グローバルなデジタル・プラットフォーム。そして沈黙する多数派が同じ平和な世界を望んでいることを、ともに証明します。`,
-      missionTitle: 'ミッション',
-      missionText: `対立するコミュニティや国家のあいだで信頼を回復するための、実践的な道具となること。制度化された外交を迂回し、市民の側から本物の合意をつくります — 下からの平和です。`,
-      principleTitle: '指針となる原則',
-      principleText: `合意のデータベースは、深い政治的・文化的な違いを越えて、世界の沈黙する多数派が「暴力と強制のない暮らし」という根本的な願いを共有していることを示します。`,
-
-      audienceTabs: [
-        {
-          id: 'main',
-          label: '強制のない自由',
-          title: '強制のない自由',
-          text: `本当の平和は、相互の敬意と、強制からの自由の上に築かれます。不可侵の原則 — いかなる個人も組織も、他者に対して力を行使しはじめる権利を持たない — は、文明社会の土台です。この合意は、あなたの生活、財産、そして共同体を、あらゆる形の暴力と強制から守ります。`
-        }
-      ],
-
-      infographic1Alt: '単純な真実 - 私たちはすでに合意している',
-      infographic2Alt: 'ひとつの人類、ひとつの合意 - 世界平和への道',
-      infographic1Caption: '1💗1合意の原則',
-      infographic2Caption: '世界の平和と自由への道',
-
-      rabiTitle: '平和のための祈り — ブレスロフのラビ・ナフマン',
-      rabiText: `平和の主、平和がその御手にある王よ、
-どうか世界から戦争と流血を取り去り、
-大いなる不思議な平和をこの世にもたらしてください —
-国は国に向かって剣を上げず、もはや戦いを学ぶことはない。`,
-
-      journeyTitle: '90億歩の旅',
-      journeyText: `本当の平和は、90億の人々が互いを十分に信頼し、他者を強制し従わせるための武器を置いたときにはじめて訪れます。
-このプラットフォームは道徳的な現実逃避ではありません。塀の向こう側の人々も、自由と平和というまったく同じ神聖な価値に心から同意していると気づく場所です。
-これは90億歩の旅です。あなたが歩めるのは、あなた自身の一歩だけ。そしてその一歩はとても大切です — ほかの誰も、あなたの代わりに歩むことはできないのですから。`,
-
-      ctaTitle: '合意に加わる',
-      ctaText: '平和な世界への約束を宣言してください',
-      ctaButton: '合意に署名する',
-      contactText: 'お問い合わせ：'
-    }
-  };
-
   // ── Reactive state ────────────────────────────────────────────────────────
-  let currentLang = $state('he');
+  // The language comes from the i18n locale store, which the root layout sets
+  // from the cookie / ?lang= / Accept-Language on the server. Deriving it
+  // (rather than starting at 'he' and correcting after hydration) means the
+  // server already renders this page in the visitor's own language.
+  let currentLang = $derived(CONTENT[$locale] ? $locale : DEFAULT_LOCALE);
   let activeTab = $state(0);
 
   // ── Background image rotation ─────────────────────────────────────────────
@@ -472,19 +33,20 @@ Es ist eine Reise von 9 Milliarden Schritten. Du kannst nur deinen einen eigenen
     return () => clearInterval(interval);
   });
 
-  // Listen to the store
+  // A different language means a different set of tabs — start from the first.
   $effect(() => {
-    const unsubscribe = locale.subscribe((val) => {
-      if (val && CONTENT[val]) {
-        currentLang = val;
-        activeTab = 0;
-      }
-    });
-    return unsubscribe;
+    currentLang;
+    activeTab = 0;
   });
 
-  let content = $derived(CONTENT[currentLang] || CONTENT['he']);
+  let content = $derived(CONTENT[currentLang] || CONTENT[DEFAULT_LOCALE]);
   let isRTL = $derived(RTL_LOCALES.includes(currentLang));
+
+  // The STA"M font is a Hebrew scribal typeface — it says nothing in Persian,
+  // Chinese or Cyrillic, so only Hebrew gets it.
+  let peaceFont = $derived(
+    currentLang === 'he' ? "font-family: 'StamSefarad', serif;" : ''
+  );
 
   // All supported languages for the switcher — see $lib/config/locales.js
 
@@ -492,8 +54,6 @@ Es ist eine Reise von 9 Milliarden Schritten. Du kannst nur deinen einen eigenen
     // Remember the choice so it survives navigation and a page reload.
     setLanguage(code);
     locale.set(code);
-    currentLang = code;
-    activeTab = 0;
   }
 </script>
 
@@ -527,7 +87,7 @@ Es ist eine Reise von 9 Milliarden Schritten. Du kannst nur deinen einen eigenen
           <source srcset="/bg/{bg}.png" type="image/webp" />
           <img
             src="/bg/{bg}.png"
-            alt="שלום"
+            alt={content.heroSubtitle}
             class="w-full h-full object-cover"
           />
         </picture>
@@ -704,23 +264,20 @@ Es ist eine Reise von 9 Milliarden Schritten. Du kannst nur deinen einen eigenen
     </div>
   {/if}
 
-  <!-- ── Prayer / Rabi section ──────────────────────────────────────────── -->
+  <!-- ── Peace text, from the reader's own culture ──────────────────────── -->
   <div class="max-w-3xl mx-auto px-6 pb-10">
     <div
       class="rounded-2xl border border-cyan-500/20 bg-gradient-to-br from-cyan-950/60 to-blue-950/60 p-6 sm:p-8 text-center"
     >
       <div class="text-2xl mb-4">🕊️</div>
-      <h3
-        class="text-cyan-400 font-bold text-base mb-4"
-        style="font-family: 'StamSefarad', serif;"
-      >
-        {content.rabiTitle}
+      <h3 class="text-cyan-400 font-bold text-base mb-4" style={peaceFont}>
+        {content.peaceTitle}
       </h3>
       <p
         class="text-cyan-200/80 leading-loose whitespace-pre-line text-sm sm:text-base"
-        style="font-family: 'StamSefarad', serif;"
+        style={peaceFont}
       >
-        {content.rabiText}
+        {content.peaceText}
       </p>
     </div>
   </div>
@@ -780,7 +337,7 @@ Es ist eine Reise von 9 Milliarden Schritten. Du kannst nur deinen einen eigenen
         alt="facebook"
         src="https://res.cloudinary.com/love1/image/upload/v1639258134/NicePng_oro-png_2336309_rkhbf8.png"
       />
-      האמנה העולמית
+      {content.communityLinkText}
     </a>
     <!-- <a
       target="_blank"
@@ -799,7 +356,7 @@ Es ist eine Reise von 9 Milliarden Schritten. Du kannst nur deinen einen eigenen
       href="https://www.1lev1.com/project/15"
       class="flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full px-4 py-2 text-pink-300 text-sm transition-all"
     >
-      להצטרפות לצוות או לתמיכה בעשיה באתר 1💗1
+      {content.teamLinkText}
     </a>
   </div>
 

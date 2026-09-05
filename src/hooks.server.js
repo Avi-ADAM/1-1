@@ -16,9 +16,11 @@ const desc = {
   he: 'הסכמה עולמית על חירות.',
   en: 'WorldWide consensus for Security and Peace.',
   ar: 'نظام إدارة الشراكات القائم على التوافق، يمكننا معًا',
+  fa: 'پیمان جهانی برای آزادی و امنیت.',
   es: 'Consenso mundial por la libertad y la seguridad.',
   fr: 'Consensus mondial pour la liberté et la sécurité.',
   de: 'Weltweiter Konsens für Freiheit und Sicherheit.',
+  hu: 'Világméretű megállapodás a szabadságról és a biztonságról.',
   ru: 'Всемирный консенсус за свободу и безопасность.',
   zh: '关于自由与安全的全球共识。',
   ja: '自由と安全に関する世界的合意。'
@@ -28,9 +30,11 @@ const title = {
   en: 'Worldwide Consensus for Freedom',
   he: 'הסכמה עולמית על חירות וביטחון',
   ar: '1💗1 | نخلق معًا بتناغم | اتفاق عالمي للحرية',
+  fa: '1💗1 | پیمان جهانی برای آزادی',
   es: '1💗1 | Consenso Mundial por la Libertad',
   fr: '1💗1 | Consensus Mondial pour la Liberté',
   de: '1💗1 | Weltweiter Konsens für Freiheit',
+  hu: '1💗1 | Világméretű egyetértés a szabadságról',
   ru: '1💗1 | Всемирный консенсус за свободу',
   zh: '1💗1 | 关于自由的全球共识',
   ja: '1💗1 | 自由に関する世界的合意'

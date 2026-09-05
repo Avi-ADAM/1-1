@@ -9,15 +9,15 @@
 } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
 import { onMount } from 'svelte';
-let first = $state({"he":"         לחיצה לפתיחת ", "en": "click to open          ", "ar": "      انقر للفتح", "es": "haz clic para abrir      ", "fr": "cliquez pour ouvrir      ", "de": "klicken zum Öffnen      ", "ru": "нажмите, чтобы открыть      ", "zh": "点击打开          ", "ja": "クリックして開く          "})
-let second = {"he":"               1💗1", "en": "1💗1               ", "ar": "              1💗1", "es": "1💗1               ", "fr": "1💗1               ", "de": "1💗1               ", "ru": "1💗1               ", "zh": "1💗1               ", "ja": "1💗1               "}
-let sh = {"he":"שלום", "en": "Hello", "ar": "مرحبا", "es": "Hola", "fr": "Bonjour", "de": "Hallo", "ru": "Здравствуйте", "zh": "你好", "ja": "こんにちは"}
-let sh2 = {"he":" הסכמתך התקבלה!", "en": "", "ar": "تم استلام موافقتك!", "es": "¡Tu acuerdo ha sido recibido!", "fr": "Votre accord a bien été reçu !", "de": "Deine Zustimmung ist angekommen!", "ru": "Ваше согласие получено!", "zh": "你的同意已收到！", "ja": "あなたの合意を受け取りました！"}
-let sh3 = {"he":"הגעת למקום ה-", "en": "You are the ", "ar": "أنت ال ", "es": "Eres el número ", "fr": "Vous êtes le n° ", "de": "Du bist Nummer ", "ru": "Вы номер ", "zh": "你是第 ", "ja": "あなたは "}
-let sh1 = {"he":"", "en": "th to agree", "ar": " للموافقة", "es": " en estar de acuerdo", "fr": " à donner son accord", "de": ", die zugestimmt hat", "ru": "-й, кто согласился", "zh": " 位同意的人", "ja": " 人目の合意者です"}
-let sh4 = {"he":"כעת ביכולתך לפתוח", "en": "Now you can open", "ar": "الآن يمكنك الفتح", "es": "Ahora puedes abrir", "fr": "Vous pouvez maintenant ouvrir", "de": "Jetzt kannst du öffnen", "ru": "Теперь вы можете открыть", "zh": "现在你可以打开", "ja": "これで開くことができます"}
-let sh5 = {"he":"את", "en": "", "ar": "", "es": "", "fr": "", "de": "", "ru": "", "zh": "", "ja": ""}
-let sh6 = {"he":"1💗1 לפתיחת", "en": "Open 1💗1", "ar": "فتح 1💗1", "es": "Abrir 1💗1", "fr": "Ouvrir 1💗1", "de": "1💗1 öffnen", "ru": "Открыть 1💗1", "zh": "打开 1💗1", "ja": "1💗1を開く"}
+let first = $state({"he":"         לחיצה לפתיחת ", "en": "click to open          ", "ar": "      انقر للفتح", "fa": "      برای گشودن کلیک کنید", "hu": "kattints a megnyitáshoz      ", "es": "haz clic para abrir      ", "fr": "cliquez pour ouvrir      ", "de": "klicken zum Öffnen      ", "ru": "нажмите, чтобы открыть      ", "zh": "点击打开          ", "ja": "クリックして開く          "})
+let second = {"he":"               1💗1", "en": "1💗1               ", "ar": "              1💗1", "fa": "              1💗1", "hu": "1💗1               ", "es": "1💗1               ", "fr": "1💗1               ", "de": "1💗1               ", "ru": "1💗1               ", "zh": "1💗1               ", "ja": "1💗1               "}
+let sh = {"he":"שלום", "en": "Hello", "ar": "مرحبا", "fa": "درود", "hu": "Szia", "es": "Hola", "fr": "Bonjour", "de": "Hallo", "ru": "Здравствуйте", "zh": "你好", "ja": "こんにちは"}
+let sh2 = {"he":" הסכמתך התקבלה!", "en": "", "ar": "تم استلام موافقتك!", "fa": "موافقت شما ثبت شد!", "hu": "Megérkezett az egyetértésed!", "es": "¡Tu acuerdo ha sido recibido!", "fr": "Votre accord a bien été reçu !", "de": "Deine Zustimmung ist angekommen!", "ru": "Ваше согласие получено!", "zh": "你的同意已收到！", "ja": "あなたの合意を受け取りました！"}
+let sh3 = {"he":"הגעת למקום ה-", "en": "You are the ", "ar": "أنت ال ", "fa": "شما نفر ", "hu": "Te vagy a ", "es": "Eres el número ", "fr": "Vous êtes le n° ", "de": "Du bist Nummer ", "ru": "Вы номер ", "zh": "你是第 ", "ja": "あなたは "}
+let sh1 = {"he":"", "en": "th to agree", "ar": " للموافقة", "fa": "اُمی هستید که موافقت کرده‌اید", "hu": ". aki egyetértett", "es": " en estar de acuerdo", "fr": " à donner son accord", "de": ", die zugestimmt hat", "ru": "-й, кто согласился", "zh": " 位同意的人", "ja": " 人目の合意者です"}
+let sh4 = {"he":"כעת ביכולתך לפתוח", "en": "Now you can open", "ar": "الآن يمكنك الفتح", "fa": "اکنون می‌توانید باز کنید", "hu": "Most már megnyithatod", "es": "Ahora puedes abrir", "fr": "Vous pouvez maintenant ouvrir", "de": "Jetzt kannst du öffnen", "ru": "Теперь вы можете открыть", "zh": "现在你可以打开", "ja": "これで開くことができます"}
+let sh5 = {"he":"את", "en": "", "ar": "", "fa": "", "hu": "", "es": "", "fr": "", "de": "", "ru": "", "zh": "", "ja": ""}
+let sh6 = {"he":"1💗1 לפתיחת", "en": "Open 1💗1", "ar": "فتح 1💗1", "fa": "گشودن 1💗1", "hu": "1💗1 megnyitása", "es": "Abrir 1💗1", "fr": "Ouvrir 1💗1", "de": "1💗1 öffnen", "ru": "Открыть 1💗1", "zh": "打开 1💗1", "ja": "1💗1を開く"}
 
 // Fall back to English for any language without its own copy above.
 const pick = (map) => map[$lang] ?? map.en

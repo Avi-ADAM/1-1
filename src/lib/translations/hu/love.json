@@ -1,0 +1,119 @@
+{
+    "site_title": "A béke térképe",
+    "site_subtitle": "Világméretű megállapodás a szabadságról és a biztonságról",
+    "title": "Összes egyetértés",
+    "tooltip": {
+        "Name": "Név",
+        "iso3": "ISO3",
+        "Agrees": "Egyetértések"
+    },
+    "legend": {
+        "title": "Jelmagyarázat (egyetértések)",
+        "high": "Sok (100+)",
+        "medium": "Közepes (10–99)",
+        "low": "Kevés (1–9)",
+        "none": "Még egy sem"
+    },
+    "scroll": "Görgess lejjebb",
+    "cta": {
+        "header": "💗 Felkerülnél a térképre?",
+        "sub": "Csatlakozz azokhoz, akik a kölcsönös egyetértés mellett döntöttek",
+        "btn1": "Írd alá a megállapodást",
+        "btn2": "Kezdj el közösen építkezni",
+        "footer": "Már aláírtad? Nagyszerű! Most váltsuk valóra a látomást"
+    },
+    "stats": {
+        "title": "Élő statisztika",
+        "total": "Összes egyetértés",
+        "top": "Élen járó ország",
+        "countries": "Részt vevő országok"
+    },
+    "loading": "Egy pillanat türelmet",
+    "hero_title": "Világméretű megállapodás a szabadságról és a biztonságról",
+    "hero_subtitle": "Kapu egy olyan világ felé, amely a szeretetre, a szabadságra és minden ember biztonságára épül. Válaszd ki a következő lépésedet.",
+    "card_agreement_title": "A megállapodás 📜",
+    "card_agreement_desc": "Olvasd el a teljes szöveget, és légy részese a történelmi fordulatnak.",
+    "card_love_title": "Az egyetértés térképe 🗺️",
+    "card_love_desc": "Nézd meg, hányan csatlakoztak már a szabadság és a béke látomásához.",
+    "card_about_title": "Rólunk 🌍",
+    "card_about_desc": "Ismerj meg minket, a látomásunkat, és azt, miért vágtunk neki ennek az útnak.",
+    "btn_agreement": "A megállapodáshoz!",
+    "btn_love": "Megnézem, hányan értenek egyet",
+    "btn_about": "Belépek olvasni",
+    "form": {
+        "name_label": "Nyilatkozattevő:",
+        "name_placeholder": "a nevem",
+        "country_label": "innen:",
+        "country_placeholder": "a helyem",
+        "email_label": "E-mail:",
+        "email_placeholder": "az e-mail-címem",
+        "submit_title": "egy kattintás a szabadságért",
+        "error_name": "A név megadása kötelező",
+        "error_email": "Adj meg egy érvényes e-mail-címet",
+        "error_country": "Válassz legalább egy helyet",
+        "error_name_taken": "Ez a név már foglalt",
+        "submit_button": "Egyetértek 💗"
+    },
+    "declaration": {
+        "title": "{{name}} függetlenségi nyilatkozata:",
+        "body_1": "Én, {{name}}, senkit sem akarok bántani, és soha nem fogok erőszakot alkalmazni senkivel szemben.",
+        "body_2": "Mert én, {{name}}, magam sem akarok erőszak áldozata lenni, és mert nincs olyan hatalom, eszme, cél, hit, pénz vagy érdek, amely igazolná, hogy bárki életét erőszakkal vagy kényszerrel sértsük meg.",
+        "body_3_start": "Ezen felül vállalom, hogy a ",
+        "body_3_end": " felületén minden közös munkát kölcsönös egyetértésben hozok létre és viszek tovább, és a nézeteltéréseket is így rendezem.",
+        "body_4": "Amikor {{countries}} egész lakossága aláírja ezt a megállapodást, én, {{name}}, a többiekkel együtt lemondok a fegyvereimről és azokról a fegyveres rendőrökről is, akiket {{countries}} állama az én nevemben állít ki.",
+        "body_5": "Ugyanígy lemondok {{countries}} hadseregének fegyvereiről is, amikor az egész emberiség aláírja ezt a megállapodást, és a világ összes hadserege egyszerre teszi le a fegyvert.",
+        "body_6": "Hiszek az emberben rejlő alapvető jóságban, és remélem, hogy amikor az egész emberiség aláírja ezt a megállapodást, az erőszak, a harc és a kényszer megszűnik az emberi érintkezés formája lenni.",
+        "title_empty": "Az én nyilatkozatom:",
+        "default_name": "az alulírott",
+        "step1_title": "Első fok — már a mai naptól",
+        "step2_title": "Második fok — amikor az egész országom csatlakozik",
+        "step3_title": "Harmadik fok — amikor az egész emberiség csatlakozik",
+        "mutual_badge": "Csak teljes és egyidejű kölcsönösség esetén lép életbe",
+        "reassurance": "Egy apró, de fontos megjegyzés: a második és a harmadik fok kizárólag teljes kölcsönösség mellett lép életbe. Addig semmiről nem mondtál le. Csak arra írtad alá a nevedet, aki ma is vagy."
+    },
+    "status": {
+        "loading": "egy pillanat türelmet",
+        "success": "Elküldve, köszönjük — hamarosan jelentkezünk",
+        "error": "Hiba történt",
+        "try_again": "Újrapróbálom"
+    },
+    "menu": {
+        "suggest_change": "szövegmódosítás javaslása",
+        "translate": "fordítás",
+        "about": "rólunk",
+        "map": "Az egyetértés térképe",
+        "register": "Regisztráció az 1💗1-re"
+    },
+    "maze": {
+        "title": "Valami nem világos? Tegyünk rendet!",
+        "site_intro": "Ez az oldal a kezdőlapja a következőnek:",
+        "agreement_name": "Világméretű egyetértés a szabadságról",
+        "is_fabric": "amely egy „szövet”, és ezen az oldalon működik:",
+        "prerequisite": "Ez az oldal egyben előfeltétele a regisztrációnak itt:",
+        "after_agreement": "A megállapodás kitöltése és a gomb megnyomása után megnyílik a regisztráció itt:",
+        "details_title": "Részletesebben:",
+        "about_1lev1_title": "Mi az az 1💗1?",
+        "about_1lev1_body": "Az 1💗1 önálló oldal a megállapodások kezelésére. Bármilyen álom vagy cél köré képes „szöveteknek” nevezett csoportokat összefogni és működtetni. A szöveten belül meg lehet tárgyalni a megállapodásokat, és közös döntésre lehet jutni. A megállapodás mindenre kiterjed, amit a szövet csinál: a feladatok, az erőforrások és a bevételek elosztására is.",
+        "about_fabric_title": "Világméretű egyetértés a szabadságról",
+        "about_fabric_body": "Az 1💗1 egyik szövete a Világméretű egyetértés a szabadságról. Célja, hogy összegyűjtse az emberiség egyetértését a kényszer nélküli együttélésről. Mivel az 1💗1-en a szövetek szabadon működnek, ez az egyetértés a regisztráció előfeltétele.",
+        "how_works": "Hogyan működik?",
+        "step1": "Írd be fent a neved, a helyed és az e-mail-címed — a szöveg személyre szabódik",
+        "step2": "Kattints a földgömb gombra a megállapodás elküldéséhez",
+        "step3": "Közvetlenül utána megnyílik a regisztráció az 1💗1-re",
+        "visit_1lev1": "Irány az 1💗1",
+        "label": "Nyelv"
+    },
+    "lang": {
+        "dir": "ltr"
+    },
+    "hascama": {
+        "headline": "Egy erőszak nélküli világról már régen egyetértünk. Bizonyítsuk be.",
+        "counter": "{{count}} ember már nyilatkozott",
+        "explain_1_title": "A gond",
+        "explain_1": "Minden nyelven és minden kultúrában ugyanazt akarják az emberek: erőszak és kényszer nélküli életet. Háborúk mégis vannak.",
+        "explain_2_title": "Az egyszerű igazság",
+        "explain_2": "A csendes többség egyetért. Csak eddig soha senki nem számolta meg.",
+        "explain_3_title": "A megoldás",
+        "explain_3": "Egy oldal, egy személyes nyilatkozat — kilencmilliárd lépésnyi út. Ez a lépés a tiéd."
+    }
+}

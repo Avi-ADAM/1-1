@@ -21,9 +21,11 @@ export const LANGUAGES = [
   { code: 'he', label: 'עברית', flag: '🇮🇱', dir: 'rtl', htmlLang: 'he-IL' },
   { code: 'en', label: 'English', flag: '🇺🇸', dir: 'ltr', htmlLang: 'en-gb' },
   { code: 'ar', label: 'العربية', flag: '🌍', dir: 'rtl', htmlLang: 'ar-EG' },
+  { code: 'fa', label: 'فارسی', flag: '🌍', dir: 'rtl', htmlLang: 'fa-IR' },
   { code: 'es', label: 'Español', flag: '🇪🇸', dir: 'ltr', htmlLang: 'es-ES' },
   { code: 'fr', label: 'Français', flag: '🇫🇷', dir: 'ltr', htmlLang: 'fr-FR' },
   { code: 'de', label: 'Deutsch', flag: '🇩🇪', dir: 'ltr', htmlLang: 'de-DE' },
+  { code: 'hu', label: 'Magyar', flag: '🇭🇺', dir: 'ltr', htmlLang: 'hu-HU' },
   { code: 'ru', label: 'Русский', flag: '🇷🇺', dir: 'ltr', htmlLang: 'ru-RU' },
   { code: 'zh', label: '中文', flag: '🇨🇳', dir: 'ltr', htmlLang: 'zh-CN' },
   { code: 'ja', label: '日本語', flag: '🇯🇵', dir: 'ltr', htmlLang: 'ja-JP' }
