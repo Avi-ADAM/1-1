@@ -19,7 +19,7 @@
 /** @type {LocaleMeta[]} */
 export const LANGUAGES = [
   { code: 'he', label: 'עברית', flag: '🇮🇱', dir: 'rtl', htmlLang: 'he-IL' },
-  { code: 'en', label: 'English', flag: '🇺🇸', dir: 'ltr', htmlLang: 'en-gb' },
+  { code: 'en', label: 'English', flag: '🇺🇸', dir: 'ltr', htmlLang: 'en-GB' },
   { code: 'ar', label: 'العربية', flag: '🌍', dir: 'rtl', htmlLang: 'ar-EG' },
   { code: 'fa', label: 'فارسی', flag: '🌍', dir: 'rtl', htmlLang: 'fa-IR' },
   { code: 'es', label: 'Español', flag: '🇪🇸', dir: 'ltr', htmlLang: 'es-ES' },

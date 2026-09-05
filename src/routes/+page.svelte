@@ -57,11 +57,6 @@
   }
 </script>
 
-<svelte:head>
-  <title>{content.pageTitle}</title>
-  <meta name="description" content={content.metaDescription} />
-</svelte:head>
-
 <!-- ═══════════════════════════════════════════════════════════════════════════
      ABOUT PAGE
 ════════════════════════════════════════════════════════════════════════════ -->
