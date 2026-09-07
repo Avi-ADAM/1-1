@@ -22,17 +22,10 @@
   import { linkos } from '$lib/stores/linkos.js';
   import { useProgress } from '@threlte/extras';
   const { progress } = useProgress();
-  import { Head } from 'svead';
   import { track } from '@vercel/analytics';
   $effect(() => {
     console.log('amana', $progress);
   });
-
-  let title = ' 1💗1 | הסכמה עולמית על חירות';
-  let image = `https://res.cloudinary.com/love1/image/upload/v1640020897/cropped-PicsArt_01-28-07.49.25-1_wvt4qz.png`;
-  let description =
-    'הסכמה העולמית על חירות היא חלק מרכזי ב- 1💗1. על ידי הסכמה להצהרה זו, ניתן להירשם לפלטפורמה השיתופית 1💗1 ומשתתפים ביצירת עולם יותר בטוח. על ידי ההתחייבות ההדדית לאי-אלימות, לפתרון סכסוכים בהסכמה ולכבוד הדדי, אנו ניצור עולם בו כוח ואלימות מפסיקים להיות צורות של תקשורת אנושית. הצטרפו אלינו לקידום שלום, הסכמות וחופש. ביחד, אנחנו יכולים ליצור עולם שבו הטוב הבסיסי מנצח ובו חילוקי דעות נפתרים בהסכמה משותפת.';
-  let url = 'https://1lev1.com/hascama';
 
   function find_contry_id(contry_name_arr) {
     var arr = [];
@@ -595,6 +588,12 @@ const lines = document.getElementById("lines")
     if ($lang === 'ar') {
       return list.length < 2 ? list[0] : list.join(' وكل سكان ');
     }
+    if ($lang === 'fa') {
+      return list.length < 2 ? list[0] : list.join(' و همهٔ مردم ');
+    }
+    if ($lang === 'hu') {
+      return list.length < 2 ? list[0] : list.join(' és ');
+    }
     if ($lang === 'ja' || $lang === 'zh') {
       return list.join('、');
     }
@@ -605,6 +604,12 @@ const lines = document.getElementById("lines")
     const list = selected.length > 0 ? selected : ['__'];
     if ($lang === 'he') {
       return list.length < 2 ? list[0] : list.join(' ושל צבא ');
+    }
+    if ($lang === 'fa') {
+      return list.length < 2 ? list[0] : list.join(' و ارتش ');
+    }
+    if ($lang === 'hu') {
+      return list.length < 2 ? list[0] : list.join(' és ');
     }
     if ($lang === 'ja' || $lang === 'zh') {
       return list.join('、');
@@ -620,7 +625,6 @@ const lines = document.getElementById("lines")
   );
 </script>
 
-<Head {title} {description} {image} {url} />
 
 <DialogOverlay style="z-index: 700;" {isOpen} onDismiss={closer}>
   <div

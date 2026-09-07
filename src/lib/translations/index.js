@@ -6,12 +6,14 @@ export const config = {
         en: { lang },
         he: { lang },
         ar: { lang },
+        fa: { lang },
         fr: { lang },
         ru: { lang },
         es: { lang },
         zh: { lang },
         ja: { lang },
         de: { lang },
+        hu: { lang },
     },
     loaders: [
         {
@@ -47,6 +49,17 @@ export const config = {
             locale: 'ar',
             key: 'countries',
             loader: async () => (await import('./ar/countries.json')).default,
+        },
+        {
+            locale: 'fa',
+            key: 'love',
+            routes: ['/love', '/home', '/hascama', '/convention', "/"],
+            loader: async () => (await import('./fa/love.json')).default,
+        },
+        {
+            locale: 'fa',
+            key: 'countries',
+            loader: async () => (await import('./en/countries.json')).default,
         },
         {
             locale: 'fr',
@@ -111,6 +124,17 @@ export const config = {
         },
         {
             locale: 'de',
+            key: 'countries',
+            loader: async () => (await import('./en/countries.json')).default,
+        },
+        {
+            locale: 'hu',
+            key: 'love',
+            routes: ['/love', '/home', '/hascama', '/convention', "/"],
+            loader: async () => (await import('./hu/love.json')).default,
+        },
+        {
+            locale: 'hu',
             key: 'countries',
             loader: async () => (await import('./en/countries.json')).default,
         },
